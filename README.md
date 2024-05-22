@@ -2,9 +2,9 @@
 
 Grupo:
 
-- RA - Nome
-- RA - Nome
-- RA - Nome
+- RA 256709 - Caio Azevedo Dal Porto 
+- RA 247277 - Matheus Hencklein Ponte
+- RA 260727 - Vinicius Leme Soares
 
 ## Descrição
 
