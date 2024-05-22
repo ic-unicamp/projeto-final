@@ -1,5 +1,4 @@
-module top1(
-
+module main(
 	// SINAIS BASICOS
 	input CLOCK_50,
 	input reset,

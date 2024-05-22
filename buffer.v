@@ -29,8 +29,8 @@ module buffer(
     output reg [7:0] bdata_out
 );
     
-    reg [10:0] row;
-    reg [10:0] col;
+    integer row;
+    integer col;
 	reg [7:0] rbuffer [0:239][0:319];
     reg [7:0] gbuffer [0:239][0:319];
 	reg [7:0] bbuffer [0:239][0:319];
@@ -93,17 +93,9 @@ module buffer(
                                     bbuffer[row][col] = 0;
                                     end
                                 endcase
-                            // Colorir fora da bola
-                            rbuffer[row][col] = rdata_in;
-                            gbuffer[row][col] = gdata_in;
-                            bbuffer[row][col] = bdata_in;
                         end
                     end
                 end
-                // Pintar onde a bolinha se movimentou
-                // rbuffer[][] = rdata_in;
-                // gbuffer[][] = gdata_in;
-                // bbuffer[][] = bdata_in;
             end
             // Read data
             out_x = data_out_x >> 1;
