@@ -2,9 +2,9 @@
 
 Grupo:
 
-- RA - Nome
-- RA - Nome
-- RA - Nome
+- 260497 - Henrique Parede de Souza
+- 242827 - Mateus de Lima Almeida
+- 260731 - Vinicius Patriarca Miranda Miguel
 
 ## Descrição
 
