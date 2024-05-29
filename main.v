@@ -20,13 +20,15 @@ module main(
 	output VGA_HS,
 	output VGA_VS
 );
+	// Parâmetros
 	parameter [6:0] SIZE = 16;
 	parameter [6:0] STEP = 16;
 	parameter [10:0] W_RES = 640;
-	parameter [10:0] H_RES = 480; 
+	parameter [10:0] H_RES = 480;
 	parameter [19:0] DIVISOR = 200000;
 
-	reg [10:0] ball_x;		// Coordenadas da bola		
+	// Coordenadas da bola
+	reg [10:0] ball_x;
 	reg [10:0] ball_y;
 	reg [2:0] last_button; 
 	reg [19:0] cont;
@@ -38,6 +40,33 @@ module main(
 	wire [7:0] red_vga;
 	wire [7:0] green_vga;
 	wire [7:0] blue_vga;
+
+	// Enable de escrita do buffer
+	wire write_enable;
+	// Cores do cursor - pintar
+	wire [7:0] red_in;
+	wire [7:0] green_in;
+	wire [7:0] blue_in;
+	// Coordenadas de escrita do buffer
+	wire [10:0] top_x_coord;
+	wire [10:0] top_y_coord;
+	// Entrada do modulo buffer
+	wire [7:0] red_data_in;
+	wire [7:0] green_data_in;
+	wire [7:0] blue_data_in;
+	// Saída do modulo buffer
+	wire [7:0] red_out;
+	wire [7:0] green_out;
+	wire [7:0] blue_out;
+	// Coordenadas para zerar o buffer quando reset=0
+	// saída do modulo zera_buffer
+	wire [10:0] x_zera;
+	wire [10:0] y_zera;
+
+	// Enable de leitura do buffer
+	// quando reset=1 (desligado)
+	// lê baseado no botão pressionado pintar_but
+	reg enable = 0;
 
 	vga vga_inst(
 		.CLOCK_50(CLOCK_50),
@@ -56,19 +85,6 @@ module main(
 		.x_coord(x_coord),
 		.y_coord(y_coord)
 	);
-
-	wire write_enable;
-	wire [7:0] red_in;
-	wire [7:0] green_in;
-	wire [7:0] blue_in;
-	wire [10:0] top_x_coord;
-	wire [10:0] top_y_coord;
-	wire [7:0] red_out;
-	wire [7:0] green_out;
-	wire [7:0] blue_out;
-	wire [7:0] red_data_in;
-	wire [7:0] green_data_in;
-	wire [7:0] blue_data_in;
 
 	buffer red_buffer(
 		.CLOCK_50(CLOCK_50),
@@ -106,10 +122,6 @@ module main(
 		.data_out_y(y_coord)
 	);
 
-	wire [10:0] x_zera;
-	wire [10:0] y_zera;
-
-
 	zera_buffer inst_zera_buffer(
 		.reset(reset),
 		.clock(CLOCK_50),
@@ -117,26 +129,34 @@ module main(
 		.y_coord(y_zera)
 	);
 
-	reg enable = 0;
-
+	// Aqui em '------' passar as coordenadas da bola
+	// e adaptar para pintar (escrever no buffer)
+	// onde a bola estava antes
 	// assign top_x_coord = reset ? ------: x_zera;
 	// assign top_y_coord = reset ? ------: y_zera;
 	assign top_x_coord = x_zera;
 	assign top_y_coord = y_zera;
+	// Se reset = 0, escrevemos 0 na matriz. Para isso, write_enable = 1.
+	// Senão, pintamos de acordo com o botão pintar_but (enable)
 	assign write_enable = reset ? enable: 1;
+	// Se reset = 0, pintamos a tela de branco
+	// Senão, pintamos de acordo com a cor do cursor
 	assign red_data_in = reset ? red_in : 255;
 	assign green_data_in = reset ? green_in : 255;
 	assign blue_data_in = reset ? blue_in : 255;
 
+	// Registradores que vão direto para o VGA
 	assign red_vga = (y_coord >= ball_y && y_coord <= ball_y + SIZE && x_coord >= ball_x && x_coord <= ball_x + SIZE) ? 0 : red_out;
 	assign green_vga = (y_coord >= ball_y && y_coord <= ball_y + SIZE && x_coord >= ball_x && x_coord <= ball_x + SIZE) ? 0 : green_out;
-	assign blue_vga = (y_coord >= ball_y && y_coord <= ball_y + SIZE && x_coord >= ball_x && x_coord <= ball_x + SIZE) ? 0 : blue_out;
+	assign blue_vga = (y_coord >= ball_y && y_coord <= ball_y + SIZE && x_coord >= ball_x && x_coord <= ball_x + SIZE) ? 100 : blue_out;
 
 	always @(posedge VGA_CLK) begin
 
 		if (reset == 0) begin
-			ball_x = ((W_RES/2) - (SIZE/2));       // Centraliza a barra
-			ball_y = ((H_RES/2) - (SIZE/2));          // Afasta a barra 30 pixels do final da tela
+			// Centralizar o cursor
+			ball_x = ((W_RES/2) - (SIZE/2));
+			ball_y = ((H_RES/2) - (SIZE/2));
+			// Reiniciar last_button
 			last_button = 3'b111;
 			end
 
