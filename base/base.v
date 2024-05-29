@@ -26,6 +26,8 @@ module (
 
         0x36 DATAZO
         0x37 DATAZ1
+
+        I2C0_RXFLR indica a quantidade de dados a serem lidos do slave, MAS NÃO TEM NO PINOUT
     */
 
     /* Sequência
@@ -37,9 +39,11 @@ module (
 
             * apos isso indicamos o address que desejaos ler e esperamos novamente o ack, após esse sinal damos um stop e um star
 
-            * novamente enviamos 0x53, para iniciar o i2c, informar que o dispositivos que desejamos comunicar é o 0x53, um bit de Resperamos o sinal ACK, que viŕa do slave
+            * novamente enviamos 0x53, para iniciar o i2c, informar que o dispositivos que desejamos comunicar é o 0x53, um bit R de Resperamos o sinal ACK, que viŕa do slave
 
             * agora é p slava que irá enviar os dados, assim que recebemso o dado enviamos o ack para o slave se deu certo, caso contraio o nack, se der certo ele enviara 6 dados, por fim enviamos um stop
+
+        irei tentar fazer 6 leituras simples depois tento fazer multiplas leituras
 
     */
 
