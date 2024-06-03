@@ -1,5 +1,5 @@
     module buffer(
-        input CLOCK_50,
+        input clock,
         input reset,
         // Enable de leitura
         input write_enable,
@@ -10,16 +10,15 @@
         input [10:0] data_out_x,
         input [10:0] data_out_y,
         
-        output reg [7:0] data_out,
+        output reg [7:0] data_out
     );
         reg [7:0] framebuffer [0:239][0:319];
         reg zera_buffer;
 
-        always @(posedge CLOCK_50) begin
+        always @(posedge clock) begin
             if (reset == 0) begin
-                
-                end
-
+                framebuffer[data_in_y][data_in_x] = 255;
+            end
             else begin 
                 if (write_enable) begin
                     framebuffer[data_in_y][data_in_x] = data_in;

@@ -21,11 +21,11 @@ module main(
 	output VGA_VS
 );
 	// Parâmetros
-	parameter [6:0] SIZE = 16;
-	parameter [6:0] STEP = 16;
+	parameter [6:0] SIZE = 8;
+	parameter [6:0] STEP = 4;
 	parameter [10:0] W_RES = 640;
 	parameter [10:0] H_RES = 480;
-	parameter [19:0] DIVISOR = 200000;
+	parameter [21:0] DIVISOR = 2000000;
 
 	// Coordenadas da bola
 	reg [10:0] ball_x;
@@ -42,18 +42,18 @@ module main(
 	wire [7:0] blue_vga;
 
 	// Enable de escrita do buffer
-	wire write_enable;
+	reg write_enable;
 	// Cores do cursor - pintar
 	wire [7:0] red_in;
 	wire [7:0] green_in;
 	wire [7:0] blue_in;
 	// Coordenadas de escrita do buffer
-	wire [10:0] top_x_coord;
-	wire [10:0] top_y_coord;
+	reg [10:0] top_x_coord;
+	reg [10:0] top_y_coord;
 	// Entrada do modulo buffer
-	wire [7:0] red_data_in;
-	wire [7:0] green_data_in;
-	wire [7:0] blue_data_in;
+	reg [7:0] red_data_in = 255;
+	reg [7:0] green_data_in = 255;
+	reg [7:0] blue_data_in = 255;
 	// Saída do modulo buffer
 	wire [7:0] red_out;
 	wire [7:0] green_out;
@@ -66,7 +66,6 @@ module main(
 	// Enable de leitura do buffer
 	// quando reset=1 (desligado)
 	// lê baseado no botão pressionado pintar_but
-	reg enable = 0;
 
 	vga vga_inst(
 		.CLOCK_50(CLOCK_50),
@@ -87,7 +86,7 @@ module main(
 	);
 
 	buffer red_buffer(
-		.CLOCK_50(CLOCK_50),
+		.clock(CLOCK_50),
 		.write_enable(write_enable),
 		.reset(reset),
 		.data_in(red_data_in),
@@ -99,7 +98,7 @@ module main(
 	);
 
 	buffer green_buffer(
-		.CLOCK_50(CLOCK_50),
+		.clock(CLOCK_50),
 		.reset(reset),
 		.write_enable(write_enable),
 		.data_in(green_data_in),
@@ -111,7 +110,7 @@ module main(
 	);
 
 	buffer blue_buffer(
-		.CLOCK_50(CLOCK_50),
+		.clock(CLOCK_50),
 		.reset(reset),
 		.write_enable(write_enable),
 		.data_in(blue_data_in),
@@ -129,28 +128,32 @@ module main(
 		.y_coord(y_zera)
 	);
 
+	// assign write_enable = 1;
+
+	// assign top_x_coord = reset ? ------: x_zera;
+	// assign top_y_coord = reset ? ------: y_zera;
+
+	// assign top_x_coord = x_zera;
+	// assign top_y_coord = y_zera;
+
 	// Aqui em '------' passar as coordenadas da bola
 	// e adaptar para pintar (escrever no buffer)
 	// onde a bola estava antes
-	// assign top_x_coord = reset ? ------: x_zera;
-	// assign top_y_coord = reset ? ------: y_zera;
-	assign top_x_coord = x_zera;
-	assign top_y_coord = y_zera;
 	// Se reset = 0, escrevemos 0 na matriz. Para isso, write_enable = 1.
 	// Senão, pintamos de acordo com o botão pintar_but (enable)
-	assign write_enable = reset ? enable: 1;
+	// assign write_enable = reset ? enable: 1;
 	// Se reset = 0, pintamos a tela de branco
 	// Senão, pintamos de acordo com a cor do cursor
-	assign red_data_in = reset ? red_in : 255;
-	assign green_data_in = reset ? green_in : 255;
-	assign blue_data_in = reset ? blue_in : 255;
+	// assign red_data_in = reset ? red_in : 255;
+	// assign green_data_in = reset ? green_in : 255;
+	// assign blue_data_in = reset ? blue_in : 255;
 
 	// Registradores que vão direto para o VGA
-	assign red_vga = (y_coord >= ball_y && y_coord <= ball_y + SIZE && x_coord >= ball_x && x_coord <= ball_x + SIZE) ? 0 : red_out;
+	assign red_vga = (y_coord >= ball_y && y_coord <= ball_y + SIZE && x_coord >= ball_x && x_coord <= ball_x + SIZE) ? 255 : red_out;
 	assign green_vga = (y_coord >= ball_y && y_coord <= ball_y + SIZE && x_coord >= ball_x && x_coord <= ball_x + SIZE) ? 0 : green_out;
-	assign blue_vga = (y_coord >= ball_y && y_coord <= ball_y + SIZE && x_coord >= ball_x && x_coord <= ball_x + SIZE) ? 100 : blue_out;
+	assign blue_vga = (y_coord >= ball_y && y_coord <= ball_y + SIZE && x_coord >= ball_x && x_coord <= ball_x + SIZE) ? 0: blue_out;
 
-	always @(posedge VGA_CLK) begin
+	always @(posedge CLOCK_50) begin
 
 		if (reset == 0) begin
 			// Centralizar o cursor
@@ -158,11 +161,14 @@ module main(
 			ball_y = ((H_RES/2) - (SIZE/2));
 			// Reiniciar last_button
 			last_button = 3'b111;
+			// Zerar o buffer
+			top_x_coord = x_zera;
+			top_y_coord = y_zera;
 			end
 
     else begin
+			write_enable = 0;
 			cont = cont + 1;
-			// if pintar_but: enable=1 else 0
 			if (cont == DIVISOR) begin
 				cont = 0;
 				if (!up_but | !down_but | !left_but | !right_but) begin
@@ -197,15 +203,15 @@ module main(
 							else ball_y = ball_y - STEP;
 							end
 					3'b001: begin // DOWN
-							if (ball_y + STEP > 479) ball_y = (479 - SIZE);
+							if (ball_y + STEP + SIZE > H_RES) ball_y = (H_RES - SIZE);
 							else ball_y = ball_y + STEP;
 							end
 					3'b010: begin // LEFT
-							if (ball_x < STEP) ball_x = 0;
+							if (ball_x <= STEP) ball_x = 0;
 							else ball_x = ball_x - STEP;
 							end
 					3'b011: begin // Right
-							if (ball_x + STEP > 639) ball_x = (639 - SIZE);
+							if (ball_x + STEP + SIZE >= W_RES) ball_x = (W_RES - SIZE);
 							else ball_x = ball_x + STEP;
 							end
 					endcase

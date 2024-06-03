@@ -42,9 +42,6 @@ module vga(
     assign VGA_B = (active_display)? top_B:0;
 
   always @(posedge CLOCK_50) begin
-    // if (reset == 0) begin
-    //   vga_clk_aux = 0;
-    // end
       vga_clk_aux = !vga_clk_aux;
   end
 
@@ -64,7 +61,7 @@ module vga(
       end
     end
 
-    x_coord = ((h_counter >= 135) && (h_counter < 784))? h_counter - 135: 0;
+    x_coord = ((h_counter >= 135) && (h_counter < 784))? h_counter - 142: 0;
     y_coord = ((v_counter >= 35) && (v_counter < 515))? v_counter - 35: 0;
   end
 
