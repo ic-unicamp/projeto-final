@@ -51,9 +51,9 @@ module main(
 	reg [10:0] top_x_coord;
 	reg [10:0] top_y_coord;
 	// Entrada do modulo buffer
-	reg [7:0] red_data_in = 255;
-	reg [7:0] green_data_in = 255;
-	reg [7:0] blue_data_in = 255;
+	reg [7:0] red_data_in;
+	reg [7:0] green_data_in;
+	reg [7:0] blue_data_in;
 	// Saída do modulo buffer
 	wire [7:0] red_out;
 	wire [7:0] green_out;
@@ -66,6 +66,10 @@ module main(
 	// Enable de leitura do buffer
 	// quando reset=1 (desligado)
 	// lê baseado no botão pressionado pintar_but
+
+	// Posição de pintar o cursor
+	wire [10:0] pc_x;
+	wire [10:0] pc_y;
 
 	vga vga_inst(
 		.CLOCK_50(CLOCK_50),
@@ -128,6 +132,16 @@ module main(
 		.y_coord(y_zera)
 	);
 
+	pinta_cursor inst_pinta_cursor(
+		.reset(reset),
+		.clock(CLOCK_50),
+		.x_cursor(ball_x),
+		.y_cursor(ball_y),
+		.SIZE(SIZE),
+		.x_coord(pc_x),
+		.y_coord(pc_y)
+	);
+
 	// assign write_enable = 1;
 
 	// assign top_x_coord = reset ? ------: x_zera;
@@ -148,10 +162,13 @@ module main(
 	// assign green_data_in = reset ? green_in : 255;
 	// assign blue_data_in = reset ? blue_in : 255;
 
+	assign red_in = 255;
+	assign blue_in = 0;
+	assign green_in = 0;
 	// Registradores que vão direto para o VGA
-	assign red_vga = (y_coord >= ball_y && y_coord <= ball_y + SIZE && x_coord >= ball_x && x_coord <= ball_x + SIZE) ? 255 : red_out;
-	assign green_vga = (y_coord >= ball_y && y_coord <= ball_y + SIZE && x_coord >= ball_x && x_coord <= ball_x + SIZE) ? 0 : green_out;
-	assign blue_vga = (y_coord >= ball_y && y_coord <= ball_y + SIZE && x_coord >= ball_x && x_coord <= ball_x + SIZE) ? 0: blue_out;
+	assign red_vga = (y_coord >= ball_y && y_coord <= ball_y + SIZE && x_coord >= ball_x && x_coord <= ball_x + SIZE) ? red_in : red_out;
+	assign green_vga = (y_coord >= ball_y && y_coord <= ball_y + SIZE && x_coord >= ball_x && x_coord <= ball_x + SIZE) ? green_in : green_out;
+	assign blue_vga = (y_coord >= ball_y && y_coord <= ball_y + SIZE && x_coord >= ball_x && x_coord <= ball_x + SIZE) ? blue_in: blue_out;
 
 	always @(posedge CLOCK_50) begin
 
@@ -159,41 +176,46 @@ module main(
 			// Centralizar o cursor
 			ball_x = ((W_RES/2) - (SIZE/2));
 			ball_y = ((H_RES/2) - (SIZE/2));
+
 			// Reiniciar last_button
 			last_button = 3'b111;
+
 			// Zerar o buffer
 			top_x_coord = x_zera;
 			top_y_coord = y_zera;
 			end
 
     else begin
-			write_enable = 0;
+			// write enable vai receber input de um switch
+			write_enable = 1;
+			// posições para pintar o buffer
+			top_x_coord = pc_x;
+			top_y_coord = pc_y;
+			// cores para pintar o buffer
+			red_data_in = red_in;
+			green_data_in = green_in;
+			blue_data_in = blue_in;
+
 			cont = cont + 1;
 			if (cont == DIVISOR) begin
 				cont = 0;
 				if (!up_but | !down_but | !left_but | !right_but) begin
 					if (!up_but) begin
-						// enable = 1;
 						last_button = 3'b000;
 						ball_direction = 2'b00;
 						end
 					else if (!down_but) begin
-						// enable = 1;
 						last_button = 3'b001;
 						ball_direction = 2'b01;
 						end
 					else if (!left_but) begin
-							// enable = 1;
 							last_button = 3'b010;
 							ball_direction = 2'b10;
 							end
 					else if (!right_but) begin
-							// enable = 1;
 							last_button = 3'b011;
 							ball_direction = 2'b11;
 							end
-					// else
-							// enable = 0;
 					end
 
 				if (last_button != 3'b111) begin
