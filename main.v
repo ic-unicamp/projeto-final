@@ -31,7 +31,7 @@ module main(
 	reg [10:0] ball_x;
 	reg [10:0] ball_y;
 	reg [2:0] last_button; 
-	reg [19:0] cont;
+	reg [21:0] cont;
 	reg [1:0] ball_direction;
 
 	// Coordenadas de leitura do VGA
