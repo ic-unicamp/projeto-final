@@ -1,28 +1,28 @@
 module vga(
-  // Inputs da placa
-  input CLOCK_50,
-  input reset,
+    // Inputs da placa
+    input CLOCK_50,
+    input reset,
 
-  // Input do top-module
-  input [7:0] top_R,
-  input [7:0] top_G,
-  input [7:0] top_B,
+    // Input do top-module
+    input [7:0] top_R,
+    input [7:0] top_G,
+    input [7:0] top_B,
 
-  // Sinais para o Conversor Digital-Analógico
-  output wire VGA_CLK,
-  output [7:0] VGA_R,
-  output [7:0] VGA_G,
-  output [7:0] VGA_B,
-  output VGA_SYNC_N,
-  output VGA_BLANK_N,
+    // Sinais para o Conversor Digital-Analógico
+    output wire VGA_CLK,
+    output [7:0] VGA_R,
+    output [7:0] VGA_G,
+    output [7:0] VGA_B,
+    output VGA_SYNC_N,
+    output VGA_BLANK_N,
 
-  // Direto para o conector VGA
-  output VGA_HS,
-  output VGA_VS,
+    // Direto para o conector VGA
+    output VGA_HS,
+    output VGA_VS,
 
-  // Para top-module
-  output reg [10:0] x_coord,
-  output reg [10:0] y_coord
+    // Para top-module
+    output reg [10:0] x_coord,
+    output reg [10:0] y_coord
 );
 
     reg [10:0] h_counter;
@@ -42,9 +42,6 @@ module vga(
     assign VGA_B = (active_display)? top_B:0;
 
   always @(posedge CLOCK_50) begin
-    // if (reset == 0) begin
-    //   vga_clk_aux = 0;
-    // end
       vga_clk_aux = !vga_clk_aux;
   end
 
@@ -64,7 +61,7 @@ module vga(
       end
     end
 
-    x_coord = ((h_counter >= 135) && (h_counter < 784))? h_counter - 135: 0;
+    x_coord = ((h_counter >= 135) && (h_counter < 784))? h_counter - 142: 0;
     y_coord = ((v_counter >= 35) && (v_counter < 515))? v_counter - 35: 0;
   end
 
