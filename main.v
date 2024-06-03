@@ -8,6 +8,7 @@ module main(
     input up_but,
     input down_but,
     input left_but,
+    input pintar_but,
 
     // SINAIS DA VGA
     output wire VGA_CLK,
@@ -31,6 +32,9 @@ module main(
     // Posição do VGA
 	wire [10:0] x_coord;
 	wire [10:0] y_coord;
+
+    wire [10:0] x_buffer;
+    wire [10:0] y_buffer;
 
     // Posição do cursor
 	reg [10:0] ball_x;
@@ -72,7 +76,7 @@ module main(
 		.y_coord(y_coord)
 	);
 
-	buffer buffer_inst(
+	buffer red_buffer(
 		.CLOCK_50(CLOCK_50),
 		.write_enable(enable),
         .reset(reset),
@@ -91,6 +95,13 @@ module main(
         .bdata_out(blue)
 	);
 
+    assign x_buffer = x_coord >> 1;
+    assgin y_buffer = y_coord >> 1;
+
+    assign red = (y_coord >= ball_y && y_coord <= ball_y + SIZE && x_coord >= ball_x && x_coord <= ball_x + SIZE) ? 0 : red_buffer[x_buffer][y_buffer];
+    assign green = (y_coord >= ball_y && y_coord <= ball_y + SIZE && x_coord >= ball_x && x_coord <= ball_x + SIZE) ? 0 : green_buffer[x_buffer][y_buffer];
+    assign blue = (y_coord >= ball_y && y_coord <= ball_y + SIZE && x_coord >= ball_x && x_coord <= ball_x + SIZE) ? 100 : blue_buffer[x_buffer][y_buffer];
+
 	always @(posedge CLOCK_50) begin 
 		if (~reset) begin
 			ball_x = (320 - (SIZE/2));
@@ -100,29 +111,27 @@ module main(
 			enable = 0;
 		end
 		else begin
+            if (pintar_but)
+                enable = 1;
+            else
+                enable = 0;
             if (!up_but | !down_but | !left_but | !right_but) begin
                 if (!up_but) begin
-                    enable = 1;
                     last_button = 3'b000;
                     ball_direction = 3'b000;
                     end
                 else if (!down_but) begin
-                    enable = 1;
                     last_button = 3'b001;
                     ball_direction = 3'b001;
                     end
                 else if (!left_but) begin
-                    enable = 1;
                     last_button = 3'b010;
                     ball_direction = 3'b010;
                     end
                 else if (!right_but) begin
-                    enable = 1;
                     last_button = 3'b011;
                     ball_direction = 3'b011;
                     end
-                else
-                    enable = 0;
             end
 
             else begin
