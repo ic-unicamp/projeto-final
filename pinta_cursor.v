@@ -9,14 +9,16 @@ module pinta_cursor(
 );
 
     always @(posedge clock) begin
+
         if (reset == 0) begin
             x_coord = x_cursor;
             y_coord = y_cursor;
-        end
+            end
+
         else begin
-            if (x_coord >= x_cursor + SIZE - 1) begin
+            if (x_coord >= x_cursor + SIZE) begin
                 x_coord = x_cursor;
-                if (y_coord >= y_cursor + SIZE - 1)
+                if (y_coord >= y_cursor + SIZE)
                     y_coord = y_cursor;
                 else y_coord = y_coord + 1;
                 end

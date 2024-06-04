@@ -149,9 +149,9 @@
 		assign blue_in = 0;
 		assign green_in = 0;
 		// Registradores que vão direto para o VGA
-		assign red_vga = (y_coord >= ball_y && y_coord <= ball_y + SIZE && x_coord >= ball_x && x_coord <= ball_x + SIZE) ? red_in : red_out;
-		assign green_vga = (y_coord >= ball_y && y_coord <= ball_y + SIZE && x_coord >= ball_x && x_coord <= ball_x + SIZE) ? green_in : green_out;
-		assign blue_vga = (y_coord >= ball_y && y_coord <= ball_y + SIZE && x_coord >= ball_x && x_coord <= ball_x + SIZE) ? blue_in: blue_out;
+		assign red_vga = (y_coord >= ball_y && y_coord <= ball_y + SIZE + 1 && x_coord >= ball_x && x_coord <= ball_x + SIZE + 1) ? red_in : red_out;
+		assign green_vga = (y_coord >= ball_y && y_coord <= ball_y + SIZE + 1 && x_coord >= ball_x && x_coord <= ball_x + SIZE + 1) ? green_in : green_out;
+		assign blue_vga = (y_coord >= ball_y && y_coord <= ball_y + SIZE + 1 && x_coord >= ball_x && x_coord <= ball_x + SIZE + 1) ? blue_in: blue_out;
 
 
 
