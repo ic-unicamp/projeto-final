@@ -17,11 +17,12 @@
 
         always @(posedge clock) begin
             if (reset == 0) begin
+                // Vem do módulo 'zera_buffer'
                 framebuffer[data_in_y][data_in_x] = 255;
             end
             else begin 
                 if (write_enable) begin
-                    framebuffer[data_in_y][data_in_x] = data_in;
+                    framebuffer[data_in_y >> 1][data_in_x >> 1] = data_in;
                 end
                 data_out = framebuffer[data_out_y >> 1][data_out_x >> 1];
                 end

@@ -14,14 +14,14 @@ module pinta_cursor(
             y_coord = y_cursor;
         end
         else begin
-            x_coord = x_coord + 1;
-            if (x_coord == x_cursor + SIZE) begin
+            if (x_coord >= x_cursor + SIZE - 1) begin
                 x_coord = x_cursor;
-                y_coord = y_coord + 1;
-                if (y_coord == y_cursor + SIZE)
+                if (y_coord >= y_cursor + SIZE - 1)
                     y_coord = y_cursor;
+                else y_coord = y_coord + 1;
                 end
-        end
+            else x_coord = x_coord + 1;
+            end
         end
 
 
