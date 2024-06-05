@@ -19,13 +19,13 @@ always @(posedge clk) begin
         estado = 3;
         y_pos = y_pos - 16;
         if (y_pos >= 480) begin
-          y_pos = 480;
+          y_pos = 479;
         end
       end 
       else if (!KEY[2]) begin
         estado = 2;
         y_pos = y_pos + 16;
-        if (y_pos > 480) begin
+        if (y_pos >= 480) begin
           y_pos = y_pos - 480;
         end
       end
@@ -33,13 +33,13 @@ always @(posedge clk) begin
         estado = 1;
         x_pos = x_pos - 16;
         if (x_pos >= 640) begin
-          x_pos = 640;
+          x_pos = 639;
         end
       end
       else if (!KEY[0]) begin
         estado = 0;
         x_pos = x_pos + 16;
-        if (x_pos > 640) begin
+        if (x_pos >= 640) begin
           x_pos = x_pos - 640;
         end
       end

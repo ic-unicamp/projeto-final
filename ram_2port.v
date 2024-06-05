@@ -9,26 +9,40 @@ module ram_2port (
     // Porta de Leitura
     input  re,                // Sinal de habilitação de leitura
     input [0:19] read_addr,  // Endereço de leitura
-    output reg [7:0] data_out    // Dados de saída peara leitura
+    output reg [7:0] data_out,    // Dados de saída peara leitura
+    input initializing,
+    output reg initialized
 );
 
-    // Declaração da memória
-    reg [7:0] buffer [0:640*480];
+// Declaração da memória
+reg [7:0] buffer [0:640*480];
+reg [0:19] initialization_write_addr = 0;
+initial initialized = 0;
 
-    // Processo de Escrita
-    always @(posedge clk) begin
-        if (we) begin
-            buffer[write_addr] <= data_in;
+// Processo de Escrita
+always @(posedge clk) begin
+    if (initializing) begin
+        if (initialization_write_addr >= 640*480) begin
+            initialized = 1;
         end
-        // buffer[debug_pixel_i] <= debug_pixel_i%120;
-        // debug_pixel_i <= debug_pixel_i + 1;
-    end
+        else begin
+            buffer[initialization_write_addr] <= 254;
+            initialization_write_addr = initialization_write_addr + 1;
+        end
+    end 
 
-    // Processo de Leitura
-    always @(posedge clk) begin
-        if (re) begin
-            data_out <= buffer[read_addr];
-        end
+    else if (we) begin
+        buffer[write_addr] <= data_in;
     end
+    // buffer[debug_pixel_i] <= debug_pixel_i%120;
+    // debug_pixel_i <= debug_pixel_i + 1;
+end
+
+// Processo de Leitura
+always @(posedge clk) begin
+    if (re) begin
+        data_out <= buffer[read_addr];
+    end
+end
 
 endmodule
