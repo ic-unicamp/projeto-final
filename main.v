@@ -18,7 +18,14 @@
 		output VGA_SYNC_N,
 
 		output VGA_HS,
-		output VGA_VS
+		output VGA_VS,
+		// Para visores HEX
+  		output [6:0] HEX0, // digito da direita
+		output [6:0] HEX1,
+		output [6:0] HEX2,
+		output [6:0] HEX3,
+		output [6:0] HEX4,
+		output [6:0] HEX5 // digito da esquerda
 	);
 		wire reset;
 		assign reset = SW[0];
@@ -143,6 +150,27 @@
 			.y_coord(pc_y)
 		);
 
+		display red_display(
+			.clk(CLOCK_50),
+			.entrada(red_in),
+			.digito0(HEX4),
+			.digito1(HEX5),
+		);
+		
+		display green_display(
+			.clk(CLOCK_50),
+			.entrada(green_in),
+			.digito0(HEX2),
+			.digito1(HEX3),
+		);
+		
+		display blue_display(
+			.clk(CLOCK_50),
+			.entrada(blue_in),
+			.digito0(HEX0),
+			.digito1(HEX1),
+		);
+
 		assign write_enable = reset ? SW[1] : 0;
 
 		// Registradores que vão direto para o VGA
@@ -224,7 +252,7 @@
 				end
 			end
 
-		reg [2:0] last_switch;
+		reg [3:0] last_switch;
 
 		wire red_plus;
 		assign red_plus = SW[9];
@@ -240,6 +268,8 @@
 		assign blue_minus = SW[4];
 		wire all_white;
 		assign all_white = SW[3];
+		wire zera_valores;
+		assign zera_valores = SW[2];
 
 		reg [21:0] cont_switch;
 
@@ -248,7 +278,7 @@
 				red_in = 0;
 				green_in = 0;
 				blue_in = 0;
-				last_switch = 3'b111;
+				last_switch = 4'b1111;
 				cont_switch = 0;
 				end
 
@@ -257,39 +287,45 @@
 				if (cont_switch == DIVISOR) begin
 					cont_switch = 0;
 					if (red_plus | red_minus | green_plus | green_minus | blue_plus | blue_minus | all_white) begin
-						if (red_plus) begin last_switch <= 3'b000; end
-						else if  (red_minus) begin last_switch <= 3'b001; end
-						else if (green_plus) begin last_switch <= 3'b010; end
-						else if (green_minus) begin last_switch <= 3'b011; end
-						else if (blue_plus) begin last_switch <= 3'b100; end
-						else if (blue_minus) begin last_switch <= 3'b101; end
-						else if (all_white) begin last_switch <= 3'b110; end
+						if (red_plus) begin last_switch <= 4'b0000; end
+						else if  (red_minus) begin last_switch <= 4'b0001; end
+						else if (green_plus) begin last_switch <= 4'b0010; end
+						else if (green_minus) begin last_switch <= 4'b0011; end
+						else if (blue_plus) begin last_switch <= 4'b0100; end
+						else if (blue_minus) begin last_switch <= 4'b0101; end
+						else if (all_white) begin last_switch <= 4'b0110; end
+						else if (zera_valores) begin last_switch <= 4'b0111; end
 						end
 					else begin
 						if (last_switch != 3'b111) begin
 							case (last_switch)
-							3'b000: begin
-									if (red_in <= (255-8)) red_in <= (red_in + 8'd16);
+							4'b0000: begin
+									if (red_in <= (255-16)) red_in <= (red_in + 8'd16);
 									end
-							3'b001: begin
-									if (red_in >= 8) red_in <= (red_in - 8'd16);
+							4'b0001: begin
+									if (red_in >= 16) red_in <= (red_in - 8'd16);
 									end
-							3'b010: begin
-									if (green_in <= (255-8)) green_in <= (green_in + 8'd16);
+							4'b0010: begin
+									if (green_in <= (255-16)) green_in <= (green_in + 8'd16);
 									end
-							3'b011: begin
-									if (green_in >= 8) green_in <= (green_in - 8'd16);
+							4'b0011: begin
+									if (green_in >= 16) green_in <= (green_in - 8'd16);
 									end
-							3'b100: begin
-									if (blue_in <= (255-8)) blue_in <= (blue_in + 8'd16);
+							4'b0100: begin
+									if (blue_in <= (255-16)) blue_in <= (blue_in + 8'd16);
 									end
-							3'b101: begin
-									if (blue_in >= 8) blue_in <= (blue_in - 8'd16);
+							4'b0101: begin
+									if (blue_in >= 16) blue_in <= (blue_in - 8'd16);
 									end
-							3'b110: begin
+							4'b0110: begin
 									red_in = 255;
 									green_in = 255;
 									blue_in = 255;
+									end
+							4'b0111: begin
+									red_in = 0;
+									green_in = 0;
+									blue_in = 0;
 									end
 							endcase
 							last_switch = 3'b111;
