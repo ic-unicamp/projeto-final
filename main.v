@@ -145,10 +145,6 @@
 
 		assign write_enable = reset ? SW[1] : 0;
 
-		// assign red_in = 255;
-		// assign blue_in = 0;
-		// assign green_in = 0;
-
 		// Registradores que vão direto para o VGA
 		assign red_vga = (y_coord >= ball_y && y_coord <= ball_y + SIZE + 1 && x_coord >= ball_x && x_coord <= ball_x + SIZE + 1) ? red_in : red_out;
 		assign green_vga = (y_coord >= ball_y && y_coord <= ball_y + SIZE + 1 && x_coord >= ball_x && x_coord <= ball_x + SIZE + 1) ? green_in : green_out;
@@ -242,6 +238,10 @@
 		assign blue_plus = SW[5];
 		wire blue_minus;
 		assign blue_minus = SW[4];
+		wire all_white;
+		assign all_white = SW[3];
+
+		reg [21:0] cont_switch;
 
 		always @(posedge CLOCK_50) begin
 			if (reset == 0) begin
@@ -249,40 +249,51 @@
 				green_in = 0;
 				blue_in = 0;
 				last_switch = 3'b111;
+				cont_switch = 0;
 				end
 
 			else begin
-				if (red_plus | red_minus | green_plus | green_minus | blue_plus | blue_minus) begin
-					if (red_plus) last_switch = 3'b000;
-					else if (red_minus) last_switch = 3'b001;
-					else if (green_plus) last_switch = 3'b010;
-					else if (green_minus) last_switch = 3'b011;
-					else if (blue_plus) last_switch = 3'b100;
-					else if (blue_minus) last_switch = 3'b101;
-					end
-				else begin
-					if (last_switch != 3'b111) begin
-						case (last_switch)
-						3'b000: begin
-								if (red_in <= (255-8)) red_in = red_in + 8;
-								end
-						3'b001: begin
-								if (red_in >= 8) red_in = red_in - 8;
-								end
-						3'b010: begin
-								if (green_in <= (255-8)) green_in = green_in + 8;
-								end
-						3'b011: begin
-								if (green_in >= 8) green_in = green_in - 8;
-								end
-						3'b100: begin
-								if (blue_in <= (255-8)) blue_in = blue_in + 8;
-								end
-						3'b101: begin
-								if (blue_in >= 8) blue_in = blue_in - 8;
-								end
-						endcase
-						last_switch = 3'b111;
+				cont_switch = cont_switch + 1;
+				if (cont_switch == DIVISOR) begin
+					cont_switch = 0;
+					if (red_plus | red_minus | green_plus | green_minus | blue_plus | blue_minus | all_white) begin
+						if (red_plus) begin last_switch <= 3'b000; end
+						else if  (red_minus) begin last_switch <= 3'b001; end
+						else if (green_plus) begin last_switch <= 3'b010; end
+						else if (green_minus) begin last_switch <= 3'b011; end
+						else if (blue_plus) begin last_switch <= 3'b100; end
+						else if (blue_minus) begin last_switch <= 3'b101; end
+						else if (all_white) begin last_switch <= 3'b110; end
+						end
+					else begin
+						if (last_switch != 3'b111) begin
+							case (last_switch)
+							3'b000: begin
+									if (red_in <= (255-8)) red_in <= (red_in + 8'd16);
+									end
+							3'b001: begin
+									if (red_in >= 8) red_in <= (red_in - 8'd16);
+									end
+							3'b010: begin
+									if (green_in <= (255-8)) green_in <= (green_in + 8'd16);
+									end
+							3'b011: begin
+									if (green_in >= 8) green_in <= (green_in - 8'd16);
+									end
+							3'b100: begin
+									if (blue_in <= (255-8)) blue_in <= (blue_in + 8'd16);
+									end
+							3'b101: begin
+									if (blue_in >= 8) blue_in <= (blue_in - 8'd16);
+									end
+							3'b110: begin
+									red_in = 255;
+									green_in = 255;
+									blue_in = 255;
+									end
+							endcase
+							last_switch = 3'b111;
+							end
 						end
 					end
 				end
