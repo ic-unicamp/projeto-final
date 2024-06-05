@@ -252,36 +252,38 @@
 				end
 
 			else begin
-				if (!red_plus | !red_minus | !green_plus | !green_minus | !blue_plus | !blue_minus) begin
-					if (!red_plus) last_switch = 3'b000;
-					else if (!red_minus) last_switch = 3'b001;
-					else if (!green_plus) last_switch = 3'b010;
-					else if (!green_minus) last_switch = 3'b011;
-					else if (!blue_plus) last_switch = 3'b100;
-					else if (!blue_minus) last_switch = 3'b101;
+				if (red_plus | red_minus | green_plus | green_minus | blue_plus | blue_minus) begin
+					if (red_plus) last_switch = 3'b000;
+					else if (red_minus) last_switch = 3'b001;
+					else if (green_plus) last_switch = 3'b010;
+					else if (green_minus) last_switch = 3'b011;
+					else if (blue_plus) last_switch = 3'b100;
+					else if (blue_minus) last_switch = 3'b101;
 					end
-				else if (last_switch != 3'b111) begin
-					case (last_switch)
-					3'b000: begin
-							if (red_in <= (255-8)) red_in = red_in + 8;
-							end
-					3'b001: begin
-							if (red_in >= 8) red_in = red_in - 8;
-							end
-					3'b010: begin
-							if (green_in <= (255-8)) green_in = green_in + 8;
-							end
-					3'b011: begin
-							if (green_in >= 8) green_in = green_in - 8;
-							end
-					3'b100: begin
-							if (blue_in <= (255-8)) blue_in = blue_in + 8;
-							end
-					3'b101: begin
-							if (blue_in >= 8) blue_in = blue_in - 8;
-							end
-					endcase
-					last_switch = 3'b111;
+				else begin
+					if (last_switch != 3'b111) begin
+						case (last_switch)
+						3'b000: begin
+								if (red_in <= (255-8)) red_in = red_in + 8;
+								end
+						3'b001: begin
+								if (red_in >= 8) red_in = red_in - 8;
+								end
+						3'b010: begin
+								if (green_in <= (255-8)) green_in = green_in + 8;
+								end
+						3'b011: begin
+								if (green_in >= 8) green_in = green_in - 8;
+								end
+						3'b100: begin
+								if (blue_in <= (255-8)) blue_in = blue_in + 8;
+								end
+						3'b101: begin
+								if (blue_in >= 8) blue_in = blue_in - 8;
+								end
+						endcase
+						last_switch = 3'b111;
+						end
 					end
 				end
 			end
