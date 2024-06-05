@@ -1,7 +1,9 @@
 import numpy as np
 from PIL import Image
 
-w, h = Image.open('ship.png').size
+path = input("Digite o caminho: ")
+
+w, h = Image.open(path).size
 
 print(f"Img:{w * h}")
 print()

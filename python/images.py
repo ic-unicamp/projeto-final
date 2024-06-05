@@ -1,7 +1,9 @@
 import numpy as np
 from PIL import Image
 
-img = Image.open('ship.png').convert('RGB')
+path = input("Digite o caminho: ")
+
+img = Image.open(path).convert('RGB')
 arr = np.array(img)
 
 # R = list()
