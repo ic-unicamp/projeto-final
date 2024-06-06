@@ -154,21 +154,21 @@
 			.clk(CLOCK_50),
 			.entrada(red_in),
 			.digito0(HEX4),
-			.digito1(HEX5),
+			.digito1(HEX5)
 		);
 		
 		display green_display(
 			.clk(CLOCK_50),
 			.entrada(green_in),
 			.digito0(HEX2),
-			.digito1(HEX3),
+			.digito1(HEX3)
 		);
 		
 		display blue_display(
 			.clk(CLOCK_50),
 			.entrada(blue_in),
 			.digito0(HEX0),
-			.digito1(HEX1),
+			.digito1(HEX1)
 		);
 
 		assign write_enable = reset ? SW[1] : 0;
@@ -177,8 +177,6 @@
 		assign red_vga = (y_coord >= ball_y && y_coord <= ball_y + SIZE + 1 && x_coord >= ball_x && x_coord <= ball_x + SIZE + 1) ? red_in : red_out;
 		assign green_vga = (y_coord >= ball_y && y_coord <= ball_y + SIZE + 1 && x_coord >= ball_x && x_coord <= ball_x + SIZE + 1) ? green_in : green_out;
 		assign blue_vga = (y_coord >= ball_y && y_coord <= ball_y + SIZE + 1 && x_coord >= ball_x && x_coord <= ball_x + SIZE + 1) ? blue_in: blue_out;
-
-
 
 		// Controlador do cursor
 		always @(posedge CLOCK_50) begin
@@ -252,87 +250,123 @@
 				end
 			end
 
-		reg [3:0] last_switch;
-
-		wire red_plus;
-		assign red_plus = SW[9];
-		wire red_minus;
-		assign red_minus = SW[8];
-		wire green_plus;
-		assign green_plus = SW[7];
-		wire green_minus;
-		assign green_minus = SW[6];
-		wire blue_plus;
-		assign blue_plus = SW[5];
-		wire blue_minus;
-		assign blue_minus = SW[4];
+		wire red_01;
+		assign red_01 = SW[9];
+		wire red_02;
+		assign red_02 = SW[8];
+		wire green_01;
+		assign green_01 = SW[7];
+		wire green_02;
+		assign green_02 = SW[6];
+		wire blue_01;
+		assign blue_01 = SW[5];
+		wire blue_02;
+		assign blue_02 = SW[4];
 		wire all_white;
 		assign all_white = SW[3];
-		wire zera_valores;
-		assign zera_valores = SW[2];
-
+		wire all_black;
+		assign all_black = SW[2];
 		reg [21:0] cont_switch;
 
+		// always @(posedge CLOCK_50) begin
+		// 	if (reset == 0) begin
+		// 		red_in = 0;
+		// 		green_in = 0;
+		// 		blue_in = 0;
+		// 		last_switch = 4'b1111;
+		// 		cont_switch = 0;
+		// 		end
+
+		// 	else begin
+		// 		cont_switch = cont_switch + 1;
+		// 		if (cont_switch == DIVISOR) begin
+		// 			cont_switch = 0;
+		// 			if (red_01blue_01 | red_01 | green_01blue_01 | green_01 | blue_01 | blue_01 | all_white | all_black) begin
+		// 				if (red_01blue_01) begin last_switch <= 4'b0000; end
+		// 				else if  (red_01) begin last_switch <= 4'b0001; end
+		// 				else if (green_01blue_01) begin last_switch <= 4'b0010; end
+		// 				else if (green_01) begin last_switch <= 4'b0011; end
+		// 				else if (blue_01) begin last_switch <= 4'b0100; end
+		// 				else if (blue_01) begin last_switch <= 4'b0101; end
+		// 				else if (all_white) begin last_switch <= 4'b0110; end
+		// 				else if (all_black) begin last_switch <= 4'b0111; end
+		// 				end
+		// 			else begin
+		// 				if (last_switch != 4'b1111) begin
+		// 					case (last_switch)
+		// 					4'b0000: begin
+		// 							if (red_in <= (255-16)) red_in <= (red_in + 8'd16);
+		// 							end
+		// 					4'b0001: begin
+		// 							if (red_in >= 16) red_in <= (red_in - 8'd16);
+		// 							end
+		// 					4'b0010: begin
+		// 							if (green_in <= (255-16)) green_in <= (green_in + 8'd16);
+		// 							end
+		// 					4'b0011: begin
+		// 							if (green_in >= 16) green_in <= (green_in - 8'd16);
+		// 							end
+		// 					4'b0100: begin
+		// 							if (blue_in <= (255-16)) blue_in <= (blue_in + 8'd16);
+		// 							end
+		// 					4'b0101: begin
+		// 							if (blue_in >= 16) blue_in <= (blue_in - 8'd16);
+		// 							end
+		// 					4'b0110: begin
+		// 							red_in = 255;
+		// 							green_in = 255;
+		// 							blue_in = 255;
+		// 							end
+		// 					4'b0111: begin
+		// 							red_in = 0;
+		// 							green_in = 0;
+		// 							blue_in = 0;
+		// 							end
+		// 					endcase
+		// 					last_switch = 4'b1111;
+		// 					end
+		// 				end
+		// 			end
+		// 		end
+		// 	end
+
 		always @(posedge CLOCK_50) begin
-			if (reset == 0) begin
+
+			if (reset == 0)  begin
 				red_in = 0;
 				green_in = 0;
 				blue_in = 0;
-				last_switch = 4'b1111;
-				cont_switch = 0;
+				cont_switch = 0;			
 				end
 
 			else begin
+
 				cont_switch = cont_switch + 1;
 				if (cont_switch == DIVISOR) begin
-					cont_switch = 0;
-					if (red_plus | red_minus | green_plus | green_minus | blue_plus | blue_minus | all_white) begin
-						if (red_plus) begin last_switch <= 4'b0000; end
-						else if  (red_minus) begin last_switch <= 4'b0001; end
-						else if (green_plus) begin last_switch <= 4'b0010; end
-						else if (green_minus) begin last_switch <= 4'b0011; end
-						else if (blue_plus) begin last_switch <= 4'b0100; end
-						else if (blue_minus) begin last_switch <= 4'b0101; end
-						else if (all_white) begin last_switch <= 4'b0110; end
-						else if (zera_valores) begin last_switch <= 4'b0111; end
+					if (all_white) begin
+						red_in = 255;
+						green_in = 255;
+						blue_in = 255;
+						end
+					else if (all_black) begin
+						red_in = 0;
+						green_in = 0;
+						blue_in = 0;
 						end
 					else begin
-						if (last_switch != 3'b111) begin
-							case (last_switch)
-							4'b0000: begin
-									if (red_in <= (255-16)) red_in <= (red_in + 8'd16);
-									end
-							4'b0001: begin
-									if (red_in >= 16) red_in <= (red_in - 8'd16);
-									end
-							4'b0010: begin
-									if (green_in <= (255-16)) green_in <= (green_in + 8'd16);
-									end
-							4'b0011: begin
-									if (green_in >= 16) green_in <= (green_in - 8'd16);
-									end
-							4'b0100: begin
-									if (blue_in <= (255-16)) blue_in <= (blue_in + 8'd16);
-									end
-							4'b0101: begin
-									if (blue_in >= 16) blue_in <= (blue_in - 8'd16);
-									end
-							4'b0110: begin
-									red_in = 255;
-									green_in = 255;
-									blue_in = 255;
-									end
-							4'b0111: begin
-									red_in = 0;
-									green_in = 0;
-									blue_in = 0;
-									end
-							endcase
-							last_switch = 3'b111;
-							end
+						red_in[5:0] = 0;
+						green_in[5:0] = 0;
+						blue_in[5:0] = 0;
+						red_in[7] = red_01 ? 1 : 0;
+						red_in[6] = red_02 ? 1 : 0;
+						green_in[7] = green_01 ? 1 : 0;
+						green_in[6] = green_02 ? 1 : 0;
+						blue_in[7] = blue_01 ? 1 : 0;
+						blue_in[6] = blue_02 ? 1 : 0;						
 						end
 					end
 				end
 			end
+
 
 	endmodule
