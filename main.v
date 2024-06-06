@@ -173,10 +173,28 @@
 
 		assign write_enable = reset ? SW[1] : 0;
 
+		wire borda_esq;
+		assign borda_esq = (x_coord == ball_x && y_coord >= ball_y && y_coord <= ball_y + SIZE + 1); 
+		wire borda_dir;
+		assign borda_dir = (x_coord == ball_x + SIZE + 1 && y_coord >= ball_y && y_coord <= ball_y + SIZE + 1);
+		wire borda_sup;
+		assign borda_sup = (y_coord == ball_y && x_coord >= ball_x && x_coord <= ball_x + SIZE + 1);
+		wire borda_inf;
+		assign borda_inf = (y_coord == ball_y + SIZE + 1 && x_coord >= ball_x && x_coord <= ball_x + SIZE + 1);
+
+		wire cursor;
+		assign cursor = (x_coord >= ball_x + 1 && x_coord <= ball_x + SIZE && y_coord >= ball_y + 1 && y_coord <= ball_y + SIZE);
+
+		wire borda;
+		assign borda = borda_sup | borda_inf | borda_esq | borda_dir;
+
 		// Registradores que vão direto para o VGA
-		assign red_vga = (y_coord >= ball_y && y_coord <= ball_y + SIZE + 1 && x_coord >= ball_x && x_coord <= ball_x + SIZE + 1) ? red_in : red_out;
-		assign green_vga = (y_coord >= ball_y && y_coord <= ball_y + SIZE + 1 && x_coord >= ball_x && x_coord <= ball_x + SIZE + 1) ? green_in : green_out;
-		assign blue_vga = (y_coord >= ball_y && y_coord <= ball_y + SIZE + 1 && x_coord >= ball_x && x_coord <= ball_x + SIZE + 1) ? blue_in: blue_out;
+		assign red_vga = (cursor) ? red_in : ((borda) ? 0 : red_out);
+		assign green_vga = (cursor) ? green_in : ((borda) ? 0 : green_out);
+		assign blue_vga = (cursor) ? blue_in : ((borda) ? 0 : blue_out);
+
+		// assign green_vga = (y_coord >= ball_y +  1 && y_coord <= ball_y + SIZE && x_coord >= ball_x + 1 && x_coord <= ball_x + SIZE) ? green_in : green_out;
+		// assign blue_vga = (y_coord >= ball_y + 1 && y_coord <= ball_y + SIZE && x_coord >= ball_x + 1 && x_coord <= ball_x + SIZE) ? blue_in: blue_out;
 
 		// Controlador do cursor
 		always @(posedge CLOCK_50) begin
@@ -268,68 +286,6 @@
 		assign all_black = SW[2];
 		reg [21:0] cont_switch;
 
-		// always @(posedge CLOCK_50) begin
-		// 	if (reset == 0) begin
-		// 		red_in = 0;
-		// 		green_in = 0;
-		// 		blue_in = 0;
-		// 		last_switch = 4'b1111;
-		// 		cont_switch = 0;
-		// 		end
-
-		// 	else begin
-		// 		cont_switch = cont_switch + 1;
-		// 		if (cont_switch == DIVISOR) begin
-		// 			cont_switch = 0;
-		// 			if (red_01blue_01 | red_01 | green_01blue_01 | green_01 | blue_01 | blue_01 | all_white | all_black) begin
-		// 				if (red_01blue_01) begin last_switch <= 4'b0000; end
-		// 				else if  (red_01) begin last_switch <= 4'b0001; end
-		// 				else if (green_01blue_01) begin last_switch <= 4'b0010; end
-		// 				else if (green_01) begin last_switch <= 4'b0011; end
-		// 				else if (blue_01) begin last_switch <= 4'b0100; end
-		// 				else if (blue_01) begin last_switch <= 4'b0101; end
-		// 				else if (all_white) begin last_switch <= 4'b0110; end
-		// 				else if (all_black) begin last_switch <= 4'b0111; end
-		// 				end
-		// 			else begin
-		// 				if (last_switch != 4'b1111) begin
-		// 					case (last_switch)
-		// 					4'b0000: begin
-		// 							if (red_in <= (255-16)) red_in <= (red_in + 8'd16);
-		// 							end
-		// 					4'b0001: begin
-		// 							if (red_in >= 16) red_in <= (red_in - 8'd16);
-		// 							end
-		// 					4'b0010: begin
-		// 							if (green_in <= (255-16)) green_in <= (green_in + 8'd16);
-		// 							end
-		// 					4'b0011: begin
-		// 							if (green_in >= 16) green_in <= (green_in - 8'd16);
-		// 							end
-		// 					4'b0100: begin
-		// 							if (blue_in <= (255-16)) blue_in <= (blue_in + 8'd16);
-		// 							end
-		// 					4'b0101: begin
-		// 							if (blue_in >= 16) blue_in <= (blue_in - 8'd16);
-		// 							end
-		// 					4'b0110: begin
-		// 							red_in = 255;
-		// 							green_in = 255;
-		// 							blue_in = 255;
-		// 							end
-		// 					4'b0111: begin
-		// 							red_in = 0;
-		// 							green_in = 0;
-		// 							blue_in = 0;
-		// 							end
-		// 					endcase
-		// 					last_switch = 4'b1111;
-		// 					end
-		// 				end
-		// 			end
-		// 		end
-		// 	end
-
 		always @(posedge CLOCK_50) begin
 
 			if (reset == 0)  begin
@@ -348,11 +304,13 @@
 						green_in = 255;
 						blue_in = 255;
 						end
+
 					else if (all_black) begin
 						red_in = 0;
 						green_in = 0;
 						blue_in = 0;
 						end
+
 					else begin
 						red_in[5:0] = 0;
 						green_in[5:0] = 0;
@@ -364,6 +322,7 @@
 						blue_in[7] = blue_01 ? 1 : 0;
 						blue_in[6] = blue_02 ? 1 : 0;						
 						end
+
 					end
 				end
 			end
