@@ -1,6 +1,6 @@
 Analysis & Synthesis report for projeto
-Thu May 16 15:04:25 2024
-Quartus Prime Version 17.1.0 Build 590 10/25/2017 SJ Lite Edition
+Thu Jun  6 00:55:50 2024
+Quartus Prime Version 23.1std.0 Build 991 11/28/2023 SC Lite Edition
 
 
 ---------------------
@@ -13,19 +13,33 @@ Quartus Prime Version 17.1.0 Build 590 10/25/2017 SJ Lite Edition
   5. Analysis & Synthesis Source Files Read
   6. Analysis & Synthesis Resource Usage Summary
   7. Analysis & Synthesis Resource Utilization by Entity
-  8. General Register Statistics
-  9. Post-Synthesis Netlist Statistics for Top Partition
- 10. Elapsed Time Per Partition
- 11. Analysis & Synthesis Messages
+  8. Analysis & Synthesis RAM Summary
+  9. Analysis & Synthesis DSP Block Usage Summary
+ 10. General Register Statistics
+ 11. Registers Packed Into Inferred Megafunctions
+ 12. Source assignments for memoria:memoriaInstancia|altsyncram:R_rtl_0|altsyncram_ifn1:auto_generated
+ 13. Source assignments for memoria:memoriaInstancia|altsyncram:G_rtl_0|altsyncram_ifn1:auto_generated
+ 14. Source assignments for memoria:memoriaInstancia|altsyncram:B_rtl_0|altsyncram_ifn1:auto_generated
+ 15. Parameter Settings for Inferred Entity Instance: memoria:memoriaInstancia|altsyncram:R_rtl_0
+ 16. Parameter Settings for Inferred Entity Instance: memoria:memoriaInstancia|altsyncram:G_rtl_0
+ 17. Parameter Settings for Inferred Entity Instance: memoria:memoriaInstancia|altsyncram:B_rtl_0
+ 18. altsyncram Parameter Settings by Entity Instance
+ 19. Port Connectivity Checks: "memoria:memoriaInstancia"
+ 20. Port Connectivity Checks: "tela:telaInstancia"
+ 21. Port Connectivity Checks: "bola:bolaNave"
+ 22. Port Connectivity Checks: "keys:keysInstancia"
+ 23. Post-Synthesis Netlist Statistics for Top Partition
+ 24. Elapsed Time Per Partition
+ 25. Analysis & Synthesis Messages
 
 
 
 ----------------
 ; Legal Notice ;
 ----------------
-Copyright (C) 2017  Intel Corporation. All rights reserved.
+Copyright (C) 2023  Intel Corporation. All rights reserved.
 Your use of Intel Corporation's design tools, logic functions 
-and other software and tools, and its AMPP partner logic 
+and other software and tools, and any partner logic 
 functions, and any output files from any of the foregoing 
 (including device programming or simulation files), and any 
 associated documentation or information are expressly subject 
@@ -35,31 +49,32 @@ the Intel FPGA IP License Agreement, or other applicable license
 agreement, including, without limitation, that your use is for
 the sole purpose of programming logic devices manufactured by
 Intel and sold by Intel or its authorized distributors.  Please
-refer to the applicable agreement for further details.
+refer to the applicable agreement for further details, at
+https://fpgasoftware.intel.com/eula.
 
 
 
-+-------------------------------------------------------------------------------+
-; Analysis & Synthesis Summary                                                  ;
-+---------------------------------+---------------------------------------------+
-; Analysis & Synthesis Status     ; Successful - Thu May 16 15:04:25 2024       ;
-; Quartus Prime Version           ; 17.1.0 Build 590 10/25/2017 SJ Lite Edition ;
-; Revision Name                   ; projeto                                     ;
-; Top-level Entity Name           ; projeto                                     ;
-; Family                          ; Cyclone V                                   ;
-; Logic utilization (in ALMs)     ; N/A                                         ;
-; Total registers                 ; 45                                          ;
-; Total pins                      ; 70                                          ;
-; Total virtual pins              ; 0                                           ;
-; Total block memory bits         ; 0                                           ;
-; Total DSP Blocks                ; 0                                           ;
-; Total HSSI RX PCSs              ; 0                                           ;
-; Total HSSI PMA RX Deserializers ; 0                                           ;
-; Total HSSI TX PCSs              ; 0                                           ;
-; Total HSSI PMA TX Serializers   ; 0                                           ;
-; Total PLLs                      ; 0                                           ;
-; Total DLLs                      ; 0                                           ;
-+---------------------------------+---------------------------------------------+
++----------------------------------------------------------------------------------+
+; Analysis & Synthesis Summary                                                     ;
++---------------------------------+------------------------------------------------+
+; Analysis & Synthesis Status     ; Successful - Thu Jun  6 00:55:50 2024          ;
+; Quartus Prime Version           ; 23.1std.0 Build 991 11/28/2023 SC Lite Edition ;
+; Revision Name                   ; projeto                                        ;
+; Top-level Entity Name           ; projeto                                        ;
+; Family                          ; Cyclone V                                      ;
+; Logic utilization (in ALMs)     ; N/A                                            ;
+; Total registers                 ; 59                                             ;
+; Total pins                      ; 44                                             ;
+; Total virtual pins              ; 0                                              ;
+; Total block memory bits         ; 2,764,800                                      ;
+; Total DSP Blocks                ; 2                                              ;
+; Total HSSI RX PCSs              ; 0                                              ;
+; Total HSSI PMA RX Deserializers ; 0                                              ;
+; Total HSSI TX PCSs              ; 0                                              ;
+; Total HSSI PMA TX Serializers   ; 0                                              ;
+; Total PLLs                      ; 0                                              ;
+; Total DLLs                      ; 0                                              ;
++---------------------------------+------------------------------------------------+
 
 
 +---------------------------------------------------------------------------------------------------------------------------+
@@ -71,7 +86,7 @@ refer to the applicable agreement for further details.
 ; Top-level entity name                                                           ; projeto            ; projeto            ;
 ; Family name                                                                     ; Cyclone V          ; Cyclone V          ;
 ; Use smart compilation                                                           ; Off                ; Off                ;
-; Enable parallel Assembler and TimeQuest Timing Analyzer during compilation      ; On                 ; On                 ;
+; Enable parallel Assembler and Timing Analyzer during compilation                ; On                 ; On                 ;
 ; Enable compact report table                                                     ; Off                ; Off                ;
 ; Restructure Multiplexers                                                        ; Auto               ; Auto               ;
 ; MLAB Add Timing Constraints For Mixed-Port Feed-Through Mode Setting Don't Care ; Off                ; Off                ;
@@ -154,67 +169,120 @@ refer to the applicable agreement for further details.
 +----------------------------+-------------+
 ; Processors                 ; Number      ;
 +----------------------------+-------------+
-; Number detected on machine ; 20          ;
-; Maximum allowed            ; 12          ;
+; Number detected on machine ; 8           ;
+; Maximum allowed            ; 4           ;
 ;                            ;             ;
 ; Average used               ; 1.00        ;
-; Maximum used               ; 12          ;
+; Maximum used               ; 4           ;
 ;                            ;             ;
 ; Usage by Processor         ; % Time Used ;
 ;     Processor 1            ; 100.0%      ;
-;     Processors 2-12        ;   0.0%      ;
+;     Processor 2            ;   0.0%      ;
+;     Processor 3            ;   0.0%      ;
+;     Processor 4            ;   0.0%      ;
 +----------------------------+-------------+
 
 
-+-----------------------------------------------------------------------------------------------------------------------------------------------------------------+
-; Analysis & Synthesis Source Files Read                                                                                                                          ;
-+----------------------------------+-----------------+------------------------+-------------------------------------------------------------------------+---------+
-; File Name with User-Entered Path ; Used in Netlist ; File Type              ; File Name with Absolute Path                                            ; Library ;
-+----------------------------------+-----------------+------------------------+-------------------------------------------------------------------------+---------+
-; src/projeto.v                    ; yes             ; User Verilog HDL File  ; /home/ec2022/ra260731/Documents/mc613/repositorio/projeto/src/projeto.v ;         ;
-; src/vga.v                        ; yes             ; User Verilog HDL File  ; /home/ec2022/ra260731/Documents/mc613/repositorio/projeto/src/vga.v     ;         ;
-; src/tela.v                       ; yes             ; User Verilog HDL File  ; /home/ec2022/ra260731/Documents/mc613/repositorio/projeto/src/tela.v    ;         ;
-; src/nave.v                       ; yes             ; User Verilog HDL File  ; /home/ec2022/ra260731/Documents/mc613/repositorio/projeto/src/nave.v    ;         ;
-+----------------------------------+-----------------+------------------------+-------------------------------------------------------------------------+---------+
-
-
-+------------------------------------------------------------+
-; Analysis & Synthesis Resource Usage Summary                ;
-+---------------------------------------------+--------------+
-; Resource                                    ; Usage        ;
-+---------------------------------------------+--------------+
-; Estimate of Logic utilization (ALMs needed) ; 30           ;
-;                                             ;              ;
-; Combinational ALUT usage for logic          ; 38           ;
-;     -- 7 input functions                    ; 0            ;
-;     -- 6 input functions                    ; 5            ;
-;     -- 5 input functions                    ; 9            ;
-;     -- 4 input functions                    ; 2            ;
-;     -- <=3 input functions                  ; 22           ;
-;                                             ;              ;
-; Dedicated logic registers                   ; 45           ;
-;                                             ;              ;
-; I/O pins                                    ; 70           ;
-;                                             ;              ;
-; Total DSP Blocks                            ; 0            ;
-;                                             ;              ;
-; Maximum fan-out node                        ; KEY[0]~input ;
-; Maximum fan-out                             ; 27           ;
-; Total fan-out                               ; 403          ;
-; Average fan-out                             ; 1.56         ;
-+---------------------------------------------+--------------+
-
-
 +---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+
-; Analysis & Synthesis Resource Utilization by Entity                                                                                                                                                     ;
-+----------------------------+---------------------+---------------------------+-------------------+------------+------+--------------+--------------------------------------+-------------+--------------+
-; Compilation Hierarchy Node ; Combinational ALUTs ; Dedicated Logic Registers ; Block Memory Bits ; DSP Blocks ; Pins ; Virtual Pins ; Full Hierarchy Name                  ; Entity Name ; Library Name ;
-+----------------------------+---------------------+---------------------------+-------------------+------------+------+--------------+--------------------------------------+-------------+--------------+
-; |projeto                   ; 38 (0)              ; 45 (0)                    ; 0                 ; 0          ; 70   ; 0            ; |projeto                             ; projeto     ; work         ;
-;    |tela:tela_inst|        ; 38 (6)              ; 45 (24)                   ; 0                 ; 0          ; 0    ; 0            ; |projeto|tela:tela_inst              ; tela        ; work         ;
-;       |vga:vga_inst|       ; 32 (32)             ; 21 (21)                   ; 0                 ; 0          ; 0    ; 0            ; |projeto|tela:tela_inst|vga:vga_inst ; vga         ; work         ;
-+----------------------------+---------------------+---------------------------+-------------------+------------+------+--------------+--------------------------------------+-------------+--------------+
+; Analysis & Synthesis Source Files Read                                                                                                                                                                  ;
++----------------------------------+-----------------+------------------------------+-----------------------------------------------------------------------------------------------------------+---------+
+; File Name with User-Entered Path ; Used in Netlist ; File Type                    ; File Name with Absolute Path                                                                              ; Library ;
++----------------------------------+-----------------+------------------------------+-----------------------------------------------------------------------------------------------------------+---------+
+; src/vga.v                        ; yes             ; User Verilog HDL File        ; /home/henrique/Documents/unicamp/mc613/2024s1-mc613-projeto-circuitos-hatsune-miku/src/vga.v              ;         ;
+; src/tela.v                       ; yes             ; User Verilog HDL File        ; /home/henrique/Documents/unicamp/mc613/2024s1-mc613-projeto-circuitos-hatsune-miku/src/tela.v             ;         ;
+; src/projeto.v                    ; yes             ; User Verilog HDL File        ; /home/henrique/Documents/unicamp/mc613/2024s1-mc613-projeto-circuitos-hatsune-miku/src/projeto.v          ;         ;
+; src/memoria.v                    ; yes             ; User Verilog HDL File        ; /home/henrique/Documents/unicamp/mc613/2024s1-mc613-projeto-circuitos-hatsune-miku/src/memoria.v          ;         ;
+; src/keys.v                       ; yes             ; User Verilog HDL File        ; /home/henrique/Documents/unicamp/mc613/2024s1-mc613-projeto-circuitos-hatsune-miku/src/keys.v             ;         ;
+; src/bola.v                       ; yes             ; User Verilog HDL File        ; /home/henrique/Documents/unicamp/mc613/2024s1-mc613-projeto-circuitos-hatsune-miku/src/bola.v             ;         ;
+; altsyncram.tdf                   ; yes             ; Megafunction                 ; /opt/intelFPGA/23.1/quartus/libraries/megafunctions/altsyncram.tdf                                        ;         ;
+; stratix_ram_block.inc            ; yes             ; Megafunction                 ; /opt/intelFPGA/23.1/quartus/libraries/megafunctions/stratix_ram_block.inc                                 ;         ;
+; lpm_mux.inc                      ; yes             ; Megafunction                 ; /opt/intelFPGA/23.1/quartus/libraries/megafunctions/lpm_mux.inc                                           ;         ;
+; lpm_decode.inc                   ; yes             ; Megafunction                 ; /opt/intelFPGA/23.1/quartus/libraries/megafunctions/lpm_decode.inc                                        ;         ;
+; aglobal231.inc                   ; yes             ; Megafunction                 ; /opt/intelFPGA/23.1/quartus/libraries/megafunctions/aglobal231.inc                                        ;         ;
+; a_rdenreg.inc                    ; yes             ; Megafunction                 ; /opt/intelFPGA/23.1/quartus/libraries/megafunctions/a_rdenreg.inc                                         ;         ;
+; altrom.inc                       ; yes             ; Megafunction                 ; /opt/intelFPGA/23.1/quartus/libraries/megafunctions/altrom.inc                                            ;         ;
+; altram.inc                       ; yes             ; Megafunction                 ; /opt/intelFPGA/23.1/quartus/libraries/megafunctions/altram.inc                                            ;         ;
+; altdpram.inc                     ; yes             ; Megafunction                 ; /opt/intelFPGA/23.1/quartus/libraries/megafunctions/altdpram.inc                                          ;         ;
+; db/altsyncram_ifn1.tdf           ; yes             ; Auto-Generated Megafunction  ; /home/henrique/Documents/unicamp/mc613/2024s1-mc613-projeto-circuitos-hatsune-miku/db/altsyncram_ifn1.tdf ;         ;
+; db/decode_3na.tdf                ; yes             ; Auto-Generated Megafunction  ; /home/henrique/Documents/unicamp/mc613/2024s1-mc613-projeto-circuitos-hatsune-miku/db/decode_3na.tdf      ;         ;
+; db/mux_ehb.tdf                   ; yes             ; Auto-Generated Megafunction  ; /home/henrique/Documents/unicamp/mc613/2024s1-mc613-projeto-circuitos-hatsune-miku/db/mux_ehb.tdf         ;         ;
++----------------------------------+-----------------+------------------------------+-----------------------------------------------------------------------------------------------------------+---------+
+
+
++--------------------------------------------------------------+
+; Analysis & Synthesis Resource Usage Summary                  ;
++---------------------------------------------+----------------+
+; Resource                                    ; Usage          ;
++---------------------------------------------+----------------+
+; Estimate of Logic utilization (ALMs needed) ; 249            ;
+;                                             ;                ;
+; Combinational ALUT usage for logic          ; 337            ;
+;     -- 7 input functions                    ; 3              ;
+;     -- 6 input functions                    ; 156            ;
+;     -- 5 input functions                    ; 14             ;
+;     -- 4 input functions                    ; 10             ;
+;     -- <=3 input functions                  ; 154            ;
+;                                             ;                ;
+; Dedicated logic registers                   ; 59             ;
+;                                             ;                ;
+; I/O pins                                    ; 44             ;
+; Total MLAB memory bits                      ; 0              ;
+; Total block memory bits                     ; 2764800        ;
+;                                             ;                ;
+; Total DSP Blocks                            ; 2              ;
+;                                             ;                ;
+; Maximum fan-out node                        ; CLOCK_50~input ;
+; Maximum fan-out                             ; 381            ;
+; Total fan-out                               ; 11540          ;
+; Average fan-out                             ; 13.94          ;
++---------------------------------------------+----------------+
+
+
++----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+
+; Analysis & Synthesis Resource Utilization by Entity                                                                                                                                                                                                                                          ;
++-------------------------------------------+---------------------+---------------------------+-------------------+------------+------+--------------+--------------------------------------------------------------------------------------------------------+-----------------+--------------+
+; Compilation Hierarchy Node                ; Combinational ALUTs ; Dedicated Logic Registers ; Block Memory Bits ; DSP Blocks ; Pins ; Virtual Pins ; Full Hierarchy Name                                                                                    ; Entity Name     ; Library Name ;
++-------------------------------------------+---------------------+---------------------------+-------------------+------------+------+--------------+--------------------------------------------------------------------------------------------------------+-----------------+--------------+
+; |projeto                                  ; 337 (39)            ; 59 (0)                    ; 2764800           ; 2          ; 44   ; 0            ; |projeto                                                                                               ; projeto         ; work         ;
+;    |memoria:memoriaInstancia|             ; 266 (129)           ; 38 (20)                   ; 2764800           ; 2          ; 0    ; 0            ; |projeto|memoria:memoriaInstancia                                                                      ; memoria         ; work         ;
+;       |altsyncram:B_rtl_0|                ; 33 (0)              ; 6 (0)                     ; 921600            ; 0          ; 0    ; 0            ; |projeto|memoria:memoriaInstancia|altsyncram:B_rtl_0                                                   ; altsyncram      ; work         ;
+;          |altsyncram_ifn1:auto_generated| ; 33 (0)              ; 6 (6)                     ; 921600            ; 0          ; 0    ; 0            ; |projeto|memoria:memoriaInstancia|altsyncram:B_rtl_0|altsyncram_ifn1:auto_generated                    ; altsyncram_ifn1 ; work         ;
+;             |mux_ehb:mux3|                ; 33 (33)             ; 0 (0)                     ; 0                 ; 0          ; 0    ; 0            ; |projeto|memoria:memoriaInstancia|altsyncram:B_rtl_0|altsyncram_ifn1:auto_generated|mux_ehb:mux3       ; mux_ehb         ; work         ;
+;       |altsyncram:G_rtl_0|                ; 33 (0)              ; 6 (0)                     ; 921600            ; 0          ; 0    ; 0            ; |projeto|memoria:memoriaInstancia|altsyncram:G_rtl_0                                                   ; altsyncram      ; work         ;
+;          |altsyncram_ifn1:auto_generated| ; 33 (0)              ; 6 (6)                     ; 921600            ; 0          ; 0    ; 0            ; |projeto|memoria:memoriaInstancia|altsyncram:G_rtl_0|altsyncram_ifn1:auto_generated                    ; altsyncram_ifn1 ; work         ;
+;             |mux_ehb:mux3|                ; 33 (33)             ; 0 (0)                     ; 0                 ; 0          ; 0    ; 0            ; |projeto|memoria:memoriaInstancia|altsyncram:G_rtl_0|altsyncram_ifn1:auto_generated|mux_ehb:mux3       ; mux_ehb         ; work         ;
+;       |altsyncram:R_rtl_0|                ; 71 (0)              ; 6 (0)                     ; 921600            ; 0          ; 0    ; 0            ; |projeto|memoria:memoriaInstancia|altsyncram:R_rtl_0                                                   ; altsyncram      ; work         ;
+;          |altsyncram_ifn1:auto_generated| ; 71 (0)              ; 6 (6)                     ; 921600            ; 0          ; 0    ; 0            ; |projeto|memoria:memoriaInstancia|altsyncram:R_rtl_0|altsyncram_ifn1:auto_generated                    ; altsyncram_ifn1 ; work         ;
+;             |decode_3na:decode2|          ; 38 (38)             ; 0 (0)                     ; 0                 ; 0          ; 0    ; 0            ; |projeto|memoria:memoriaInstancia|altsyncram:R_rtl_0|altsyncram_ifn1:auto_generated|decode_3na:decode2 ; decode_3na      ; work         ;
+;             |mux_ehb:mux3|                ; 33 (33)             ; 0 (0)                     ; 0                 ; 0          ; 0    ; 0            ; |projeto|memoria:memoriaInstancia|altsyncram:R_rtl_0|altsyncram_ifn1:auto_generated|mux_ehb:mux3       ; mux_ehb         ; work         ;
+;    |tela:telaInstancia|                   ; 32 (0)              ; 21 (0)                    ; 0                 ; 0          ; 0    ; 0            ; |projeto|tela:telaInstancia                                                                            ; tela            ; work         ;
+;       |vga:v|                             ; 32 (32)             ; 21 (21)                   ; 0                 ; 0          ; 0    ; 0            ; |projeto|tela:telaInstancia|vga:v                                                                      ; vga             ; work         ;
++-------------------------------------------+---------------------+---------------------------+-------------------+------------+------+--------------+--------------------------------------------------------------------------------------------------------+-----------------+--------------+
 Note: For table entries with two numbers listed, the numbers in parentheses indicate the number of resources of the given type used by the specific entity alone. The numbers listed outside of parentheses indicate the total resources of the given type used by the specific entity and all of its sub-entities in the hierarchy.
+
+
++---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+
+; Analysis & Synthesis RAM Summary                                                                                                                                                            ;
++---------------------------------------------------------------------------------------+------+------------------+--------------+--------------+--------------+--------------+--------+------+
+; Name                                                                                  ; Type ; Mode             ; Port A Depth ; Port A Width ; Port B Depth ; Port B Width ; Size   ; MIF  ;
++---------------------------------------------------------------------------------------+------+------------------+--------------+--------------+--------------+--------------+--------+------+
+; memoria:memoriaInstancia|altsyncram:B_rtl_0|altsyncram_ifn1:auto_generated|ALTSYNCRAM ; AUTO ; Simple Dual Port ; 307200       ; 3            ; 307200       ; 3            ; 921600 ; None ;
+; memoria:memoriaInstancia|altsyncram:G_rtl_0|altsyncram_ifn1:auto_generated|ALTSYNCRAM ; AUTO ; Simple Dual Port ; 307200       ; 3            ; 307200       ; 3            ; 921600 ; None ;
+; memoria:memoriaInstancia|altsyncram:R_rtl_0|altsyncram_ifn1:auto_generated|ALTSYNCRAM ; AUTO ; Simple Dual Port ; 307200       ; 3            ; 307200       ; 3            ; 921600 ; None ;
++---------------------------------------------------------------------------------------+------+------------------+--------------+--------------+--------------+--------------+--------+------+
+
+
++-----------------------------------------------+
+; Analysis & Synthesis DSP Block Usage Summary  ;
++---------------------------------+-------------+
+; Statistic                       ; Number Used ;
++---------------------------------+-------------+
+; Independent 9x9                 ; 1           ;
+; Sum of two 18x18                ; 1           ;
+; Total number of DSP blocks      ; 2           ;
+;                                 ;             ;
+; Fixed Point Unsigned Multiplier ; 3           ;
++---------------------------------+-------------+
 
 
 +------------------------------------------------------+
@@ -222,14 +290,350 @@ Note: For table entries with two numbers listed, the numbers in parentheses indi
 +----------------------------------------------+-------+
 ; Statistic                                    ; Value ;
 +----------------------------------------------+-------+
-; Total registers                              ; 45    ;
-; Number of registers using Synchronous Clear  ; 20    ;
+; Total registers                              ; 59    ;
+; Number of registers using Synchronous Clear  ; 40    ;
 ; Number of registers using Synchronous Load   ; 0     ;
-; Number of registers using Asynchronous Clear ; 24    ;
+; Number of registers using Asynchronous Clear ; 0     ;
 ; Number of registers using Asynchronous Load  ; 0     ;
-; Number of registers using Clock Enable       ; 10    ;
+; Number of registers using Clock Enable       ; 20    ;
 ; Number of registers using Preset             ; 0     ;
 +----------------------------------------------+-------+
+
+
++--------------------------------------------------------------------------------+
+; Registers Packed Into Inferred Megafunctions                                   ;
++--------------------------------------+----------------------------------+------+
+; Register Name                        ; Megafunction                     ; Type ;
++--------------------------------------+----------------------------------+------+
+; memoria:memoriaInstancia|VGA_R[0..2] ; memoria:memoriaInstancia|R_rtl_0 ; RAM  ;
+; memoria:memoriaInstancia|VGA_G[0..2] ; memoria:memoriaInstancia|G_rtl_0 ; RAM  ;
+; memoria:memoriaInstancia|VGA_B[0..2] ; memoria:memoriaInstancia|B_rtl_0 ; RAM  ;
++--------------------------------------+----------------------------------+------+
+
+
++---------------------------------------------------------------------------------------------------+
+; Source assignments for memoria:memoriaInstancia|altsyncram:R_rtl_0|altsyncram_ifn1:auto_generated ;
++---------------------------------+--------------------+------+-------------------------------------+
+; Assignment                      ; Value              ; From ; To                                  ;
++---------------------------------+--------------------+------+-------------------------------------+
+; OPTIMIZE_POWER_DURING_SYNTHESIS ; NORMAL_COMPILATION ; -    ; -                                   ;
++---------------------------------+--------------------+------+-------------------------------------+
+
+
++---------------------------------------------------------------------------------------------------+
+; Source assignments for memoria:memoriaInstancia|altsyncram:G_rtl_0|altsyncram_ifn1:auto_generated ;
++---------------------------------+--------------------+------+-------------------------------------+
+; Assignment                      ; Value              ; From ; To                                  ;
++---------------------------------+--------------------+------+-------------------------------------+
+; OPTIMIZE_POWER_DURING_SYNTHESIS ; NORMAL_COMPILATION ; -    ; -                                   ;
++---------------------------------+--------------------+------+-------------------------------------+
+
+
++---------------------------------------------------------------------------------------------------+
+; Source assignments for memoria:memoriaInstancia|altsyncram:B_rtl_0|altsyncram_ifn1:auto_generated ;
++---------------------------------+--------------------+------+-------------------------------------+
+; Assignment                      ; Value              ; From ; To                                  ;
++---------------------------------+--------------------+------+-------------------------------------+
+; OPTIMIZE_POWER_DURING_SYNTHESIS ; NORMAL_COMPILATION ; -    ; -                                   ;
++---------------------------------+--------------------+------+-------------------------------------+
+
+
++----------------------------------------------------------------------------------------------+
+; Parameter Settings for Inferred Entity Instance: memoria:memoriaInstancia|altsyncram:R_rtl_0 ;
++------------------------------------+----------------------+----------------------------------+
+; Parameter Name                     ; Value                ; Type                             ;
++------------------------------------+----------------------+----------------------------------+
+; BYTE_SIZE_BLOCK                    ; 8                    ; Untyped                          ;
+; AUTO_CARRY_CHAINS                  ; ON                   ; AUTO_CARRY                       ;
+; IGNORE_CARRY_BUFFERS               ; OFF                  ; IGNORE_CARRY                     ;
+; AUTO_CASCADE_CHAINS                ; ON                   ; AUTO_CASCADE                     ;
+; IGNORE_CASCADE_BUFFERS             ; OFF                  ; IGNORE_CASCADE                   ;
+; WIDTH_BYTEENA                      ; 1                    ; Untyped                          ;
+; OPERATION_MODE                     ; DUAL_PORT            ; Untyped                          ;
+; WIDTH_A                            ; 3                    ; Untyped                          ;
+; WIDTHAD_A                          ; 19                   ; Untyped                          ;
+; NUMWORDS_A                         ; 307200               ; Untyped                          ;
+; OUTDATA_REG_A                      ; UNREGISTERED         ; Untyped                          ;
+; ADDRESS_ACLR_A                     ; NONE                 ; Untyped                          ;
+; OUTDATA_ACLR_A                     ; NONE                 ; Untyped                          ;
+; WRCONTROL_ACLR_A                   ; NONE                 ; Untyped                          ;
+; INDATA_ACLR_A                      ; NONE                 ; Untyped                          ;
+; BYTEENA_ACLR_A                     ; NONE                 ; Untyped                          ;
+; WIDTH_B                            ; 3                    ; Untyped                          ;
+; WIDTHAD_B                          ; 19                   ; Untyped                          ;
+; NUMWORDS_B                         ; 307200               ; Untyped                          ;
+; INDATA_REG_B                       ; CLOCK1               ; Untyped                          ;
+; WRCONTROL_WRADDRESS_REG_B          ; CLOCK1               ; Untyped                          ;
+; RDCONTROL_REG_B                    ; CLOCK1               ; Untyped                          ;
+; ADDRESS_REG_B                      ; CLOCK0               ; Untyped                          ;
+; OUTDATA_REG_B                      ; UNREGISTERED         ; Untyped                          ;
+; BYTEENA_REG_B                      ; CLOCK1               ; Untyped                          ;
+; INDATA_ACLR_B                      ; NONE                 ; Untyped                          ;
+; WRCONTROL_ACLR_B                   ; NONE                 ; Untyped                          ;
+; ADDRESS_ACLR_B                     ; NONE                 ; Untyped                          ;
+; OUTDATA_ACLR_B                     ; NONE                 ; Untyped                          ;
+; RDCONTROL_ACLR_B                   ; NONE                 ; Untyped                          ;
+; BYTEENA_ACLR_B                     ; NONE                 ; Untyped                          ;
+; WIDTH_BYTEENA_A                    ; 1                    ; Untyped                          ;
+; WIDTH_BYTEENA_B                    ; 1                    ; Untyped                          ;
+; RAM_BLOCK_TYPE                     ; AUTO                 ; Untyped                          ;
+; BYTE_SIZE                          ; 8                    ; Untyped                          ;
+; READ_DURING_WRITE_MODE_MIXED_PORTS ; OLD_DATA             ; Untyped                          ;
+; READ_DURING_WRITE_MODE_PORT_A      ; NEW_DATA_NO_NBE_READ ; Untyped                          ;
+; READ_DURING_WRITE_MODE_PORT_B      ; NEW_DATA_NO_NBE_READ ; Untyped                          ;
+; INIT_FILE                          ; UNUSED               ; Untyped                          ;
+; INIT_FILE_LAYOUT                   ; PORT_A               ; Untyped                          ;
+; MAXIMUM_DEPTH                      ; 0                    ; Untyped                          ;
+; CLOCK_ENABLE_INPUT_A               ; NORMAL               ; Untyped                          ;
+; CLOCK_ENABLE_INPUT_B               ; NORMAL               ; Untyped                          ;
+; CLOCK_ENABLE_OUTPUT_A              ; NORMAL               ; Untyped                          ;
+; CLOCK_ENABLE_OUTPUT_B              ; NORMAL               ; Untyped                          ;
+; CLOCK_ENABLE_CORE_A                ; USE_INPUT_CLKEN      ; Untyped                          ;
+; CLOCK_ENABLE_CORE_B                ; USE_INPUT_CLKEN      ; Untyped                          ;
+; ENABLE_ECC                         ; FALSE                ; Untyped                          ;
+; ECC_PIPELINE_STAGE_ENABLED         ; FALSE                ; Untyped                          ;
+; WIDTH_ECCSTATUS                    ; 3                    ; Untyped                          ;
+; DEVICE_FAMILY                      ; Cyclone V            ; Untyped                          ;
+; CBXI_PARAMETER                     ; altsyncram_ifn1      ; Untyped                          ;
++------------------------------------+----------------------+----------------------------------+
+Note: In order to hide this table in the UI and the text report file, please set the "Show Parameter Settings in Synthesis Report" option in "Analysis and Synthesis Settings -> More Settings" to "Off".
+
+
++----------------------------------------------------------------------------------------------+
+; Parameter Settings for Inferred Entity Instance: memoria:memoriaInstancia|altsyncram:G_rtl_0 ;
++------------------------------------+----------------------+----------------------------------+
+; Parameter Name                     ; Value                ; Type                             ;
++------------------------------------+----------------------+----------------------------------+
+; BYTE_SIZE_BLOCK                    ; 8                    ; Untyped                          ;
+; AUTO_CARRY_CHAINS                  ; ON                   ; AUTO_CARRY                       ;
+; IGNORE_CARRY_BUFFERS               ; OFF                  ; IGNORE_CARRY                     ;
+; AUTO_CASCADE_CHAINS                ; ON                   ; AUTO_CASCADE                     ;
+; IGNORE_CASCADE_BUFFERS             ; OFF                  ; IGNORE_CASCADE                   ;
+; WIDTH_BYTEENA                      ; 1                    ; Untyped                          ;
+; OPERATION_MODE                     ; DUAL_PORT            ; Untyped                          ;
+; WIDTH_A                            ; 3                    ; Untyped                          ;
+; WIDTHAD_A                          ; 19                   ; Untyped                          ;
+; NUMWORDS_A                         ; 307200               ; Untyped                          ;
+; OUTDATA_REG_A                      ; UNREGISTERED         ; Untyped                          ;
+; ADDRESS_ACLR_A                     ; NONE                 ; Untyped                          ;
+; OUTDATA_ACLR_A                     ; NONE                 ; Untyped                          ;
+; WRCONTROL_ACLR_A                   ; NONE                 ; Untyped                          ;
+; INDATA_ACLR_A                      ; NONE                 ; Untyped                          ;
+; BYTEENA_ACLR_A                     ; NONE                 ; Untyped                          ;
+; WIDTH_B                            ; 3                    ; Untyped                          ;
+; WIDTHAD_B                          ; 19                   ; Untyped                          ;
+; NUMWORDS_B                         ; 307200               ; Untyped                          ;
+; INDATA_REG_B                       ; CLOCK1               ; Untyped                          ;
+; WRCONTROL_WRADDRESS_REG_B          ; CLOCK1               ; Untyped                          ;
+; RDCONTROL_REG_B                    ; CLOCK1               ; Untyped                          ;
+; ADDRESS_REG_B                      ; CLOCK0               ; Untyped                          ;
+; OUTDATA_REG_B                      ; UNREGISTERED         ; Untyped                          ;
+; BYTEENA_REG_B                      ; CLOCK1               ; Untyped                          ;
+; INDATA_ACLR_B                      ; NONE                 ; Untyped                          ;
+; WRCONTROL_ACLR_B                   ; NONE                 ; Untyped                          ;
+; ADDRESS_ACLR_B                     ; NONE                 ; Untyped                          ;
+; OUTDATA_ACLR_B                     ; NONE                 ; Untyped                          ;
+; RDCONTROL_ACLR_B                   ; NONE                 ; Untyped                          ;
+; BYTEENA_ACLR_B                     ; NONE                 ; Untyped                          ;
+; WIDTH_BYTEENA_A                    ; 1                    ; Untyped                          ;
+; WIDTH_BYTEENA_B                    ; 1                    ; Untyped                          ;
+; RAM_BLOCK_TYPE                     ; AUTO                 ; Untyped                          ;
+; BYTE_SIZE                          ; 8                    ; Untyped                          ;
+; READ_DURING_WRITE_MODE_MIXED_PORTS ; OLD_DATA             ; Untyped                          ;
+; READ_DURING_WRITE_MODE_PORT_A      ; NEW_DATA_NO_NBE_READ ; Untyped                          ;
+; READ_DURING_WRITE_MODE_PORT_B      ; NEW_DATA_NO_NBE_READ ; Untyped                          ;
+; INIT_FILE                          ; UNUSED               ; Untyped                          ;
+; INIT_FILE_LAYOUT                   ; PORT_A               ; Untyped                          ;
+; MAXIMUM_DEPTH                      ; 0                    ; Untyped                          ;
+; CLOCK_ENABLE_INPUT_A               ; NORMAL               ; Untyped                          ;
+; CLOCK_ENABLE_INPUT_B               ; NORMAL               ; Untyped                          ;
+; CLOCK_ENABLE_OUTPUT_A              ; NORMAL               ; Untyped                          ;
+; CLOCK_ENABLE_OUTPUT_B              ; NORMAL               ; Untyped                          ;
+; CLOCK_ENABLE_CORE_A                ; USE_INPUT_CLKEN      ; Untyped                          ;
+; CLOCK_ENABLE_CORE_B                ; USE_INPUT_CLKEN      ; Untyped                          ;
+; ENABLE_ECC                         ; FALSE                ; Untyped                          ;
+; ECC_PIPELINE_STAGE_ENABLED         ; FALSE                ; Untyped                          ;
+; WIDTH_ECCSTATUS                    ; 3                    ; Untyped                          ;
+; DEVICE_FAMILY                      ; Cyclone V            ; Untyped                          ;
+; CBXI_PARAMETER                     ; altsyncram_ifn1      ; Untyped                          ;
++------------------------------------+----------------------+----------------------------------+
+Note: In order to hide this table in the UI and the text report file, please set the "Show Parameter Settings in Synthesis Report" option in "Analysis and Synthesis Settings -> More Settings" to "Off".
+
+
++----------------------------------------------------------------------------------------------+
+; Parameter Settings for Inferred Entity Instance: memoria:memoriaInstancia|altsyncram:B_rtl_0 ;
++------------------------------------+----------------------+----------------------------------+
+; Parameter Name                     ; Value                ; Type                             ;
++------------------------------------+----------------------+----------------------------------+
+; BYTE_SIZE_BLOCK                    ; 8                    ; Untyped                          ;
+; AUTO_CARRY_CHAINS                  ; ON                   ; AUTO_CARRY                       ;
+; IGNORE_CARRY_BUFFERS               ; OFF                  ; IGNORE_CARRY                     ;
+; AUTO_CASCADE_CHAINS                ; ON                   ; AUTO_CASCADE                     ;
+; IGNORE_CASCADE_BUFFERS             ; OFF                  ; IGNORE_CASCADE                   ;
+; WIDTH_BYTEENA                      ; 1                    ; Untyped                          ;
+; OPERATION_MODE                     ; DUAL_PORT            ; Untyped                          ;
+; WIDTH_A                            ; 3                    ; Untyped                          ;
+; WIDTHAD_A                          ; 19                   ; Untyped                          ;
+; NUMWORDS_A                         ; 307200               ; Untyped                          ;
+; OUTDATA_REG_A                      ; UNREGISTERED         ; Untyped                          ;
+; ADDRESS_ACLR_A                     ; NONE                 ; Untyped                          ;
+; OUTDATA_ACLR_A                     ; NONE                 ; Untyped                          ;
+; WRCONTROL_ACLR_A                   ; NONE                 ; Untyped                          ;
+; INDATA_ACLR_A                      ; NONE                 ; Untyped                          ;
+; BYTEENA_ACLR_A                     ; NONE                 ; Untyped                          ;
+; WIDTH_B                            ; 3                    ; Untyped                          ;
+; WIDTHAD_B                          ; 19                   ; Untyped                          ;
+; NUMWORDS_B                         ; 307200               ; Untyped                          ;
+; INDATA_REG_B                       ; CLOCK1               ; Untyped                          ;
+; WRCONTROL_WRADDRESS_REG_B          ; CLOCK1               ; Untyped                          ;
+; RDCONTROL_REG_B                    ; CLOCK1               ; Untyped                          ;
+; ADDRESS_REG_B                      ; CLOCK0               ; Untyped                          ;
+; OUTDATA_REG_B                      ; UNREGISTERED         ; Untyped                          ;
+; BYTEENA_REG_B                      ; CLOCK1               ; Untyped                          ;
+; INDATA_ACLR_B                      ; NONE                 ; Untyped                          ;
+; WRCONTROL_ACLR_B                   ; NONE                 ; Untyped                          ;
+; ADDRESS_ACLR_B                     ; NONE                 ; Untyped                          ;
+; OUTDATA_ACLR_B                     ; NONE                 ; Untyped                          ;
+; RDCONTROL_ACLR_B                   ; NONE                 ; Untyped                          ;
+; BYTEENA_ACLR_B                     ; NONE                 ; Untyped                          ;
+; WIDTH_BYTEENA_A                    ; 1                    ; Untyped                          ;
+; WIDTH_BYTEENA_B                    ; 1                    ; Untyped                          ;
+; RAM_BLOCK_TYPE                     ; AUTO                 ; Untyped                          ;
+; BYTE_SIZE                          ; 8                    ; Untyped                          ;
+; READ_DURING_WRITE_MODE_MIXED_PORTS ; OLD_DATA             ; Untyped                          ;
+; READ_DURING_WRITE_MODE_PORT_A      ; NEW_DATA_NO_NBE_READ ; Untyped                          ;
+; READ_DURING_WRITE_MODE_PORT_B      ; NEW_DATA_NO_NBE_READ ; Untyped                          ;
+; INIT_FILE                          ; UNUSED               ; Untyped                          ;
+; INIT_FILE_LAYOUT                   ; PORT_A               ; Untyped                          ;
+; MAXIMUM_DEPTH                      ; 0                    ; Untyped                          ;
+; CLOCK_ENABLE_INPUT_A               ; NORMAL               ; Untyped                          ;
+; CLOCK_ENABLE_INPUT_B               ; NORMAL               ; Untyped                          ;
+; CLOCK_ENABLE_OUTPUT_A              ; NORMAL               ; Untyped                          ;
+; CLOCK_ENABLE_OUTPUT_B              ; NORMAL               ; Untyped                          ;
+; CLOCK_ENABLE_CORE_A                ; USE_INPUT_CLKEN      ; Untyped                          ;
+; CLOCK_ENABLE_CORE_B                ; USE_INPUT_CLKEN      ; Untyped                          ;
+; ENABLE_ECC                         ; FALSE                ; Untyped                          ;
+; ECC_PIPELINE_STAGE_ENABLED         ; FALSE                ; Untyped                          ;
+; WIDTH_ECCSTATUS                    ; 3                    ; Untyped                          ;
+; DEVICE_FAMILY                      ; Cyclone V            ; Untyped                          ;
+; CBXI_PARAMETER                     ; altsyncram_ifn1      ; Untyped                          ;
++------------------------------------+----------------------+----------------------------------+
+Note: In order to hide this table in the UI and the text report file, please set the "Show Parameter Settings in Synthesis Report" option in "Analysis and Synthesis Settings -> More Settings" to "Off".
+
+
++-----------------------------------------------------------------------------------------+
+; altsyncram Parameter Settings by Entity Instance                                        ;
++-------------------------------------------+---------------------------------------------+
+; Name                                      ; Value                                       ;
++-------------------------------------------+---------------------------------------------+
+; Number of entity instances                ; 3                                           ;
+; Entity Instance                           ; memoria:memoriaInstancia|altsyncram:R_rtl_0 ;
+;     -- OPERATION_MODE                     ; DUAL_PORT                                   ;
+;     -- WIDTH_A                            ; 3                                           ;
+;     -- NUMWORDS_A                         ; 307200                                      ;
+;     -- OUTDATA_REG_A                      ; UNREGISTERED                                ;
+;     -- WIDTH_B                            ; 3                                           ;
+;     -- NUMWORDS_B                         ; 307200                                      ;
+;     -- ADDRESS_REG_B                      ; CLOCK0                                      ;
+;     -- OUTDATA_REG_B                      ; UNREGISTERED                                ;
+;     -- RAM_BLOCK_TYPE                     ; AUTO                                        ;
+;     -- READ_DURING_WRITE_MODE_MIXED_PORTS ; OLD_DATA                                    ;
+; Entity Instance                           ; memoria:memoriaInstancia|altsyncram:G_rtl_0 ;
+;     -- OPERATION_MODE                     ; DUAL_PORT                                   ;
+;     -- WIDTH_A                            ; 3                                           ;
+;     -- NUMWORDS_A                         ; 307200                                      ;
+;     -- OUTDATA_REG_A                      ; UNREGISTERED                                ;
+;     -- WIDTH_B                            ; 3                                           ;
+;     -- NUMWORDS_B                         ; 307200                                      ;
+;     -- ADDRESS_REG_B                      ; CLOCK0                                      ;
+;     -- OUTDATA_REG_B                      ; UNREGISTERED                                ;
+;     -- RAM_BLOCK_TYPE                     ; AUTO                                        ;
+;     -- READ_DURING_WRITE_MODE_MIXED_PORTS ; OLD_DATA                                    ;
+; Entity Instance                           ; memoria:memoriaInstancia|altsyncram:B_rtl_0 ;
+;     -- OPERATION_MODE                     ; DUAL_PORT                                   ;
+;     -- WIDTH_A                            ; 3                                           ;
+;     -- NUMWORDS_A                         ; 307200                                      ;
+;     -- OUTDATA_REG_A                      ; UNREGISTERED                                ;
+;     -- WIDTH_B                            ; 3                                           ;
+;     -- NUMWORDS_B                         ; 307200                                      ;
+;     -- ADDRESS_REG_B                      ; CLOCK0                                      ;
+;     -- OUTDATA_REG_B                      ; UNREGISTERED                                ;
+;     -- RAM_BLOCK_TYPE                     ; AUTO                                        ;
+;     -- READ_DURING_WRITE_MODE_MIXED_PORTS ; OLD_DATA                                    ;
++-------------------------------------------+---------------------------------------------+
+
+
++-----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+
+; Port Connectivity Checks: "memoria:memoriaInstancia"                                                                                                                                                                  ;
++--------------+-------+----------+-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+
+; Port         ; Type  ; Severity ; Details                                                                                                                                                                             ;
++--------------+-------+----------+-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+
+; w_enable     ; Input ; Warning  ; Input port expression (32 bits) is wider than the input port (1 bits) it drives.  The 31 most-significant bit(s) in the expression will be dangling if they have no other fanouts.  ;
+; w_enable[-1] ; Input ; Info     ; Stuck at VCC                                                                                                                                                                        ;
+; xVGA         ; Input ; Warning  ; Input port expression (32 bits) is wider than the input port (10 bits) it drives.  The 22 most-significant bit(s) in the expression will be dangling if they have no other fanouts. ;
+; yVGA         ; Input ; Warning  ; Input port expression (32 bits) is wider than the input port (10 bits) it drives.  The 22 most-significant bit(s) in the expression will be dangling if they have no other fanouts. ;
++--------------+-------+----------+-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+
+
+
++--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+
+; Port Connectivity Checks: "tela:telaInstancia"                                                                                                                                                                                 ;
++-----------------------+-------+----------+-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+
+; Port                  ; Type  ; Severity ; Details                                                                                                                                                                             ;
++-----------------------+-------+----------+-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+
+; perdeu                ; Input ; Warning  ; Input port expression (32 bits) is wider than the input port (1 bits) it drives.  The 31 most-significant bit(s) in the expression will be dangling if they have no other fanouts.  ;
+; perdeu[-1]            ; Input ; Info     ; Stuck at GND                                                                                                                                                                        ;
+; BordaNaveX            ; Input ; Warning  ; Input port expression (32 bits) is wider than the input port (10 bits) it drives.  The 22 most-significant bit(s) in the expression will be dangling if they have no other fanouts. ;
+; BordaNaveX[9..0]      ; Input ; Info     ; Stuck at GND                                                                                                                                                                        ;
+; BordaNaveY            ; Input ; Warning  ; Input port expression (32 bits) is wider than the input port (10 bits) it drives.  The 22 most-significant bit(s) in the expression will be dangling if they have no other fanouts. ;
+; BordaNaveY[9..0]      ; Input ; Info     ; Stuck at GND                                                                                                                                                                        ;
+; LarguraNave           ; Input ; Warning  ; Input port expression (32 bits) is wider than the input port (10 bits) it drives.  The 22 most-significant bit(s) in the expression will be dangling if they have no other fanouts. ;
+; LarguraNave[9..0]     ; Input ; Info     ; Stuck at GND                                                                                                                                                                        ;
+; AlturaNave            ; Input ; Warning  ; Input port expression (32 bits) is wider than the input port (10 bits) it drives.  The 22 most-significant bit(s) in the expression will be dangling if they have no other fanouts. ;
+; AlturaNave[9..0]      ; Input ; Info     ; Stuck at GND                                                                                                                                                                        ;
+; BordaInimigoX         ; Input ; Warning  ; Input port expression (32 bits) is wider than the input port (10 bits) it drives.  The 22 most-significant bit(s) in the expression will be dangling if they have no other fanouts. ;
+; BordaInimigoX[9..0]   ; Input ; Info     ; Stuck at GND                                                                                                                                                                        ;
+; BordaInimigoY         ; Input ; Warning  ; Input port expression (32 bits) is wider than the input port (10 bits) it drives.  The 22 most-significant bit(s) in the expression will be dangling if they have no other fanouts. ;
+; BordaInimigoY[9..0]   ; Input ; Info     ; Stuck at GND                                                                                                                                                                        ;
+; LarguraInimigo        ; Input ; Warning  ; Input port expression (32 bits) is wider than the input port (10 bits) it drives.  The 22 most-significant bit(s) in the expression will be dangling if they have no other fanouts. ;
+; LarguraInimigo[9..0]  ; Input ; Info     ; Stuck at GND                                                                                                                                                                        ;
+; AlturaInimigo         ; Input ; Warning  ; Input port expression (32 bits) is wider than the input port (10 bits) it drives.  The 22 most-significant bit(s) in the expression will be dangling if they have no other fanouts. ;
+; AlturaInimigo[9..0]   ; Input ; Info     ; Stuck at GND                                                                                                                                                                        ;
+; BolaInimigoX          ; Input ; Warning  ; Input port expression (32 bits) is wider than the input port (10 bits) it drives.  The 22 most-significant bit(s) in the expression will be dangling if they have no other fanouts. ;
+; BolaInimigoX[9..0]    ; Input ; Info     ; Stuck at GND                                                                                                                                                                        ;
+; BolaInimigoY          ; Input ; Warning  ; Input port expression (32 bits) is wider than the input port (10 bits) it drives.  The 22 most-significant bit(s) in the expression will be dangling if they have no other fanouts. ;
+; BolaInimigoY[9..0]    ; Input ; Info     ; Stuck at GND                                                                                                                                                                        ;
+; RaioBolaInimigo       ; Input ; Warning  ; Input port expression (32 bits) is wider than the input port (10 bits) it drives.  The 22 most-significant bit(s) in the expression will be dangling if they have no other fanouts. ;
+; RaioBolaInimigo[9..0] ; Input ; Info     ; Stuck at GND                                                                                                                                                                        ;
++-----------------------+-------+----------+-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+
+
+
++-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+
+; Port Connectivity Checks: "bola:bolaNave"                                                                                                                                                                               ;
++----------------+--------+----------+------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+
+; Port           ; Type   ; Severity ; Details                                                                                                                                                                            ;
++----------------+--------+----------+------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+
+; x              ; Output ; Warning  ; Output or bidir port (10 bits) is wider than the port expression (1 bits) it drives; bit(s) "x[9..1]" have no fanouts                                                              ;
+; x              ; Output ; Info     ; Connected to dangling logic. Logic that only feeds a dangling port will be removed.                                                                                                ;
+; y              ; Output ; Warning  ; Output or bidir port (10 bits) is wider than the port expression (1 bits) it drives; bit(s) "y[9..1]" have no fanouts                                                              ;
+; y              ; Output ; Info     ; Connected to dangling logic. Logic that only feeds a dangling port will be removed.                                                                                                ;
+; raio           ; Output ; Warning  ; Output or bidir port (10 bits) is wider than the port expression (1 bits) it drives; bit(s) "raio[9..1]" have no fanouts                                                           ;
+; raio           ; Output ; Info     ; Connected to dangling logic. Logic that only feeds a dangling port will be removed.                                                                                                ;
+; ehNave         ; Input  ; Warning  ; Input port expression (32 bits) is wider than the input port (1 bits) it drives.  The 31 most-significant bit(s) in the expression will be dangling if they have no other fanouts. ;
+; ehNave[-1]     ; Input  ; Info     ; Stuck at VCC                                                                                                                                                                       ;
+; ehInimigo      ; Input  ; Warning  ; Input port expression (32 bits) is wider than the input port (1 bits) it drives.  The 31 most-significant bit(s) in the expression will be dangling if they have no other fanouts. ;
+; ehInimigo[-1]  ; Input  ; Info     ; Stuck at GND                                                                                                                                                                       ;
+; atingiuInimigo ; Output ; Info     ; Explicitly unconnected                                                                                                                                                             ;
+; atingiuNave    ; Output ; Info     ; Explicitly unconnected                                                                                                                                                             ;
++----------------+--------+----------+------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+
+
+
++-------------------------------------------------------------------------------------------------------------------------+
+; Port Connectivity Checks: "keys:keysInstancia"                                                                          ;
++---------------+--------+----------+-------------------------------------------------------------------------------------+
+; Port          ; Type   ; Severity ; Details                                                                             ;
++---------------+--------+----------+-------------------------------------------------------------------------------------+
+; keysout[2..0] ; Output ; Info     ; Connected to dangling logic. Logic that only feeds a dangling port will be removed. ;
++---------------+--------+----------+-------------------------------------------------------------------------------------+
 
 
 +-----------------------------------------------------+
@@ -237,27 +641,32 @@ Note: For table entries with two numbers listed, the numbers in parentheses indi
 +-----------------------+-----------------------------+
 ; Type                  ; Count                       ;
 +-----------------------+-----------------------------+
-; arriav_ff             ; 45                          ;
-;     CLR               ; 24                          ;
-;     ENA SCLR          ; 10                          ;
-;     SCLR              ; 10                          ;
-;     plain             ; 1                           ;
-; arriav_io_obuf        ; 36                          ;
-; arriav_lcell_comb     ; 41                          ;
-;     arith             ; 20                          ;
-;         1 data inputs ; 20                          ;
-;     normal            ; 21                          ;
+; arriav_ff             ; 59                          ;
+;     ENA SCLR          ; 20                          ;
+;     SCLR              ; 20                          ;
+;     plain             ; 19                          ;
+; arriav_lcell_comb     ; 340                         ;
+;     arith             ; 139                         ;
+;         0 data inputs ; 2                           ;
+;         1 data inputs ; 100                         ;
+;         2 data inputs ; 33                          ;
+;         3 data inputs ; 4                           ;
+;     extend            ; 3                           ;
+;         7 data inputs ; 3                           ;
+;     normal            ; 198                         ;
 ;         0 data inputs ; 2                           ;
 ;         1 data inputs ; 1                           ;
-;         2 data inputs ; 1                           ;
-;         3 data inputs ; 1                           ;
-;         4 data inputs ; 2                           ;
-;         5 data inputs ; 9                           ;
-;         6 data inputs ; 5                           ;
-; boundary_port         ; 70                          ;
+;         2 data inputs ; 2                           ;
+;         3 data inputs ; 13                          ;
+;         4 data inputs ; 10                          ;
+;         5 data inputs ; 14                          ;
+;         6 data inputs ; 156                         ;
+; arriav_mac            ; 2                           ;
+; boundary_port         ; 44                          ;
+; stratixv_ram_block    ; 342                         ;
 ;                       ;                             ;
-; Max LUT depth         ; 3.40                        ;
-; Average LUT depth     ; 1.53                        ;
+; Max LUT depth         ; 5.30                        ;
+; Average LUT depth     ; 3.26                        ;
 +-----------------------+-----------------------------+
 
 
@@ -275,133 +684,258 @@ Note: For table entries with two numbers listed, the numbers in parentheses indi
 +-------------------------------+
 Info: *******************************************************************
 Info: Running Quartus Prime Analysis & Synthesis
-    Info: Version 17.1.0 Build 590 10/25/2017 SJ Lite Edition
-    Info: Processing started: Thu May 16 15:04:16 2024
+    Info: Version 23.1std.0 Build 991 11/28/2023 SC Lite Edition
+    Info: Processing started: Thu Jun  6 00:55:42 2024
 Info: Command: quartus_map --read_settings_files=on --write_settings_files=off projeto -c projeto
 Warning (18236): Number of processors has not been specified which may cause overloading on shared machines.  Set the global assignment NUM_PARALLEL_PROCESSORS in your QSF to an appropriate value for best performance.
-Info (20030): Parallel compilation is enabled and will use 12 of the 12 processors detected
-Info (12021): Found 1 design units, including 1 entities, in source file src/projeto.v
-    Info (12023): Found entity 1: projeto File: /home/ec2022/ra260731/Documents/mc613/repositorio/projeto/src/projeto.v Line: 1
+Info (20030): Parallel compilation is enabled and will use 4 of the 4 processors detected
 Info (12021): Found 1 design units, including 1 entities, in source file src/vga.v
-    Info (12023): Found entity 1: vga File: /home/ec2022/ra260731/Documents/mc613/repositorio/projeto/src/vga.v Line: 1
-Info (12021): Found 1 design units, including 1 entities, in source file src/buffer.v
-    Info (12023): Found entity 1: buffer File: /home/ec2022/ra260731/Documents/mc613/repositorio/projeto/src/buffer.v Line: 1
+    Info (12023): Found entity 1: vga File: /home/henrique/Documents/unicamp/mc613/2024s1-mc613-projeto-circuitos-hatsune-miku/src/vga.v Line: 1
 Info (12021): Found 1 design units, including 1 entities, in source file src/tela.v
-    Info (12023): Found entity 1: tela File: /home/ec2022/ra260731/Documents/mc613/repositorio/projeto/src/tela.v Line: 1
-Info (12021): Found 1 design units, including 1 entities, in source file src/nave.v
-    Info (12023): Found entity 1: nave File: /home/ec2022/ra260731/Documents/mc613/repositorio/projeto/src/nave.v Line: 1
-Warning (10236): Verilog HDL Implicit Net warning at projeto.v(14): created implicit net for "reset" File: /home/ec2022/ra260731/Documents/mc613/repositorio/projeto/src/projeto.v Line: 14
-Warning (10236): Verilog HDL Implicit Net warning at nave.v(11): created implicit net for "resetBarra" File: /home/ec2022/ra260731/Documents/mc613/repositorio/projeto/src/nave.v Line: 11
+    Info (12023): Found entity 1: tela File: /home/henrique/Documents/unicamp/mc613/2024s1-mc613-projeto-circuitos-hatsune-miku/src/tela.v Line: 1
+Info (12021): Found 1 design units, including 1 entities, in source file src/projeto.v
+    Info (12023): Found entity 1: projeto File: /home/henrique/Documents/unicamp/mc613/2024s1-mc613-projeto-circuitos-hatsune-miku/src/projeto.v Line: 1
+Info (12021): Found 1 design units, including 1 entities, in source file src/memoria.v
+    Info (12023): Found entity 1: memoria File: /home/henrique/Documents/unicamp/mc613/2024s1-mc613-projeto-circuitos-hatsune-miku/src/memoria.v Line: 1
+Info (12021): Found 1 design units, including 1 entities, in source file src/keys.v
+    Info (12023): Found entity 1: keys File: /home/henrique/Documents/unicamp/mc613/2024s1-mc613-projeto-circuitos-hatsune-miku/src/keys.v Line: 1
+Info (12021): Found 1 design units, including 1 entities, in source file src/bola.v
+    Info (12023): Found entity 1: bola File: /home/henrique/Documents/unicamp/mc613/2024s1-mc613-projeto-circuitos-hatsune-miku/src/bola.v Line: 1
+Warning (10236): Verilog HDL Implicit Net warning at projeto.v(65): created implicit net for "BolaNaveX" File: /home/henrique/Documents/unicamp/mc613/2024s1-mc613-projeto-circuitos-hatsune-miku/src/projeto.v Line: 65
+Warning (10236): Verilog HDL Implicit Net warning at projeto.v(66): created implicit net for "BolaNaveY" File: /home/henrique/Documents/unicamp/mc613/2024s1-mc613-projeto-circuitos-hatsune-miku/src/projeto.v Line: 66
+Warning (10236): Verilog HDL Implicit Net warning at projeto.v(67): created implicit net for "telaBolaNaveRaio" File: /home/henrique/Documents/unicamp/mc613/2024s1-mc613-projeto-circuitos-hatsune-miku/src/projeto.v Line: 67
+Warning (10236): Verilog HDL Implicit Net warning at bola.v(22): created implicit net for "resetBola" File: /home/henrique/Documents/unicamp/mc613/2024s1-mc613-projeto-circuitos-hatsune-miku/src/bola.v Line: 22
 Info (12127): Elaborating entity "projeto" for the top level hierarchy
-Info (12128): Elaborating entity "tela" for hierarchy "tela:tela_inst" File: /home/ec2022/ra260731/Documents/mc613/repositorio/projeto/src/projeto.v Line: 42
-Info (12128): Elaborating entity "vga" for hierarchy "tela:tela_inst|vga:vga_inst" File: /home/ec2022/ra260731/Documents/mc613/repositorio/projeto/src/tela.v Line: 32
-Warning (10230): Verilog HDL assignment warning at vga.v(24): truncated value with size 32 to match size of target (10) File: /home/ec2022/ra260731/Documents/mc613/repositorio/projeto/src/vga.v Line: 24
-Warning (10230): Verilog HDL assignment warning at vga.v(27): truncated value with size 32 to match size of target (10) File: /home/ec2022/ra260731/Documents/mc613/repositorio/projeto/src/vga.v Line: 27
-Warning (10230): Verilog HDL assignment warning at vga.v(34): truncated value with size 32 to match size of target (1) File: /home/ec2022/ra260731/Documents/mc613/repositorio/projeto/src/vga.v Line: 34
-Warning (10230): Verilog HDL assignment warning at vga.v(35): truncated value with size 32 to match size of target (1) File: /home/ec2022/ra260731/Documents/mc613/repositorio/projeto/src/vga.v Line: 35
-Warning (10230): Verilog HDL assignment warning at vga.v(38): truncated value with size 32 to match size of target (1) File: /home/ec2022/ra260731/Documents/mc613/repositorio/projeto/src/vga.v Line: 38
-Info (12128): Elaborating entity "nave" for hierarchy "nave:nave_inst" File: /home/ec2022/ra260731/Documents/mc613/repositorio/projeto/src/projeto.v Line: 51
-Warning (10036): Verilog HDL or VHDL warning at nave.v(10): object "deslocamento" assigned a value but never read File: /home/ec2022/ra260731/Documents/mc613/repositorio/projeto/src/nave.v Line: 10
-Warning (10240): Verilog HDL Always Construct warning at nave.v(13): inferring latch(es) for variable "xNave", which holds its previous value in one or more paths through the always construct File: /home/ec2022/ra260731/Documents/mc613/repositorio/projeto/src/nave.v Line: 13
-Warning (10240): Verilog HDL Always Construct warning at nave.v(13): inferring latch(es) for variable "yNave", which holds its previous value in one or more paths through the always construct File: /home/ec2022/ra260731/Documents/mc613/repositorio/projeto/src/nave.v Line: 13
-Warning (10240): Verilog HDL Always Construct warning at nave.v(13): inferring latch(es) for variable "larguraNave", which holds its previous value in one or more paths through the always construct File: /home/ec2022/ra260731/Documents/mc613/repositorio/projeto/src/nave.v Line: 13
-Warning (10240): Verilog HDL Always Construct warning at nave.v(13): inferring latch(es) for variable "alturaNave", which holds its previous value in one or more paths through the always construct File: /home/ec2022/ra260731/Documents/mc613/repositorio/projeto/src/nave.v Line: 13
-Info (10041): Inferred latch for "alturaNave[0]" at nave.v(13) File: /home/ec2022/ra260731/Documents/mc613/repositorio/projeto/src/nave.v Line: 13
-Info (10041): Inferred latch for "alturaNave[1]" at nave.v(13) File: /home/ec2022/ra260731/Documents/mc613/repositorio/projeto/src/nave.v Line: 13
-Info (10041): Inferred latch for "alturaNave[2]" at nave.v(13) File: /home/ec2022/ra260731/Documents/mc613/repositorio/projeto/src/nave.v Line: 13
-Info (10041): Inferred latch for "alturaNave[3]" at nave.v(13) File: /home/ec2022/ra260731/Documents/mc613/repositorio/projeto/src/nave.v Line: 13
-Info (10041): Inferred latch for "alturaNave[4]" at nave.v(13) File: /home/ec2022/ra260731/Documents/mc613/repositorio/projeto/src/nave.v Line: 13
-Info (10041): Inferred latch for "alturaNave[5]" at nave.v(13) File: /home/ec2022/ra260731/Documents/mc613/repositorio/projeto/src/nave.v Line: 13
-Info (10041): Inferred latch for "alturaNave[6]" at nave.v(13) File: /home/ec2022/ra260731/Documents/mc613/repositorio/projeto/src/nave.v Line: 13
-Info (10041): Inferred latch for "alturaNave[7]" at nave.v(13) File: /home/ec2022/ra260731/Documents/mc613/repositorio/projeto/src/nave.v Line: 13
-Info (10041): Inferred latch for "alturaNave[8]" at nave.v(13) File: /home/ec2022/ra260731/Documents/mc613/repositorio/projeto/src/nave.v Line: 13
-Info (10041): Inferred latch for "alturaNave[9]" at nave.v(13) File: /home/ec2022/ra260731/Documents/mc613/repositorio/projeto/src/nave.v Line: 13
-Info (10041): Inferred latch for "larguraNave[0]" at nave.v(13) File: /home/ec2022/ra260731/Documents/mc613/repositorio/projeto/src/nave.v Line: 13
-Info (10041): Inferred latch for "larguraNave[1]" at nave.v(13) File: /home/ec2022/ra260731/Documents/mc613/repositorio/projeto/src/nave.v Line: 13
-Info (10041): Inferred latch for "larguraNave[2]" at nave.v(13) File: /home/ec2022/ra260731/Documents/mc613/repositorio/projeto/src/nave.v Line: 13
-Info (10041): Inferred latch for "larguraNave[3]" at nave.v(13) File: /home/ec2022/ra260731/Documents/mc613/repositorio/projeto/src/nave.v Line: 13
-Info (10041): Inferred latch for "larguraNave[4]" at nave.v(13) File: /home/ec2022/ra260731/Documents/mc613/repositorio/projeto/src/nave.v Line: 13
-Info (10041): Inferred latch for "larguraNave[5]" at nave.v(13) File: /home/ec2022/ra260731/Documents/mc613/repositorio/projeto/src/nave.v Line: 13
-Info (10041): Inferred latch for "larguraNave[6]" at nave.v(13) File: /home/ec2022/ra260731/Documents/mc613/repositorio/projeto/src/nave.v Line: 13
-Info (10041): Inferred latch for "larguraNave[7]" at nave.v(13) File: /home/ec2022/ra260731/Documents/mc613/repositorio/projeto/src/nave.v Line: 13
-Info (10041): Inferred latch for "larguraNave[8]" at nave.v(13) File: /home/ec2022/ra260731/Documents/mc613/repositorio/projeto/src/nave.v Line: 13
-Info (10041): Inferred latch for "larguraNave[9]" at nave.v(13) File: /home/ec2022/ra260731/Documents/mc613/repositorio/projeto/src/nave.v Line: 13
-Info (10041): Inferred latch for "yNave[0]" at nave.v(13) File: /home/ec2022/ra260731/Documents/mc613/repositorio/projeto/src/nave.v Line: 13
-Info (10041): Inferred latch for "yNave[1]" at nave.v(13) File: /home/ec2022/ra260731/Documents/mc613/repositorio/projeto/src/nave.v Line: 13
-Info (10041): Inferred latch for "yNave[2]" at nave.v(13) File: /home/ec2022/ra260731/Documents/mc613/repositorio/projeto/src/nave.v Line: 13
-Info (10041): Inferred latch for "yNave[3]" at nave.v(13) File: /home/ec2022/ra260731/Documents/mc613/repositorio/projeto/src/nave.v Line: 13
-Info (10041): Inferred latch for "yNave[4]" at nave.v(13) File: /home/ec2022/ra260731/Documents/mc613/repositorio/projeto/src/nave.v Line: 13
-Info (10041): Inferred latch for "yNave[5]" at nave.v(13) File: /home/ec2022/ra260731/Documents/mc613/repositorio/projeto/src/nave.v Line: 13
-Info (10041): Inferred latch for "yNave[6]" at nave.v(13) File: /home/ec2022/ra260731/Documents/mc613/repositorio/projeto/src/nave.v Line: 13
-Info (10041): Inferred latch for "yNave[7]" at nave.v(13) File: /home/ec2022/ra260731/Documents/mc613/repositorio/projeto/src/nave.v Line: 13
-Info (10041): Inferred latch for "yNave[8]" at nave.v(13) File: /home/ec2022/ra260731/Documents/mc613/repositorio/projeto/src/nave.v Line: 13
-Info (10041): Inferred latch for "yNave[9]" at nave.v(13) File: /home/ec2022/ra260731/Documents/mc613/repositorio/projeto/src/nave.v Line: 13
-Info (10041): Inferred latch for "xNave[0]" at nave.v(13) File: /home/ec2022/ra260731/Documents/mc613/repositorio/projeto/src/nave.v Line: 13
-Info (10041): Inferred latch for "xNave[1]" at nave.v(13) File: /home/ec2022/ra260731/Documents/mc613/repositorio/projeto/src/nave.v Line: 13
-Info (10041): Inferred latch for "xNave[2]" at nave.v(13) File: /home/ec2022/ra260731/Documents/mc613/repositorio/projeto/src/nave.v Line: 13
-Info (10041): Inferred latch for "xNave[3]" at nave.v(13) File: /home/ec2022/ra260731/Documents/mc613/repositorio/projeto/src/nave.v Line: 13
-Info (10041): Inferred latch for "xNave[4]" at nave.v(13) File: /home/ec2022/ra260731/Documents/mc613/repositorio/projeto/src/nave.v Line: 13
-Info (10041): Inferred latch for "xNave[5]" at nave.v(13) File: /home/ec2022/ra260731/Documents/mc613/repositorio/projeto/src/nave.v Line: 13
-Info (10041): Inferred latch for "xNave[6]" at nave.v(13) File: /home/ec2022/ra260731/Documents/mc613/repositorio/projeto/src/nave.v Line: 13
-Info (10041): Inferred latch for "xNave[7]" at nave.v(13) File: /home/ec2022/ra260731/Documents/mc613/repositorio/projeto/src/nave.v Line: 13
-Info (10041): Inferred latch for "xNave[8]" at nave.v(13) File: /home/ec2022/ra260731/Documents/mc613/repositorio/projeto/src/nave.v Line: 13
-Info (10041): Inferred latch for "xNave[9]" at nave.v(13) File: /home/ec2022/ra260731/Documents/mc613/repositorio/projeto/src/nave.v Line: 13
-Warning (13039): The following bidirectional pins have no drivers
-    Warning (13040): bidirectional pin "GPIO_1[0]" has no driver File: /home/ec2022/ra260731/Documents/mc613/repositorio/projeto/src/projeto.v Line: 4
-    Warning (13040): bidirectional pin "GPIO_1[1]" has no driver File: /home/ec2022/ra260731/Documents/mc613/repositorio/projeto/src/projeto.v Line: 4
-    Warning (13040): bidirectional pin "GPIO_1[2]" has no driver File: /home/ec2022/ra260731/Documents/mc613/repositorio/projeto/src/projeto.v Line: 4
-    Warning (13040): bidirectional pin "GPIO_1[3]" has no driver File: /home/ec2022/ra260731/Documents/mc613/repositorio/projeto/src/projeto.v Line: 4
-    Warning (13040): bidirectional pin "GPIO_1[4]" has no driver File: /home/ec2022/ra260731/Documents/mc613/repositorio/projeto/src/projeto.v Line: 4
-    Warning (13040): bidirectional pin "GPIO_1[5]" has no driver File: /home/ec2022/ra260731/Documents/mc613/repositorio/projeto/src/projeto.v Line: 4
-    Warning (13040): bidirectional pin "GPIO_1[6]" has no driver File: /home/ec2022/ra260731/Documents/mc613/repositorio/projeto/src/projeto.v Line: 4
-    Warning (13040): bidirectional pin "GPIO_1[7]" has no driver File: /home/ec2022/ra260731/Documents/mc613/repositorio/projeto/src/projeto.v Line: 4
-    Warning (13040): bidirectional pin "GPIO_1[8]" has no driver File: /home/ec2022/ra260731/Documents/mc613/repositorio/projeto/src/projeto.v Line: 4
-    Warning (13040): bidirectional pin "GPIO_1[9]" has no driver File: /home/ec2022/ra260731/Documents/mc613/repositorio/projeto/src/projeto.v Line: 4
-    Warning (13040): bidirectional pin "GPIO_1[10]" has no driver File: /home/ec2022/ra260731/Documents/mc613/repositorio/projeto/src/projeto.v Line: 4
-    Warning (13040): bidirectional pin "GPIO_1[11]" has no driver File: /home/ec2022/ra260731/Documents/mc613/repositorio/projeto/src/projeto.v Line: 4
-    Warning (13040): bidirectional pin "GPIO_1[12]" has no driver File: /home/ec2022/ra260731/Documents/mc613/repositorio/projeto/src/projeto.v Line: 4
-    Warning (13040): bidirectional pin "GPIO_1[13]" has no driver File: /home/ec2022/ra260731/Documents/mc613/repositorio/projeto/src/projeto.v Line: 4
-    Warning (13040): bidirectional pin "GPIO_1[14]" has no driver File: /home/ec2022/ra260731/Documents/mc613/repositorio/projeto/src/projeto.v Line: 4
-    Warning (13040): bidirectional pin "GPIO_1[15]" has no driver File: /home/ec2022/ra260731/Documents/mc613/repositorio/projeto/src/projeto.v Line: 4
-    Warning (13040): bidirectional pin "GPIO_1[16]" has no driver File: /home/ec2022/ra260731/Documents/mc613/repositorio/projeto/src/projeto.v Line: 4
-    Warning (13040): bidirectional pin "GPIO_1[17]" has no driver File: /home/ec2022/ra260731/Documents/mc613/repositorio/projeto/src/projeto.v Line: 4
-    Warning (13040): bidirectional pin "GPIO_1[18]" has no driver File: /home/ec2022/ra260731/Documents/mc613/repositorio/projeto/src/projeto.v Line: 4
-    Warning (13040): bidirectional pin "GPIO_1[19]" has no driver File: /home/ec2022/ra260731/Documents/mc613/repositorio/projeto/src/projeto.v Line: 4
-    Warning (13040): bidirectional pin "GPIO_1[20]" has no driver File: /home/ec2022/ra260731/Documents/mc613/repositorio/projeto/src/projeto.v Line: 4
-    Warning (13040): bidirectional pin "GPIO_1[21]" has no driver File: /home/ec2022/ra260731/Documents/mc613/repositorio/projeto/src/projeto.v Line: 4
-    Warning (13040): bidirectional pin "GPIO_1[22]" has no driver File: /home/ec2022/ra260731/Documents/mc613/repositorio/projeto/src/projeto.v Line: 4
-    Warning (13040): bidirectional pin "GPIO_1[23]" has no driver File: /home/ec2022/ra260731/Documents/mc613/repositorio/projeto/src/projeto.v Line: 4
-    Warning (13040): bidirectional pin "GPIO_1[24]" has no driver File: /home/ec2022/ra260731/Documents/mc613/repositorio/projeto/src/projeto.v Line: 4
-    Warning (13040): bidirectional pin "GPIO_1[25]" has no driver File: /home/ec2022/ra260731/Documents/mc613/repositorio/projeto/src/projeto.v Line: 4
-    Warning (13040): bidirectional pin "GPIO_1[26]" has no driver File: /home/ec2022/ra260731/Documents/mc613/repositorio/projeto/src/projeto.v Line: 4
-    Warning (13040): bidirectional pin "GPIO_1[27]" has no driver File: /home/ec2022/ra260731/Documents/mc613/repositorio/projeto/src/projeto.v Line: 4
-    Warning (13040): bidirectional pin "GPIO_1[28]" has no driver File: /home/ec2022/ra260731/Documents/mc613/repositorio/projeto/src/projeto.v Line: 4
-    Warning (13040): bidirectional pin "GPIO_1[29]" has no driver File: /home/ec2022/ra260731/Documents/mc613/repositorio/projeto/src/projeto.v Line: 4
-    Warning (13040): bidirectional pin "GPIO_1[30]" has no driver File: /home/ec2022/ra260731/Documents/mc613/repositorio/projeto/src/projeto.v Line: 4
-    Warning (13040): bidirectional pin "GPIO_1[31]" has no driver File: /home/ec2022/ra260731/Documents/mc613/repositorio/projeto/src/projeto.v Line: 4
-    Warning (13040): bidirectional pin "GPIO_1[32]" has no driver File: /home/ec2022/ra260731/Documents/mc613/repositorio/projeto/src/projeto.v Line: 4
-    Warning (13040): bidirectional pin "GPIO_1[33]" has no driver File: /home/ec2022/ra260731/Documents/mc613/repositorio/projeto/src/projeto.v Line: 4
-    Warning (13040): bidirectional pin "GPIO_1[34]" has no driver File: /home/ec2022/ra260731/Documents/mc613/repositorio/projeto/src/projeto.v Line: 4
-    Warning (13040): bidirectional pin "GPIO_1[35]" has no driver File: /home/ec2022/ra260731/Documents/mc613/repositorio/projeto/src/projeto.v Line: 4
+Warning (10230): Verilog HDL assignment warning at projeto.v(51): truncated value with size 32 to match size of target (19) File: /home/henrique/Documents/unicamp/mc613/2024s1-mc613-projeto-circuitos-hatsune-miku/src/projeto.v Line: 51
+Info (12128): Elaborating entity "keys" for hierarchy "keys:keysInstancia" File: /home/henrique/Documents/unicamp/mc613/2024s1-mc613-projeto-circuitos-hatsune-miku/src/projeto.v Line: 58
+Info (12128): Elaborating entity "bola" for hierarchy "bola:bolaNave" File: /home/henrique/Documents/unicamp/mc613/2024s1-mc613-projeto-circuitos-hatsune-miku/src/projeto.v Line: 72
+Warning (10036): Verilog HDL or VHDL warning at bola.v(22): object "resetBola" assigned a value but never read File: /home/henrique/Documents/unicamp/mc613/2024s1-mc613-projeto-circuitos-hatsune-miku/src/bola.v Line: 22
+Warning (10858): Verilog HDL warning at bola.v(25): object divisorCLK used but never assigned File: /home/henrique/Documents/unicamp/mc613/2024s1-mc613-projeto-circuitos-hatsune-miku/src/bola.v Line: 25
+Warning (10034): Output port "atingiuInimigo" at bola.v(18) has no driver File: /home/henrique/Documents/unicamp/mc613/2024s1-mc613-projeto-circuitos-hatsune-miku/src/bola.v Line: 18
+Warning (10034): Output port "atingiuNave" at bola.v(20) has no driver File: /home/henrique/Documents/unicamp/mc613/2024s1-mc613-projeto-circuitos-hatsune-miku/src/bola.v Line: 20
+Info (12128): Elaborating entity "tela" for hierarchy "tela:telaInstancia" File: /home/henrique/Documents/unicamp/mc613/2024s1-mc613-projeto-circuitos-hatsune-miku/src/projeto.v Line: 101
+Warning (10036): Verilog HDL or VHDL warning at tela.v(40): object "xTela" assigned a value but never read File: /home/henrique/Documents/unicamp/mc613/2024s1-mc613-projeto-circuitos-hatsune-miku/src/tela.v Line: 40
+Warning (10036): Verilog HDL or VHDL warning at tela.v(41): object "yTela" assigned a value but never read File: /home/henrique/Documents/unicamp/mc613/2024s1-mc613-projeto-circuitos-hatsune-miku/src/tela.v Line: 41
+Info (12128): Elaborating entity "vga" for hierarchy "tela:telaInstancia|vga:v" File: /home/henrique/Documents/unicamp/mc613/2024s1-mc613-projeto-circuitos-hatsune-miku/src/tela.v Line: 56
+Warning (10230): Verilog HDL assignment warning at vga.v(24): truncated value with size 32 to match size of target (10) File: /home/henrique/Documents/unicamp/mc613/2024s1-mc613-projeto-circuitos-hatsune-miku/src/vga.v Line: 24
+Warning (10230): Verilog HDL assignment warning at vga.v(27): truncated value with size 32 to match size of target (10) File: /home/henrique/Documents/unicamp/mc613/2024s1-mc613-projeto-circuitos-hatsune-miku/src/vga.v Line: 27
+Warning (10230): Verilog HDL assignment warning at vga.v(34): truncated value with size 32 to match size of target (1) File: /home/henrique/Documents/unicamp/mc613/2024s1-mc613-projeto-circuitos-hatsune-miku/src/vga.v Line: 34
+Warning (10230): Verilog HDL assignment warning at vga.v(35): truncated value with size 32 to match size of target (1) File: /home/henrique/Documents/unicamp/mc613/2024s1-mc613-projeto-circuitos-hatsune-miku/src/vga.v Line: 35
+Warning (10230): Verilog HDL assignment warning at vga.v(38): truncated value with size 32 to match size of target (1) File: /home/henrique/Documents/unicamp/mc613/2024s1-mc613-projeto-circuitos-hatsune-miku/src/vga.v Line: 38
+Info (12128): Elaborating entity "memoria" for hierarchy "memoria:memoriaInstancia" File: /home/henrique/Documents/unicamp/mc613/2024s1-mc613-projeto-circuitos-hatsune-miku/src/projeto.v Line: 115
+Warning (10230): Verilog HDL assignment warning at memoria.v(35): truncated value with size 32 to match size of target (10) File: /home/henrique/Documents/unicamp/mc613/2024s1-mc613-projeto-circuitos-hatsune-miku/src/memoria.v Line: 35
+Warning (10230): Verilog HDL assignment warning at memoria.v(38): truncated value with size 32 to match size of target (10) File: /home/henrique/Documents/unicamp/mc613/2024s1-mc613-projeto-circuitos-hatsune-miku/src/memoria.v Line: 38
+Warning (12011): Net is missing source, defaulting to GND
+    Warning (12110): Net "x_bola_nave[9]" is missing source, defaulting to GND File: /home/henrique/Documents/unicamp/mc613/2024s1-mc613-projeto-circuitos-hatsune-miku/src/projeto.v Line: 41
+    Warning (12110): Net "x_bola_nave[8]" is missing source, defaulting to GND File: /home/henrique/Documents/unicamp/mc613/2024s1-mc613-projeto-circuitos-hatsune-miku/src/projeto.v Line: 41
+    Warning (12110): Net "x_bola_nave[7]" is missing source, defaulting to GND File: /home/henrique/Documents/unicamp/mc613/2024s1-mc613-projeto-circuitos-hatsune-miku/src/projeto.v Line: 41
+    Warning (12110): Net "x_bola_nave[6]" is missing source, defaulting to GND File: /home/henrique/Documents/unicamp/mc613/2024s1-mc613-projeto-circuitos-hatsune-miku/src/projeto.v Line: 41
+    Warning (12110): Net "x_bola_nave[5]" is missing source, defaulting to GND File: /home/henrique/Documents/unicamp/mc613/2024s1-mc613-projeto-circuitos-hatsune-miku/src/projeto.v Line: 41
+    Warning (12110): Net "x_bola_nave[4]" is missing source, defaulting to GND File: /home/henrique/Documents/unicamp/mc613/2024s1-mc613-projeto-circuitos-hatsune-miku/src/projeto.v Line: 41
+    Warning (12110): Net "x_bola_nave[3]" is missing source, defaulting to GND File: /home/henrique/Documents/unicamp/mc613/2024s1-mc613-projeto-circuitos-hatsune-miku/src/projeto.v Line: 41
+    Warning (12110): Net "x_bola_nave[2]" is missing source, defaulting to GND File: /home/henrique/Documents/unicamp/mc613/2024s1-mc613-projeto-circuitos-hatsune-miku/src/projeto.v Line: 41
+    Warning (12110): Net "x_bola_nave[1]" is missing source, defaulting to GND File: /home/henrique/Documents/unicamp/mc613/2024s1-mc613-projeto-circuitos-hatsune-miku/src/projeto.v Line: 41
+    Warning (12110): Net "x_bola_nave[0]" is missing source, defaulting to GND File: /home/henrique/Documents/unicamp/mc613/2024s1-mc613-projeto-circuitos-hatsune-miku/src/projeto.v Line: 41
+    Warning (12110): Net "y_bola_nave[9]" is missing source, defaulting to GND File: /home/henrique/Documents/unicamp/mc613/2024s1-mc613-projeto-circuitos-hatsune-miku/src/projeto.v Line: 42
+    Warning (12110): Net "y_bola_nave[8]" is missing source, defaulting to GND File: /home/henrique/Documents/unicamp/mc613/2024s1-mc613-projeto-circuitos-hatsune-miku/src/projeto.v Line: 42
+    Warning (12110): Net "y_bola_nave[7]" is missing source, defaulting to GND File: /home/henrique/Documents/unicamp/mc613/2024s1-mc613-projeto-circuitos-hatsune-miku/src/projeto.v Line: 42
+    Warning (12110): Net "y_bola_nave[6]" is missing source, defaulting to GND File: /home/henrique/Documents/unicamp/mc613/2024s1-mc613-projeto-circuitos-hatsune-miku/src/projeto.v Line: 42
+    Warning (12110): Net "y_bola_nave[5]" is missing source, defaulting to GND File: /home/henrique/Documents/unicamp/mc613/2024s1-mc613-projeto-circuitos-hatsune-miku/src/projeto.v Line: 42
+    Warning (12110): Net "y_bola_nave[4]" is missing source, defaulting to GND File: /home/henrique/Documents/unicamp/mc613/2024s1-mc613-projeto-circuitos-hatsune-miku/src/projeto.v Line: 42
+    Warning (12110): Net "y_bola_nave[3]" is missing source, defaulting to GND File: /home/henrique/Documents/unicamp/mc613/2024s1-mc613-projeto-circuitos-hatsune-miku/src/projeto.v Line: 42
+    Warning (12110): Net "y_bola_nave[2]" is missing source, defaulting to GND File: /home/henrique/Documents/unicamp/mc613/2024s1-mc613-projeto-circuitos-hatsune-miku/src/projeto.v Line: 42
+    Warning (12110): Net "y_bola_nave[1]" is missing source, defaulting to GND File: /home/henrique/Documents/unicamp/mc613/2024s1-mc613-projeto-circuitos-hatsune-miku/src/projeto.v Line: 42
+    Warning (12110): Net "y_bola_nave[0]" is missing source, defaulting to GND File: /home/henrique/Documents/unicamp/mc613/2024s1-mc613-projeto-circuitos-hatsune-miku/src/projeto.v Line: 42
+    Warning (12110): Net "raio_bola_nave[9]" is missing source, defaulting to GND File: /home/henrique/Documents/unicamp/mc613/2024s1-mc613-projeto-circuitos-hatsune-miku/src/projeto.v Line: 43
+    Warning (12110): Net "raio_bola_nave[8]" is missing source, defaulting to GND File: /home/henrique/Documents/unicamp/mc613/2024s1-mc613-projeto-circuitos-hatsune-miku/src/projeto.v Line: 43
+    Warning (12110): Net "raio_bola_nave[7]" is missing source, defaulting to GND File: /home/henrique/Documents/unicamp/mc613/2024s1-mc613-projeto-circuitos-hatsune-miku/src/projeto.v Line: 43
+    Warning (12110): Net "raio_bola_nave[6]" is missing source, defaulting to GND File: /home/henrique/Documents/unicamp/mc613/2024s1-mc613-projeto-circuitos-hatsune-miku/src/projeto.v Line: 43
+    Warning (12110): Net "raio_bola_nave[5]" is missing source, defaulting to GND File: /home/henrique/Documents/unicamp/mc613/2024s1-mc613-projeto-circuitos-hatsune-miku/src/projeto.v Line: 43
+    Warning (12110): Net "raio_bola_nave[4]" is missing source, defaulting to GND File: /home/henrique/Documents/unicamp/mc613/2024s1-mc613-projeto-circuitos-hatsune-miku/src/projeto.v Line: 43
+    Warning (12110): Net "raio_bola_nave[3]" is missing source, defaulting to GND File: /home/henrique/Documents/unicamp/mc613/2024s1-mc613-projeto-circuitos-hatsune-miku/src/projeto.v Line: 43
+    Warning (12110): Net "raio_bola_nave[2]" is missing source, defaulting to GND File: /home/henrique/Documents/unicamp/mc613/2024s1-mc613-projeto-circuitos-hatsune-miku/src/projeto.v Line: 43
+    Warning (12110): Net "raio_bola_nave[1]" is missing source, defaulting to GND File: /home/henrique/Documents/unicamp/mc613/2024s1-mc613-projeto-circuitos-hatsune-miku/src/projeto.v Line: 43
+    Warning (12110): Net "raio_bola_nave[0]" is missing source, defaulting to GND File: /home/henrique/Documents/unicamp/mc613/2024s1-mc613-projeto-circuitos-hatsune-miku/src/projeto.v Line: 43
+Warning (12011): Net is missing source, defaulting to GND
+    Warning (12110): Net "x_bola_nave[9]" is missing source, defaulting to GND File: /home/henrique/Documents/unicamp/mc613/2024s1-mc613-projeto-circuitos-hatsune-miku/src/projeto.v Line: 41
+    Warning (12110): Net "x_bola_nave[8]" is missing source, defaulting to GND File: /home/henrique/Documents/unicamp/mc613/2024s1-mc613-projeto-circuitos-hatsune-miku/src/projeto.v Line: 41
+    Warning (12110): Net "x_bola_nave[7]" is missing source, defaulting to GND File: /home/henrique/Documents/unicamp/mc613/2024s1-mc613-projeto-circuitos-hatsune-miku/src/projeto.v Line: 41
+    Warning (12110): Net "x_bola_nave[6]" is missing source, defaulting to GND File: /home/henrique/Documents/unicamp/mc613/2024s1-mc613-projeto-circuitos-hatsune-miku/src/projeto.v Line: 41
+    Warning (12110): Net "x_bola_nave[5]" is missing source, defaulting to GND File: /home/henrique/Documents/unicamp/mc613/2024s1-mc613-projeto-circuitos-hatsune-miku/src/projeto.v Line: 41
+    Warning (12110): Net "x_bola_nave[4]" is missing source, defaulting to GND File: /home/henrique/Documents/unicamp/mc613/2024s1-mc613-projeto-circuitos-hatsune-miku/src/projeto.v Line: 41
+    Warning (12110): Net "x_bola_nave[3]" is missing source, defaulting to GND File: /home/henrique/Documents/unicamp/mc613/2024s1-mc613-projeto-circuitos-hatsune-miku/src/projeto.v Line: 41
+    Warning (12110): Net "x_bola_nave[2]" is missing source, defaulting to GND File: /home/henrique/Documents/unicamp/mc613/2024s1-mc613-projeto-circuitos-hatsune-miku/src/projeto.v Line: 41
+    Warning (12110): Net "x_bola_nave[1]" is missing source, defaulting to GND File: /home/henrique/Documents/unicamp/mc613/2024s1-mc613-projeto-circuitos-hatsune-miku/src/projeto.v Line: 41
+    Warning (12110): Net "x_bola_nave[0]" is missing source, defaulting to GND File: /home/henrique/Documents/unicamp/mc613/2024s1-mc613-projeto-circuitos-hatsune-miku/src/projeto.v Line: 41
+    Warning (12110): Net "y_bola_nave[9]" is missing source, defaulting to GND File: /home/henrique/Documents/unicamp/mc613/2024s1-mc613-projeto-circuitos-hatsune-miku/src/projeto.v Line: 42
+    Warning (12110): Net "y_bola_nave[8]" is missing source, defaulting to GND File: /home/henrique/Documents/unicamp/mc613/2024s1-mc613-projeto-circuitos-hatsune-miku/src/projeto.v Line: 42
+    Warning (12110): Net "y_bola_nave[7]" is missing source, defaulting to GND File: /home/henrique/Documents/unicamp/mc613/2024s1-mc613-projeto-circuitos-hatsune-miku/src/projeto.v Line: 42
+    Warning (12110): Net "y_bola_nave[6]" is missing source, defaulting to GND File: /home/henrique/Documents/unicamp/mc613/2024s1-mc613-projeto-circuitos-hatsune-miku/src/projeto.v Line: 42
+    Warning (12110): Net "y_bola_nave[5]" is missing source, defaulting to GND File: /home/henrique/Documents/unicamp/mc613/2024s1-mc613-projeto-circuitos-hatsune-miku/src/projeto.v Line: 42
+    Warning (12110): Net "y_bola_nave[4]" is missing source, defaulting to GND File: /home/henrique/Documents/unicamp/mc613/2024s1-mc613-projeto-circuitos-hatsune-miku/src/projeto.v Line: 42
+    Warning (12110): Net "y_bola_nave[3]" is missing source, defaulting to GND File: /home/henrique/Documents/unicamp/mc613/2024s1-mc613-projeto-circuitos-hatsune-miku/src/projeto.v Line: 42
+    Warning (12110): Net "y_bola_nave[2]" is missing source, defaulting to GND File: /home/henrique/Documents/unicamp/mc613/2024s1-mc613-projeto-circuitos-hatsune-miku/src/projeto.v Line: 42
+    Warning (12110): Net "y_bola_nave[1]" is missing source, defaulting to GND File: /home/henrique/Documents/unicamp/mc613/2024s1-mc613-projeto-circuitos-hatsune-miku/src/projeto.v Line: 42
+    Warning (12110): Net "y_bola_nave[0]" is missing source, defaulting to GND File: /home/henrique/Documents/unicamp/mc613/2024s1-mc613-projeto-circuitos-hatsune-miku/src/projeto.v Line: 42
+    Warning (12110): Net "raio_bola_nave[9]" is missing source, defaulting to GND File: /home/henrique/Documents/unicamp/mc613/2024s1-mc613-projeto-circuitos-hatsune-miku/src/projeto.v Line: 43
+    Warning (12110): Net "raio_bola_nave[8]" is missing source, defaulting to GND File: /home/henrique/Documents/unicamp/mc613/2024s1-mc613-projeto-circuitos-hatsune-miku/src/projeto.v Line: 43
+    Warning (12110): Net "raio_bola_nave[7]" is missing source, defaulting to GND File: /home/henrique/Documents/unicamp/mc613/2024s1-mc613-projeto-circuitos-hatsune-miku/src/projeto.v Line: 43
+    Warning (12110): Net "raio_bola_nave[6]" is missing source, defaulting to GND File: /home/henrique/Documents/unicamp/mc613/2024s1-mc613-projeto-circuitos-hatsune-miku/src/projeto.v Line: 43
+    Warning (12110): Net "raio_bola_nave[5]" is missing source, defaulting to GND File: /home/henrique/Documents/unicamp/mc613/2024s1-mc613-projeto-circuitos-hatsune-miku/src/projeto.v Line: 43
+    Warning (12110): Net "raio_bola_nave[4]" is missing source, defaulting to GND File: /home/henrique/Documents/unicamp/mc613/2024s1-mc613-projeto-circuitos-hatsune-miku/src/projeto.v Line: 43
+    Warning (12110): Net "raio_bola_nave[3]" is missing source, defaulting to GND File: /home/henrique/Documents/unicamp/mc613/2024s1-mc613-projeto-circuitos-hatsune-miku/src/projeto.v Line: 43
+    Warning (12110): Net "raio_bola_nave[2]" is missing source, defaulting to GND File: /home/henrique/Documents/unicamp/mc613/2024s1-mc613-projeto-circuitos-hatsune-miku/src/projeto.v Line: 43
+    Warning (12110): Net "raio_bola_nave[1]" is missing source, defaulting to GND File: /home/henrique/Documents/unicamp/mc613/2024s1-mc613-projeto-circuitos-hatsune-miku/src/projeto.v Line: 43
+    Warning (12110): Net "raio_bola_nave[0]" is missing source, defaulting to GND File: /home/henrique/Documents/unicamp/mc613/2024s1-mc613-projeto-circuitos-hatsune-miku/src/projeto.v Line: 43
+Warning (12011): Net is missing source, defaulting to GND
+    Warning (12110): Net "x_bola_nave[9]" is missing source, defaulting to GND File: /home/henrique/Documents/unicamp/mc613/2024s1-mc613-projeto-circuitos-hatsune-miku/src/projeto.v Line: 41
+    Warning (12110): Net "x_bola_nave[8]" is missing source, defaulting to GND File: /home/henrique/Documents/unicamp/mc613/2024s1-mc613-projeto-circuitos-hatsune-miku/src/projeto.v Line: 41
+    Warning (12110): Net "x_bola_nave[7]" is missing source, defaulting to GND File: /home/henrique/Documents/unicamp/mc613/2024s1-mc613-projeto-circuitos-hatsune-miku/src/projeto.v Line: 41
+    Warning (12110): Net "x_bola_nave[6]" is missing source, defaulting to GND File: /home/henrique/Documents/unicamp/mc613/2024s1-mc613-projeto-circuitos-hatsune-miku/src/projeto.v Line: 41
+    Warning (12110): Net "x_bola_nave[5]" is missing source, defaulting to GND File: /home/henrique/Documents/unicamp/mc613/2024s1-mc613-projeto-circuitos-hatsune-miku/src/projeto.v Line: 41
+    Warning (12110): Net "x_bola_nave[4]" is missing source, defaulting to GND File: /home/henrique/Documents/unicamp/mc613/2024s1-mc613-projeto-circuitos-hatsune-miku/src/projeto.v Line: 41
+    Warning (12110): Net "x_bola_nave[3]" is missing source, defaulting to GND File: /home/henrique/Documents/unicamp/mc613/2024s1-mc613-projeto-circuitos-hatsune-miku/src/projeto.v Line: 41
+    Warning (12110): Net "x_bola_nave[2]" is missing source, defaulting to GND File: /home/henrique/Documents/unicamp/mc613/2024s1-mc613-projeto-circuitos-hatsune-miku/src/projeto.v Line: 41
+    Warning (12110): Net "x_bola_nave[1]" is missing source, defaulting to GND File: /home/henrique/Documents/unicamp/mc613/2024s1-mc613-projeto-circuitos-hatsune-miku/src/projeto.v Line: 41
+    Warning (12110): Net "x_bola_nave[0]" is missing source, defaulting to GND File: /home/henrique/Documents/unicamp/mc613/2024s1-mc613-projeto-circuitos-hatsune-miku/src/projeto.v Line: 41
+    Warning (12110): Net "y_bola_nave[9]" is missing source, defaulting to GND File: /home/henrique/Documents/unicamp/mc613/2024s1-mc613-projeto-circuitos-hatsune-miku/src/projeto.v Line: 42
+    Warning (12110): Net "y_bola_nave[8]" is missing source, defaulting to GND File: /home/henrique/Documents/unicamp/mc613/2024s1-mc613-projeto-circuitos-hatsune-miku/src/projeto.v Line: 42
+    Warning (12110): Net "y_bola_nave[7]" is missing source, defaulting to GND File: /home/henrique/Documents/unicamp/mc613/2024s1-mc613-projeto-circuitos-hatsune-miku/src/projeto.v Line: 42
+    Warning (12110): Net "y_bola_nave[6]" is missing source, defaulting to GND File: /home/henrique/Documents/unicamp/mc613/2024s1-mc613-projeto-circuitos-hatsune-miku/src/projeto.v Line: 42
+    Warning (12110): Net "y_bola_nave[5]" is missing source, defaulting to GND File: /home/henrique/Documents/unicamp/mc613/2024s1-mc613-projeto-circuitos-hatsune-miku/src/projeto.v Line: 42
+    Warning (12110): Net "y_bola_nave[4]" is missing source, defaulting to GND File: /home/henrique/Documents/unicamp/mc613/2024s1-mc613-projeto-circuitos-hatsune-miku/src/projeto.v Line: 42
+    Warning (12110): Net "y_bola_nave[3]" is missing source, defaulting to GND File: /home/henrique/Documents/unicamp/mc613/2024s1-mc613-projeto-circuitos-hatsune-miku/src/projeto.v Line: 42
+    Warning (12110): Net "y_bola_nave[2]" is missing source, defaulting to GND File: /home/henrique/Documents/unicamp/mc613/2024s1-mc613-projeto-circuitos-hatsune-miku/src/projeto.v Line: 42
+    Warning (12110): Net "y_bola_nave[1]" is missing source, defaulting to GND File: /home/henrique/Documents/unicamp/mc613/2024s1-mc613-projeto-circuitos-hatsune-miku/src/projeto.v Line: 42
+    Warning (12110): Net "y_bola_nave[0]" is missing source, defaulting to GND File: /home/henrique/Documents/unicamp/mc613/2024s1-mc613-projeto-circuitos-hatsune-miku/src/projeto.v Line: 42
+    Warning (12110): Net "raio_bola_nave[9]" is missing source, defaulting to GND File: /home/henrique/Documents/unicamp/mc613/2024s1-mc613-projeto-circuitos-hatsune-miku/src/projeto.v Line: 43
+    Warning (12110): Net "raio_bola_nave[8]" is missing source, defaulting to GND File: /home/henrique/Documents/unicamp/mc613/2024s1-mc613-projeto-circuitos-hatsune-miku/src/projeto.v Line: 43
+    Warning (12110): Net "raio_bola_nave[7]" is missing source, defaulting to GND File: /home/henrique/Documents/unicamp/mc613/2024s1-mc613-projeto-circuitos-hatsune-miku/src/projeto.v Line: 43
+    Warning (12110): Net "raio_bola_nave[6]" is missing source, defaulting to GND File: /home/henrique/Documents/unicamp/mc613/2024s1-mc613-projeto-circuitos-hatsune-miku/src/projeto.v Line: 43
+    Warning (12110): Net "raio_bola_nave[5]" is missing source, defaulting to GND File: /home/henrique/Documents/unicamp/mc613/2024s1-mc613-projeto-circuitos-hatsune-miku/src/projeto.v Line: 43
+    Warning (12110): Net "raio_bola_nave[4]" is missing source, defaulting to GND File: /home/henrique/Documents/unicamp/mc613/2024s1-mc613-projeto-circuitos-hatsune-miku/src/projeto.v Line: 43
+    Warning (12110): Net "raio_bola_nave[3]" is missing source, defaulting to GND File: /home/henrique/Documents/unicamp/mc613/2024s1-mc613-projeto-circuitos-hatsune-miku/src/projeto.v Line: 43
+    Warning (12110): Net "raio_bola_nave[2]" is missing source, defaulting to GND File: /home/henrique/Documents/unicamp/mc613/2024s1-mc613-projeto-circuitos-hatsune-miku/src/projeto.v Line: 43
+    Warning (12110): Net "raio_bola_nave[1]" is missing source, defaulting to GND File: /home/henrique/Documents/unicamp/mc613/2024s1-mc613-projeto-circuitos-hatsune-miku/src/projeto.v Line: 43
+    Warning (12110): Net "raio_bola_nave[0]" is missing source, defaulting to GND File: /home/henrique/Documents/unicamp/mc613/2024s1-mc613-projeto-circuitos-hatsune-miku/src/projeto.v Line: 43
+Info (19000): Inferred 3 megafunctions from design logic
+    Info (276029): Inferred altsyncram megafunction from the following design logic: "memoria:memoriaInstancia|R_rtl_0" 
+        Info (286033): Parameter OPERATION_MODE set to DUAL_PORT
+        Info (286033): Parameter WIDTH_A set to 3
+        Info (286033): Parameter WIDTHAD_A set to 19
+        Info (286033): Parameter NUMWORDS_A set to 307200
+        Info (286033): Parameter WIDTH_B set to 3
+        Info (286033): Parameter WIDTHAD_B set to 19
+        Info (286033): Parameter NUMWORDS_B set to 307200
+        Info (286033): Parameter ADDRESS_ACLR_A set to NONE
+        Info (286033): Parameter OUTDATA_REG_B set to UNREGISTERED
+        Info (286033): Parameter ADDRESS_ACLR_B set to NONE
+        Info (286033): Parameter OUTDATA_ACLR_B set to NONE
+        Info (286033): Parameter ADDRESS_REG_B set to CLOCK0
+        Info (286033): Parameter INDATA_ACLR_A set to NONE
+        Info (286033): Parameter WRCONTROL_ACLR_A set to NONE
+        Info (286033): Parameter READ_DURING_WRITE_MODE_MIXED_PORTS set to OLD_DATA
+    Info (276029): Inferred altsyncram megafunction from the following design logic: "memoria:memoriaInstancia|G_rtl_0" 
+        Info (286033): Parameter OPERATION_MODE set to DUAL_PORT
+        Info (286033): Parameter WIDTH_A set to 3
+        Info (286033): Parameter WIDTHAD_A set to 19
+        Info (286033): Parameter NUMWORDS_A set to 307200
+        Info (286033): Parameter WIDTH_B set to 3
+        Info (286033): Parameter WIDTHAD_B set to 19
+        Info (286033): Parameter NUMWORDS_B set to 307200
+        Info (286033): Parameter ADDRESS_ACLR_A set to NONE
+        Info (286033): Parameter OUTDATA_REG_B set to UNREGISTERED
+        Info (286033): Parameter ADDRESS_ACLR_B set to NONE
+        Info (286033): Parameter OUTDATA_ACLR_B set to NONE
+        Info (286033): Parameter ADDRESS_REG_B set to CLOCK0
+        Info (286033): Parameter INDATA_ACLR_A set to NONE
+        Info (286033): Parameter WRCONTROL_ACLR_A set to NONE
+        Info (286033): Parameter READ_DURING_WRITE_MODE_MIXED_PORTS set to OLD_DATA
+    Info (276029): Inferred altsyncram megafunction from the following design logic: "memoria:memoriaInstancia|B_rtl_0" 
+        Info (286033): Parameter OPERATION_MODE set to DUAL_PORT
+        Info (286033): Parameter WIDTH_A set to 3
+        Info (286033): Parameter WIDTHAD_A set to 19
+        Info (286033): Parameter NUMWORDS_A set to 307200
+        Info (286033): Parameter WIDTH_B set to 3
+        Info (286033): Parameter WIDTHAD_B set to 19
+        Info (286033): Parameter NUMWORDS_B set to 307200
+        Info (286033): Parameter ADDRESS_ACLR_A set to NONE
+        Info (286033): Parameter OUTDATA_REG_B set to UNREGISTERED
+        Info (286033): Parameter ADDRESS_ACLR_B set to NONE
+        Info (286033): Parameter OUTDATA_ACLR_B set to NONE
+        Info (286033): Parameter ADDRESS_REG_B set to CLOCK0
+        Info (286033): Parameter INDATA_ACLR_A set to NONE
+        Info (286033): Parameter WRCONTROL_ACLR_A set to NONE
+        Info (286033): Parameter READ_DURING_WRITE_MODE_MIXED_PORTS set to OLD_DATA
+Info (12130): Elaborated megafunction instantiation "memoria:memoriaInstancia|altsyncram:R_rtl_0"
+Info (12133): Instantiated megafunction "memoria:memoriaInstancia|altsyncram:R_rtl_0" with the following parameter:
+    Info (12134): Parameter "OPERATION_MODE" = "DUAL_PORT"
+    Info (12134): Parameter "WIDTH_A" = "3"
+    Info (12134): Parameter "WIDTHAD_A" = "19"
+    Info (12134): Parameter "NUMWORDS_A" = "307200"
+    Info (12134): Parameter "WIDTH_B" = "3"
+    Info (12134): Parameter "WIDTHAD_B" = "19"
+    Info (12134): Parameter "NUMWORDS_B" = "307200"
+    Info (12134): Parameter "ADDRESS_ACLR_A" = "NONE"
+    Info (12134): Parameter "OUTDATA_REG_B" = "UNREGISTERED"
+    Info (12134): Parameter "ADDRESS_ACLR_B" = "NONE"
+    Info (12134): Parameter "OUTDATA_ACLR_B" = "NONE"
+    Info (12134): Parameter "ADDRESS_REG_B" = "CLOCK0"
+    Info (12134): Parameter "INDATA_ACLR_A" = "NONE"
+    Info (12134): Parameter "WRCONTROL_ACLR_A" = "NONE"
+    Info (12134): Parameter "READ_DURING_WRITE_MODE_MIXED_PORTS" = "OLD_DATA"
+Info (12021): Found 1 design units, including 1 entities, in source file db/altsyncram_ifn1.tdf
+    Info (12023): Found entity 1: altsyncram_ifn1 File: /home/henrique/Documents/unicamp/mc613/2024s1-mc613-projeto-circuitos-hatsune-miku/db/altsyncram_ifn1.tdf Line: 32
+Info (12021): Found 1 design units, including 1 entities, in source file db/decode_3na.tdf
+    Info (12023): Found entity 1: decode_3na File: /home/henrique/Documents/unicamp/mc613/2024s1-mc613-projeto-circuitos-hatsune-miku/db/decode_3na.tdf Line: 23
+Info (12021): Found 1 design units, including 1 entities, in source file db/mux_ehb.tdf
+    Info (12023): Found entity 1: mux_ehb File: /home/henrique/Documents/unicamp/mc613/2024s1-mc613-projeto-circuitos-hatsune-miku/db/mux_ehb.tdf Line: 23
+Warning (12241): 3 hierarchies have connectivity warnings - see the Connectivity Checks report folder
 Warning (13024): Output pins are stuck at VCC or GND
-    Warning (13410): Pin "VGA_SYNC_N" is stuck at GND File: /home/ec2022/ra260731/Documents/mc613/repositorio/projeto/src/projeto.v Line: 6
-    Warning (13410): Pin "VGA_BLANK_N" is stuck at VCC File: /home/ec2022/ra260731/Documents/mc613/repositorio/projeto/src/projeto.v Line: 7
+    Warning (13410): Pin "VGA_R[0]" is stuck at GND File: /home/henrique/Documents/unicamp/mc613/2024s1-mc613-projeto-circuitos-hatsune-miku/src/projeto.v Line: 7
+    Warning (13410): Pin "VGA_R[1]" is stuck at GND File: /home/henrique/Documents/unicamp/mc613/2024s1-mc613-projeto-circuitos-hatsune-miku/src/projeto.v Line: 7
+    Warning (13410): Pin "VGA_R[2]" is stuck at GND File: /home/henrique/Documents/unicamp/mc613/2024s1-mc613-projeto-circuitos-hatsune-miku/src/projeto.v Line: 7
+    Warning (13410): Pin "VGA_R[3]" is stuck at GND File: /home/henrique/Documents/unicamp/mc613/2024s1-mc613-projeto-circuitos-hatsune-miku/src/projeto.v Line: 7
+    Warning (13410): Pin "VGA_R[4]" is stuck at GND File: /home/henrique/Documents/unicamp/mc613/2024s1-mc613-projeto-circuitos-hatsune-miku/src/projeto.v Line: 7
+    Warning (13410): Pin "VGA_G[0]" is stuck at GND File: /home/henrique/Documents/unicamp/mc613/2024s1-mc613-projeto-circuitos-hatsune-miku/src/projeto.v Line: 8
+    Warning (13410): Pin "VGA_G[1]" is stuck at GND File: /home/henrique/Documents/unicamp/mc613/2024s1-mc613-projeto-circuitos-hatsune-miku/src/projeto.v Line: 8
+    Warning (13410): Pin "VGA_G[2]" is stuck at GND File: /home/henrique/Documents/unicamp/mc613/2024s1-mc613-projeto-circuitos-hatsune-miku/src/projeto.v Line: 8
+    Warning (13410): Pin "VGA_G[3]" is stuck at GND File: /home/henrique/Documents/unicamp/mc613/2024s1-mc613-projeto-circuitos-hatsune-miku/src/projeto.v Line: 8
+    Warning (13410): Pin "VGA_G[4]" is stuck at GND File: /home/henrique/Documents/unicamp/mc613/2024s1-mc613-projeto-circuitos-hatsune-miku/src/projeto.v Line: 8
+    Warning (13410): Pin "VGA_B[0]" is stuck at GND File: /home/henrique/Documents/unicamp/mc613/2024s1-mc613-projeto-circuitos-hatsune-miku/src/projeto.v Line: 9
+    Warning (13410): Pin "VGA_B[1]" is stuck at GND File: /home/henrique/Documents/unicamp/mc613/2024s1-mc613-projeto-circuitos-hatsune-miku/src/projeto.v Line: 9
+    Warning (13410): Pin "VGA_B[2]" is stuck at GND File: /home/henrique/Documents/unicamp/mc613/2024s1-mc613-projeto-circuitos-hatsune-miku/src/projeto.v Line: 9
+    Warning (13410): Pin "VGA_B[3]" is stuck at GND File: /home/henrique/Documents/unicamp/mc613/2024s1-mc613-projeto-circuitos-hatsune-miku/src/projeto.v Line: 9
+    Warning (13410): Pin "VGA_B[4]" is stuck at GND File: /home/henrique/Documents/unicamp/mc613/2024s1-mc613-projeto-circuitos-hatsune-miku/src/projeto.v Line: 9
+    Warning (13410): Pin "VGA_BLANK_N" is stuck at VCC File: /home/henrique/Documents/unicamp/mc613/2024s1-mc613-projeto-circuitos-hatsune-miku/src/projeto.v Line: 12
+    Warning (13410): Pin "VGA_SYNC_N" is stuck at GND File: /home/henrique/Documents/unicamp/mc613/2024s1-mc613-projeto-circuitos-hatsune-miku/src/projeto.v Line: 13
 Info (286030): Timing-Driven Synthesis is running
 Info (16010): Generating hard_block partition "hard_block:auto_generated_inst"
     Info (16011): Adding 0 node(s), including 0 DDIO, 0 PLL, 0 transceiver and 0 LCELL
-Warning (21074): Design contains 3 input pin(s) that do not drive logic
-    Warning (15610): No output dependent on input pin "KEY[1]" File: /home/ec2022/ra260731/Documents/mc613/repositorio/projeto/src/projeto.v Line: 3
-    Warning (15610): No output dependent on input pin "KEY[2]" File: /home/ec2022/ra260731/Documents/mc613/repositorio/projeto/src/projeto.v Line: 3
-    Warning (15610): No output dependent on input pin "KEY[3]" File: /home/ec2022/ra260731/Documents/mc613/repositorio/projeto/src/projeto.v Line: 3
-Info (21057): Implemented 147 device resources after synthesis - the final resource count might be different
-    Info (21058): Implemented 5 input pins
+Warning (21074): Design contains 13 input pin(s) that do not drive logic
+    Warning (15610): No output dependent on input pin "SW[1]" File: /home/henrique/Documents/unicamp/mc613/2024s1-mc613-projeto-circuitos-hatsune-miku/src/projeto.v Line: 3
+    Warning (15610): No output dependent on input pin "SW[2]" File: /home/henrique/Documents/unicamp/mc613/2024s1-mc613-projeto-circuitos-hatsune-miku/src/projeto.v Line: 3
+    Warning (15610): No output dependent on input pin "SW[3]" File: /home/henrique/Documents/unicamp/mc613/2024s1-mc613-projeto-circuitos-hatsune-miku/src/projeto.v Line: 3
+    Warning (15610): No output dependent on input pin "SW[4]" File: /home/henrique/Documents/unicamp/mc613/2024s1-mc613-projeto-circuitos-hatsune-miku/src/projeto.v Line: 3
+    Warning (15610): No output dependent on input pin "SW[5]" File: /home/henrique/Documents/unicamp/mc613/2024s1-mc613-projeto-circuitos-hatsune-miku/src/projeto.v Line: 3
+    Warning (15610): No output dependent on input pin "SW[6]" File: /home/henrique/Documents/unicamp/mc613/2024s1-mc613-projeto-circuitos-hatsune-miku/src/projeto.v Line: 3
+    Warning (15610): No output dependent on input pin "SW[7]" File: /home/henrique/Documents/unicamp/mc613/2024s1-mc613-projeto-circuitos-hatsune-miku/src/projeto.v Line: 3
+    Warning (15610): No output dependent on input pin "SW[8]" File: /home/henrique/Documents/unicamp/mc613/2024s1-mc613-projeto-circuitos-hatsune-miku/src/projeto.v Line: 3
+    Warning (15610): No output dependent on input pin "SW[9]" File: /home/henrique/Documents/unicamp/mc613/2024s1-mc613-projeto-circuitos-hatsune-miku/src/projeto.v Line: 3
+    Warning (15610): No output dependent on input pin "KEY[0]" File: /home/henrique/Documents/unicamp/mc613/2024s1-mc613-projeto-circuitos-hatsune-miku/src/projeto.v Line: 4
+    Warning (15610): No output dependent on input pin "KEY[1]" File: /home/henrique/Documents/unicamp/mc613/2024s1-mc613-projeto-circuitos-hatsune-miku/src/projeto.v Line: 4
+    Warning (15610): No output dependent on input pin "KEY[2]" File: /home/henrique/Documents/unicamp/mc613/2024s1-mc613-projeto-circuitos-hatsune-miku/src/projeto.v Line: 4
+    Warning (15610): No output dependent on input pin "KEY[3]" File: /home/henrique/Documents/unicamp/mc613/2024s1-mc613-projeto-circuitos-hatsune-miku/src/projeto.v Line: 4
+Info (21057): Implemented 758 device resources after synthesis - the final resource count might be different
+    Info (21058): Implemented 15 input pins
     Info (21059): Implemented 29 output pins
-    Info (21060): Implemented 36 bidirectional pins
-    Info (21061): Implemented 77 logic cells
-Info: Quartus Prime Analysis & Synthesis was successful. 0 errors, 57 warnings
-    Info: Peak virtual memory: 1275 megabytes
-    Info: Processing ended: Thu May 16 15:04:25 2024
-    Info: Elapsed time: 00:00:09
-    Info: Total CPU time (on all processors): 00:00:24
+    Info (21061): Implemented 370 logic cells
+    Info (21064): Implemented 342 RAM segments
+    Info (21062): Implemented 2 DSP elements
+Info: Quartus Prime Analysis & Synthesis was successful. 0 errors, 145 warnings
+    Info: Peak virtual memory: 874 megabytes
+    Info: Processing ended: Thu Jun  6 00:55:50 2024
+    Info: Elapsed time: 00:00:08
+    Info: Total CPU time (on all processors): 00:00:17
 
 
