@@ -35,7 +35,7 @@ assign VGA_SYNC_N = 1;
 
 wire reset;
 reg clk25 = 0;
-assign reset = SW[0];
+assign reset = SW[9];
 
 
 always @(posedge CLOCK_50)begin

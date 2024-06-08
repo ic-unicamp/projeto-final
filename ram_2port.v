@@ -1,6 +1,5 @@
 // Código base buscado na internet
 module ram_2port (
-    input reset,
     input clk,               // Clock
     // Porta de Escrita
     input we,                // Sinal de habilitação de escrita
@@ -33,6 +32,8 @@ always @(posedge clk) begin
 
     else if (we) begin
         buffer[write_addr] <= data_in;
+        initialization_write_addr = 0;
+        initialized = 0;
     end
     // buffer[debug_pixel_i] <= debug_pixel_i%120;
     // debug_pixel_i <= debug_pixel_i + 1;
