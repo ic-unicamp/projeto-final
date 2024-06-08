@@ -17,6 +17,10 @@ module memory(
 	input [9:0] y_bola_inimiga,
 	input [9:0] raio_bola_inimiga,
 
+	input [9:0] x_nave,
+	input [9:0] y_nave,
+	input [9:0] largura_nave,
+	input [9:0] altura_nave,
 
 	input [9:0] VGA_X,
 	input [9:0] VGA_Y,
@@ -51,13 +55,17 @@ module memory(
             VGA_B = 0;
         end else begin
             if (ativo && !perdeu) begin
-                if (delta_x_aliado + delta_y_aliado <= raioquadrado_aliado) begin // bola aliada
+                if (delta_x_aliado + delta_y_aliado < raioquadrado_aliado) begin // bola aliada
                     VGA_R = 255;
                     VGA_G = 255;
                     VGA_B = 255;
-				end else if (delta_x_inimigo + delta_y_inimigo <= raioquadrado_inimigo) begin // bola inimiga
+				end else if (delta_x_inimigo + delta_y_inimigo < raioquadrado_inimigo) begin // bola inimiga
 					VGA_R = 255;
 					VGA_G = 0;
+					VGA_B = 0;
+				end else if ((x_nave + 144 <= VGA_X ) && (VGA_X <= 144 + x_nave + largura_nave) && (y_nave + 35 <= VGA_Y) && (VGA_Y <= y_nave + 35 + altura_nave)) begin // nave
+					VGA_R = 0;
+					VGA_G = 255;
 					VGA_B = 0;
                 end else begin
                     VGA_R = 0; 

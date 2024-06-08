@@ -1,7 +1,7 @@
 module projeto(
 	input CLOCK_50, 
 	input [9:0] SW,
-	input [3:0] KEY,  
+	input [3:0] KEY,
 	output wire [7:0] VGA_R, 
     output wire [7:0] VGA_G,     
     output wire [7:0] VGA_B,   
@@ -18,9 +18,12 @@ module projeto(
   	output [6:0] HEX5, // digito da esquerda
 	output [9:0] LEDR
 );
-
+    assign LEDR = iniciar_bola_aliada;
     wire reset;
+    wire pausa;
+
     assign reset = SW[0];
+    assign pausa = SW[1];
 
     wire [3:0] keysout;
 
@@ -28,17 +31,20 @@ module projeto(
     wire [9:0] VGA_Y; 
     wire ativoVGA;
 
-    // constantes
     wire [9:0] x_bola_aliada;
     wire [9:0] y_bola_aliada;
     wire [9:0] raio_bola_aliada;
+
     wire [9:0] x_bola_inimiga;
     wire [9:0] y_bola_inimiga;
     wire [9:0] raio_bola_inimiga;
 
-    assign x_bola_aliada = 300;
-    assign y_bola_aliada = 300;
-    assign raio_bola_aliada = 5;
+    wire [9:0] x_nave;
+    wire [9:0] y_nave;
+    wire [9:0] largura_nave;
+    wire [9:0] altura_nave;
+
+
     assign x_bola_inimiga = 500;
     assign y_bola_inimiga = 100;
     assign raio_bola_inimiga = 5;
@@ -56,12 +62,29 @@ module projeto(
 		.ativo(ativoVGA)
 	);
 
-
     keys keysInstancia(
 		.CLOCK_50(CLOCK_50),
 		.keys(KEY),
 		.keysout(keysout)
 	);
+
+    nave naveInstancia(
+        .CLOCK_50(CLOCK_50),
+        .reset(reset),
+        .keysout(keysout),
+        .pausa(pausa),
+        .reiniciarJogo(0),
+
+        .largura_nave(largura_nave),
+        .altura_nave(altura_nave),
+        .x_nave(x_nave),
+        .y_nave(y_nave),
+
+        .x_bola(x_bola_aliada),
+        .y_bola(y_bola_aliada),
+        .raio_bola(raio_bola_aliada)
+    );
+
 
     memory memoryInstancia(
         .CLOCK_50(CLOCK_50),
@@ -74,6 +97,10 @@ module projeto(
         .x_bola_inimiga(x_bola_inimiga),
         .y_bola_inimiga(y_bola_inimiga),
         .raio_bola_inimiga(raio_bola_inimiga),
+        .x_nave(x_nave),
+        .y_nave(y_nave),
+        .largura_nave(largura_nave),
+        .altura_nave(altura_nave),
         .VGA_X(VGA_X),
         .VGA_Y(VGA_Y),
         .VGA_R(VGA_R),
