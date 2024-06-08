@@ -1,5 +1,85 @@
 module projeto(
-
+	input CLOCK_50, 
+	input [9:0] SW,
+	input [3:0] KEY,  
+	output wire [7:0] VGA_R, 
+    output wire [7:0] VGA_G,     
+    output wire [7:0] VGA_B,   
+	output wire VGA_HS,   
+	output wire VGA_VS,  
+	output wire VGA_BLANK_N,  
+	output wire VGA_SYNC_N, 
+	output wire VGA_CLK,   
+	output [6:0] HEX0, // digito da direita
+  	output [6:0] HEX1,
+  	output [6:0] HEX2,
+  	output [6:0] HEX3,
+  	output [6:0] HEX4,
+  	output [6:0] HEX5, // digito da esquerda
+	output [9:0] LEDR
 );
+
+    wire reset;
+    assign reset = SW[0];
+
+    wire [3:0] keysout;
+
+    wire [9:0] VGA_X;
+    wire [9:0] VGA_Y; 
+    wire ativoVGA;
+
+    // constantes
+    wire [9:0] x_bola_aliada;
+    wire [9:0] y_bola_aliada;
+    wire [9:0] raio_bola_aliada;
+    wire [9:0] x_bola_inimiga;
+    wire [9:0] y_bola_inimiga;
+    wire [9:0] raio_bola_inimiga;
+
+    assign x_bola_aliada = 300;
+    assign y_bola_aliada = 300;
+    assign raio_bola_aliada = 5;
+    assign x_bola_inimiga = 500;
+    assign y_bola_inimiga = 100;
+    assign raio_bola_inimiga = 5;
+
+    vga v(
+		.CLOCK_50(CLOCK_50),
+		.reset(reset),
+		.VGA_CLK(VGA_CLK),
+        .VGA_HS(VGA_HS),
+        .VGA_VS(VGA_VS),
+        .VGA_BLANK_N(VGA_BLANK_N),
+        .VGA_SYNC_N(VGA_SYNC_N),
+		.x(VGA_X),
+		.y(VGA_Y),
+		.ativo(ativoVGA)
+	);
+
+
+    keys keysInstancia(
+		.CLOCK_50(CLOCK_50),
+		.keys(KEY),
+		.keysout(keysout)
+	);
+
+    memory memoryInstancia(
+        .CLOCK_50(CLOCK_50),
+        .reset(reset),
+        .ativo(ativoVGA),
+        .perdeu(0),
+        .x_bola_aliada(x_bola_aliada),
+        .y_bola_aliada(y_bola_aliada),
+        .raio_bola_aliada(raio_bola_aliada),
+        .x_bola_inimiga(x_bola_inimiga),
+        .y_bola_inimiga(y_bola_inimiga),
+        .raio_bola_inimiga(raio_bola_inimiga),
+        .VGA_X(VGA_X),
+        .VGA_Y(VGA_Y),
+        .VGA_R(VGA_R),
+        .VGA_G(VGA_G),
+        .VGA_B(VGA_B)
+    );
+
 
 endmodule
