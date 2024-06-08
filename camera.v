@@ -4,15 +4,17 @@ module camera(
     input href,
     output vsync,
     input pclk,
-	 output hpclk,
+	output hpclk,
     input xclk,
     input reset,
     input pwdn,
     output reg enable_write_memory,
-    output reg [0:19] pos_pxl
+    output reg [0:19] pos_pxl,
+    input [7:0] byte_camera,
+    output reg [7:0] pixel_out
 );
 
-
+//assign pixel_out = byte_camera;
 
 reg half_pclock;
 
@@ -26,28 +28,86 @@ always @(posedge pclk)begin
 end
 
 assign hpclk = half_pclock;
+
 //Oia
-always @(posedge pclk or posedge reset) begin
+
+reg [7:0] pixel0;
+reg [7:0] pixel1;
+reg [1:0] estado;
+reg [7:0] cb;
+reg [7:0] y0;
+reg [7:0] cr;
+reg [7:0] y1;
+reg alterna_pixel;
+reg [0:19] verdes [4:0];
+
+always @(posedge pclk) begin
+    if (href) begin
+        case(estado)
+            0: begin
+                cb <= byte_camera;
+                estado <= 1;
+            end
+            1: begin
+                y0 <= byte_camera;
+                estado <= 2;
+            end
+            2: begin
+                cr <= byte_camera;
+                estado <= 3;
+					if (cb>150 && cr>140) begin
+						pixel0 = 255;
+					end
+					else begin
+						pixel0 = y0>>1;
+					end
+            end
+            3: begin
+                y1 <= byte_camera;
+                estado <= 0;
+                if (cb>150 && cr>140) begin
+                    pixel1 = 255;
+				end
+                else begin
+                    pixel1 = y0>>1;
+                end
+            end
+        endcase
+    end
+    else begin
+        estado = 0;
+    end
+end
+
+ always @(posedge pclk or posedge reset) begin
     if (reset) begin
         enable_write_memory <= 0;
         pos_pxl <= 0;
-    end else begin
+    end
+    else begin
         if (href & half_pclock) begin 
             enable_write_memory <= 1;
+
+            if (alterna_pixel) begin
+                pixel_out <= pixel0;
+                alterna_pixel = ~alterna_pixel;
+            end 
+            else begin
+                pixel_out <= pixel1;
+                alterna_pixel = ~alterna_pixel;
+            end
             
             if (pos_pxl >= 640*480 - 1) begin
                 pos_pxl <= 0;
             end else begin
                 pos_pxl <= pos_pxl + 1;
             end
-        end else begin
+        end 
+        else begin
             enable_write_memory <= 0;
         end
     end
 end
-
-
-
 
 
 endmodule

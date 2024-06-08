@@ -29,9 +29,10 @@ module top1 (
 wire locked;
 
 wire enable_write_memory; // Controle para saber se a memória guardar a informação da câmera. Quem gera esse sinal é a prórpria câmera
-wire [0:19] pos_pixel_w; // Endereço da memória onde será guardado a info da câmera, gerado pela câmera
+wire [0:19] pos_pixel_w; // Endereço da memória onde será guardado a info da câmera, gerado pela câmera.
 reg [0:19] pos_pixel_r; // Endereço da memória onde será lida informação pelo vga para por na tela 
 wire [7:0] cor_atual_vga;
+wire [7:0] pixel_atual;
 assign GPIO_1[11] = 1; //reset
 
 wire reset;
@@ -59,18 +60,20 @@ camera CAMERA(
     .vsync(GPIO_1[23]),
     .href(href),
     .pclk(pclock),
-	 .hpclk(hpclk),
+	  .hpclk(hpclk),
     .reset(~KEY[0]),
     .pwdn(GPIO_1[10]),
     .enable_write_memory(enable_write_memory),
-    .pos_pxl(pos_pixel_w)
+    .pos_pxl(pos_pixel_w),
+    .byte_camera(GPIO_1[19:12]),
+    .pixel_out(pixel_atual)
     );
 
 ram_2port MEMORIA(
                   .reset(reset),
-						.clk(CLOCK_50),
+						      .clk(CLOCK_50),
                   .we(enable_write_memory),
-                  .data_in(GPIO_1[19:12]),
+                  .data_in(pixel_atual),
                   .write_addr(pos_pixel_w),
                   .re(ativo),
                   .read_addr(pos_pixel_r),
