@@ -1,5 +1,5 @@
 Analysis & Synthesis report for projeto
-Sat Jun  8 21:46:10 2024
+Sun Jun  9 15:24:58 2024
 Quartus Prime Version 23.1std.0 Build 991 11/28/2023 SC Lite Edition
 
 
@@ -19,8 +19,8 @@ Quartus Prime Version 23.1std.0 Build 991 11/28/2023 SC Lite Edition
  11. Inverted Register Statistics
  12. Multiplexer Restructuring Statistics (Restructuring Performed)
  13. Port Connectivity Checks: "memory:memoryInstancia"
- 14. Port Connectivity Checks: "nave:naveInstancia|bola:bolaAliada"
- 15. Port Connectivity Checks: "nave:naveInstancia"
+ 14. Port Connectivity Checks: "entities:entitiesInstancia|bola:bolaAliada"
+ 15. Port Connectivity Checks: "entities:entitiesInstancia|nave:naveInstancia"
  16. Post-Synthesis Netlist Statistics for Top Partition
  17. Elapsed Time Per Partition
  18. Analysis & Synthesis Messages
@@ -50,7 +50,7 @@ https://fpgasoftware.intel.com/eula.
 +----------------------------------------------------------------------------------+
 ; Analysis & Synthesis Summary                                                     ;
 +---------------------------------+------------------------------------------------+
-; Analysis & Synthesis Status     ; Successful - Sat Jun  8 21:46:10 2024          ;
+; Analysis & Synthesis Status     ; Successful - Sun Jun  9 15:24:58 2024          ;
 ; Quartus Prime Version           ; 23.1std.0 Build 991 11/28/2023 SC Lite Edition ;
 ; Revision Name                   ; projeto                                        ;
 ; Top-level Entity Name           ; projeto                                        ;
@@ -176,18 +176,19 @@ https://fpgasoftware.intel.com/eula.
 +----------------------------+-------------+
 
 
-+------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+
-; Analysis & Synthesis Source Files Read                                                                                                                                                   ;
-+----------------------------------+-----------------+------------------------+--------------------------------------------------------------------------------------------------+---------+
-; File Name with User-Entered Path ; Used in Netlist ; File Type              ; File Name with Absolute Path                                                                     ; Library ;
-+----------------------------------+-----------------+------------------------+--------------------------------------------------------------------------------------------------+---------+
-; src/bola.v                       ; yes             ; User Verilog HDL File  ; /home/henrique/Documents/unicamp/mc613/2024s1-mc613-projeto-circuitos-hatsune-miku/src/bola.v    ;         ;
-; src/keys.v                       ; yes             ; User Verilog HDL File  ; /home/henrique/Documents/unicamp/mc613/2024s1-mc613-projeto-circuitos-hatsune-miku/src/keys.v    ;         ;
-; src/memory.v                     ; yes             ; User Verilog HDL File  ; /home/henrique/Documents/unicamp/mc613/2024s1-mc613-projeto-circuitos-hatsune-miku/src/memory.v  ;         ;
-; src/nave.v                       ; yes             ; User Verilog HDL File  ; /home/henrique/Documents/unicamp/mc613/2024s1-mc613-projeto-circuitos-hatsune-miku/src/nave.v    ;         ;
-; src/projeto.v                    ; yes             ; User Verilog HDL File  ; /home/henrique/Documents/unicamp/mc613/2024s1-mc613-projeto-circuitos-hatsune-miku/src/projeto.v ;         ;
-; src/vga.v                        ; yes             ; User Verilog HDL File  ; /home/henrique/Documents/unicamp/mc613/2024s1-mc613-projeto-circuitos-hatsune-miku/src/vga.v     ;         ;
-+----------------------------------+-----------------+------------------------+--------------------------------------------------------------------------------------------------+---------+
++-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+
+; Analysis & Synthesis Source Files Read                                                                                                                                                    ;
++----------------------------------+-----------------+------------------------+---------------------------------------------------------------------------------------------------+---------+
+; File Name with User-Entered Path ; Used in Netlist ; File Type              ; File Name with Absolute Path                                                                      ; Library ;
++----------------------------------+-----------------+------------------------+---------------------------------------------------------------------------------------------------+---------+
+; src/bola.v                       ; yes             ; User Verilog HDL File  ; /home/henrique/Documents/unicamp/mc613/2024s1-mc613-projeto-circuitos-hatsune-miku/src/bola.v     ;         ;
+; src/entities.v                   ; yes             ; User Verilog HDL File  ; /home/henrique/Documents/unicamp/mc613/2024s1-mc613-projeto-circuitos-hatsune-miku/src/entities.v ;         ;
+; src/keys.v                       ; yes             ; User Verilog HDL File  ; /home/henrique/Documents/unicamp/mc613/2024s1-mc613-projeto-circuitos-hatsune-miku/src/keys.v     ;         ;
+; src/memory.v                     ; yes             ; User Verilog HDL File  ; /home/henrique/Documents/unicamp/mc613/2024s1-mc613-projeto-circuitos-hatsune-miku/src/memory.v   ;         ;
+; src/nave.v                       ; yes             ; User Verilog HDL File  ; /home/henrique/Documents/unicamp/mc613/2024s1-mc613-projeto-circuitos-hatsune-miku/src/nave.v     ;         ;
+; src/projeto.v                    ; yes             ; User Verilog HDL File  ; /home/henrique/Documents/unicamp/mc613/2024s1-mc613-projeto-circuitos-hatsune-miku/src/projeto.v  ;         ;
+; src/vga.v                        ; yes             ; User Verilog HDL File  ; /home/henrique/Documents/unicamp/mc613/2024s1-mc613-projeto-circuitos-hatsune-miku/src/vga.v      ;         ;
++----------------------------------+-----------------+------------------------+---------------------------------------------------------------------------------------------------+---------+
 
 
 +--------------------------------------------------------------+
@@ -212,23 +213,24 @@ https://fpgasoftware.intel.com/eula.
 ;                                             ;                ;
 ; Maximum fan-out node                        ; CLOCK_50~input ;
 ; Maximum fan-out                             ; 137            ;
-; Total fan-out                               ; 2232           ;
-; Average fan-out                             ; 2.73           ;
+; Total fan-out                               ; 2222           ;
+; Average fan-out                             ; 2.72           ;
 +---------------------------------------------+----------------+
 
 
-+-----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+
-; Analysis & Synthesis Resource Utilization by Entity                                                                                                                                                             ;
-+-----------------------------+---------------------+---------------------------+-------------------+------------+------+--------------+---------------------------------------------+-------------+--------------+
-; Compilation Hierarchy Node  ; Combinational ALUTs ; Dedicated Logic Registers ; Block Memory Bits ; DSP Blocks ; Pins ; Virtual Pins ; Full Hierarchy Name                         ; Entity Name ; Library Name ;
-+-----------------------------+---------------------+---------------------------+-------------------+------------+------+--------------+---------------------------------------------+-------------+--------------+
-; |projeto                    ; 438 (0)             ; 178 (0)                   ; 0                 ; 10         ; 96   ; 0            ; |projeto                                    ; projeto     ; work         ;
-;    |keys:keysInstancia|     ; 84 (84)             ; 68 (68)                   ; 0                 ; 0          ; 0    ; 0            ; |projeto|keys:keysInstancia                 ; keys        ; work         ;
-;    |memory:memoryInstancia| ; 208 (208)           ; 24 (24)                   ; 0                 ; 10         ; 0    ; 0            ; |projeto|memory:memoryInstancia             ; memory      ; work         ;
-;    |nave:naveInstancia|     ; 113 (30)            ; 65 (10)                   ; 0                 ; 0          ; 0    ; 0            ; |projeto|nave:naveInstancia                 ; nave        ; work         ;
-;       |bola:bolaAliada|     ; 83 (83)             ; 55 (55)                   ; 0                 ; 0          ; 0    ; 0            ; |projeto|nave:naveInstancia|bola:bolaAliada ; bola        ; work         ;
-;    |vga:v|                  ; 33 (33)             ; 21 (21)                   ; 0                 ; 0          ; 0    ; 0            ; |projeto|vga:v                              ; vga         ; work         ;
-+-----------------------------+---------------------+---------------------------+-------------------+------------+------+--------------+---------------------------------------------+-------------+--------------+
++--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+
+; Analysis & Synthesis Resource Utilization by Entity                                                                                                                                                                            ;
++---------------------------------+---------------------+---------------------------+-------------------+------------+------+--------------+--------------------------------------------------------+-------------+--------------+
+; Compilation Hierarchy Node      ; Combinational ALUTs ; Dedicated Logic Registers ; Block Memory Bits ; DSP Blocks ; Pins ; Virtual Pins ; Full Hierarchy Name                                    ; Entity Name ; Library Name ;
++---------------------------------+---------------------+---------------------------+-------------------+------------+------+--------------+--------------------------------------------------------+-------------+--------------+
+; |projeto                        ; 438 (0)             ; 178 (0)                   ; 0                 ; 10         ; 96   ; 0            ; |projeto                                               ; projeto     ; work         ;
+;    |entities:entitiesInstancia| ; 113 (0)             ; 65 (0)                    ; 0                 ; 0          ; 0    ; 0            ; |projeto|entities:entitiesInstancia                    ; entities    ; work         ;
+;       |bola:bolaAliada|         ; 83 (83)             ; 55 (55)                   ; 0                 ; 0          ; 0    ; 0            ; |projeto|entities:entitiesInstancia|bola:bolaAliada    ; bola        ; work         ;
+;       |nave:naveInstancia|      ; 30 (30)             ; 10 (10)                   ; 0                 ; 0          ; 0    ; 0            ; |projeto|entities:entitiesInstancia|nave:naveInstancia ; nave        ; work         ;
+;    |keys:keysInstancia|         ; 84 (84)             ; 68 (68)                   ; 0                 ; 0          ; 0    ; 0            ; |projeto|keys:keysInstancia                            ; keys        ; work         ;
+;    |memory:memoryInstancia|     ; 208 (208)           ; 24 (24)                   ; 0                 ; 10         ; 0    ; 0            ; |projeto|memory:memoryInstancia                        ; memory      ; work         ;
+;    |vga:v|                      ; 33 (33)             ; 21 (21)                   ; 0                 ; 0          ; 0    ; 0            ; |projeto|vga:v                                         ; vga         ; work         ;
++---------------------------------+---------------------+---------------------------+-------------------+------------+------+--------------+--------------------------------------------------------+-------------+--------------+
 Note: For table entries with two numbers listed, the numbers in parentheses indicate the number of resources of the given type used by the specific entity alone. The numbers listed outside of parentheses indicate the total resources of the given type used by the specific entity and all of its sub-entities in the hierarchy.
 
 
@@ -246,22 +248,22 @@ Note: For table entries with two numbers listed, the numbers in parentheses indi
 +---------------------------------+-------------+
 
 
-+------------------------------------------------------------------------------------------------+
-; Registers Removed During Synthesis                                                             ;
-+-------------------------------------------------------+----------------------------------------+
-; Register name                                         ; Reason for Removal                     ;
-+-------------------------------------------------------+----------------------------------------+
-; nave:naveInstancia|bola:bolaAliada|divisorCLK[0..5]   ; Stuck at GND due to stuck port data_in ;
-; nave:naveInstancia|bola:bolaAliada|divisorCLK[6]      ; Stuck at VCC due to stuck port data_in ;
-; nave:naveInstancia|bola:bolaAliada|divisorCLK[7]      ; Stuck at GND due to stuck port data_in ;
-; nave:naveInstancia|bola:bolaAliada|divisorCLK[8]      ; Stuck at VCC due to stuck port data_in ;
-; nave:naveInstancia|bola:bolaAliada|divisorCLK[9]      ; Stuck at GND due to stuck port data_in ;
-; nave:naveInstancia|bola:bolaAliada|divisorCLK[10,11]  ; Stuck at VCC due to stuck port data_in ;
-; nave:naveInstancia|bola:bolaAliada|divisorCLK[12..15] ; Stuck at GND due to stuck port data_in ;
-; nave:naveInstancia|bola:bolaAliada|divisorCLK[16,17]  ; Stuck at VCC due to stuck port data_in ;
-; nave:naveInstancia|bola:bolaAliada|divisorCLK[18..32] ; Stuck at GND due to stuck port data_in ;
-; Total Number of Removed Registers = 33                ;                                        ;
-+-------------------------------------------------------+----------------------------------------+
++--------------------------------------------------------------------------------------------------------+
+; Registers Removed During Synthesis                                                                     ;
++---------------------------------------------------------------+----------------------------------------+
+; Register name                                                 ; Reason for Removal                     ;
++---------------------------------------------------------------+----------------------------------------+
+; entities:entitiesInstancia|bola:bolaAliada|divisorCLK[0..5]   ; Stuck at GND due to stuck port data_in ;
+; entities:entitiesInstancia|bola:bolaAliada|divisorCLK[6]      ; Stuck at VCC due to stuck port data_in ;
+; entities:entitiesInstancia|bola:bolaAliada|divisorCLK[7]      ; Stuck at GND due to stuck port data_in ;
+; entities:entitiesInstancia|bola:bolaAliada|divisorCLK[8]      ; Stuck at VCC due to stuck port data_in ;
+; entities:entitiesInstancia|bola:bolaAliada|divisorCLK[9]      ; Stuck at GND due to stuck port data_in ;
+; entities:entitiesInstancia|bola:bolaAliada|divisorCLK[10,11]  ; Stuck at VCC due to stuck port data_in ;
+; entities:entitiesInstancia|bola:bolaAliada|divisorCLK[12..15] ; Stuck at GND due to stuck port data_in ;
+; entities:entitiesInstancia|bola:bolaAliada|divisorCLK[16,17]  ; Stuck at VCC due to stuck port data_in ;
+; entities:entitiesInstancia|bola:bolaAliada|divisorCLK[18..32] ; Stuck at GND due to stuck port data_in ;
+; Total Number of Removed Registers = 33                        ;                                        ;
++---------------------------------------------------------------+----------------------------------------+
 
 
 +------------------------------------------------------+
@@ -279,97 +281,78 @@ Note: For table entries with two numbers listed, the numbers in parentheses indi
 +----------------------------------------------+-------+
 
 
-+---------------------------------------------------+
-; Inverted Register Statistics                      ;
-+-----------------------------------------+---------+
-; Inverted Register                       ; Fan out ;
-+-----------------------------------------+---------+
-; nave:naveInstancia|LEDR[1]              ; 6       ;
-; nave:naveInstancia|LEDR[2]              ; 5       ;
-; nave:naveInstancia|LEDR[3]              ; 6       ;
-; nave:naveInstancia|LEDR[4]              ; 15      ;
-; nave:naveInstancia|LEDR[6]              ; 10      ;
-; nave:naveInstancia|LEDR[8]              ; 9       ;
-; nave:naveInstancia|bola:bolaAliada|x[3] ; 1       ;
-; nave:naveInstancia|bola:bolaAliada|x[5] ; 1       ;
-; nave:naveInstancia|bola:bolaAliada|x[6] ; 1       ;
-; nave:naveInstancia|bola:bolaAliada|x[7] ; 1       ;
-; nave:naveInstancia|bola:bolaAliada|x[8] ; 1       ;
-; nave:naveInstancia|bola:bolaAliada|x[9] ; 1       ;
-; nave:naveInstancia|bola:bolaAliada|y[3] ; 2       ;
-; nave:naveInstancia|bola:bolaAliada|y[5] ; 2       ;
-; nave:naveInstancia|bola:bolaAliada|y[6] ; 2       ;
-; nave:naveInstancia|bola:bolaAliada|y[7] ; 2       ;
-; nave:naveInstancia|bola:bolaAliada|y[8] ; 2       ;
-; nave:naveInstancia|bola:bolaAliada|y[9] ; 2       ;
-; Total number of inverted registers = 18 ;         ;
-+-----------------------------------------+---------+
++-------------------------------------------------------------------+
+; Inverted Register Statistics                                      ;
++---------------------------------------------------------+---------+
+; Inverted Register                                       ; Fan out ;
++---------------------------------------------------------+---------+
+; entities:entitiesInstancia|nave:naveInstancia|x_nave[1] ; 5       ;
+; entities:entitiesInstancia|nave:naveInstancia|x_nave[2] ; 4       ;
+; entities:entitiesInstancia|nave:naveInstancia|x_nave[4] ; 14      ;
+; entities:entitiesInstancia|nave:naveInstancia|x_nave[3] ; 5       ;
+; entities:entitiesInstancia|nave:naveInstancia|x_nave[6] ; 9       ;
+; entities:entitiesInstancia|nave:naveInstancia|x_nave[8] ; 8       ;
+; entities:entitiesInstancia|bola:bolaAliada|x[3]         ; 1       ;
+; entities:entitiesInstancia|bola:bolaAliada|x[5]         ; 1       ;
+; entities:entitiesInstancia|bola:bolaAliada|x[6]         ; 1       ;
+; entities:entitiesInstancia|bola:bolaAliada|x[7]         ; 1       ;
+; entities:entitiesInstancia|bola:bolaAliada|x[8]         ; 1       ;
+; entities:entitiesInstancia|bola:bolaAliada|x[9]         ; 1       ;
+; entities:entitiesInstancia|bola:bolaAliada|y[3]         ; 2       ;
+; entities:entitiesInstancia|bola:bolaAliada|y[5]         ; 2       ;
+; entities:entitiesInstancia|bola:bolaAliada|y[6]         ; 2       ;
+; entities:entitiesInstancia|bola:bolaAliada|y[7]         ; 2       ;
+; entities:entitiesInstancia|bola:bolaAliada|y[8]         ; 2       ;
+; entities:entitiesInstancia|bola:bolaAliada|y[9]         ; 2       ;
+; Total number of inverted registers = 18                 ;         ;
++---------------------------------------------------------+---------+
 
 
-+----------------------------------------------------------------------------------------------------------------------------------------------------------------+
-; Multiplexer Restructuring Statistics (Restructuring Performed)                                                                                                 ;
-+--------------------+-----------+---------------+----------------------+------------------------+------------+--------------------------------------------------+
-; Multiplexer Inputs ; Bus Width ; Baseline Area ; Area if Restructured ; Saving if Restructured ; Registered ; Example Multiplexer Output                       ;
-+--------------------+-----------+---------------+----------------------+------------------------+------------+--------------------------------------------------+
-; 3:1                ; 4 bits    ; 8 LEs         ; 4 LEs                ; 4 LEs                  ; Yes        ; |projeto|nave:naveInstancia|bola:bolaAliada|x[0] ;
-; 3:1                ; 6 bits    ; 12 LEs        ; 6 LEs                ; 6 LEs                  ; Yes        ; |projeto|nave:naveInstancia|bola:bolaAliada|x[9] ;
-; 3:1                ; 2 bits    ; 4 LEs         ; 4 LEs                ; 0 LEs                  ; No         ; |projeto|memory:memoryInstancia|VGA_G            ;
-; 4:1                ; 2 bits    ; 4 LEs         ; 4 LEs                ; 0 LEs                  ; No         ; |projeto|memory:memoryInstancia|VGA_B            ;
-+--------------------+-----------+---------------+----------------------+------------------------+------------+--------------------------------------------------+
++------------------------------------------------------------------------------------------------------------------------------------------------------------------------+
+; Multiplexer Restructuring Statistics (Restructuring Performed)                                                                                                         ;
++--------------------+-----------+---------------+----------------------+------------------------+------------+----------------------------------------------------------+
+; Multiplexer Inputs ; Bus Width ; Baseline Area ; Area if Restructured ; Saving if Restructured ; Registered ; Example Multiplexer Output                               ;
++--------------------+-----------+---------------+----------------------+------------------------+------------+----------------------------------------------------------+
+; 3:1                ; 4 bits    ; 8 LEs         ; 4 LEs                ; 4 LEs                  ; Yes        ; |projeto|entities:entitiesInstancia|bola:bolaAliada|x[0] ;
+; 3:1                ; 6 bits    ; 12 LEs        ; 6 LEs                ; 6 LEs                  ; Yes        ; |projeto|entities:entitiesInstancia|bola:bolaAliada|x[5] ;
+; 3:1                ; 2 bits    ; 4 LEs         ; 4 LEs                ; 0 LEs                  ; No         ; |projeto|memory:memoryInstancia|VGA_G                    ;
+; 4:1                ; 2 bits    ; 4 LEs         ; 4 LEs                ; 0 LEs                  ; No         ; |projeto|memory:memoryInstancia|VGA_B                    ;
++--------------------+-----------+---------------+----------------------+------------------------+------------+----------------------------------------------------------+
 
 
-+---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+
-; Port Connectivity Checks: "memory:memoryInstancia"                                                                                                                                                                              ;
-+-------------------------+-------+----------+------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+
-; Port                    ; Type  ; Severity ; Details                                                                                                                                                                            ;
-+-------------------------+-------+----------+------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+
-; perdeu                  ; Input ; Warning  ; Input port expression (32 bits) is wider than the input port (1 bits) it drives.  The 31 most-significant bit(s) in the expression will be dangling if they have no other fanouts. ;
-; perdeu[-1]              ; Input ; Info     ; Stuck at GND                                                                                                                                                                       ;
-; x_bola_inimiga[8..4]    ; Input ; Info     ; Stuck at VCC                                                                                                                                                                       ;
-; x_bola_inimiga[1..0]    ; Input ; Info     ; Stuck at GND                                                                                                                                                                       ;
-; x_bola_inimiga[9]       ; Input ; Info     ; Stuck at GND                                                                                                                                                                       ;
-; x_bola_inimiga[3]       ; Input ; Info     ; Stuck at GND                                                                                                                                                                       ;
-; x_bola_inimiga[2]       ; Input ; Info     ; Stuck at VCC                                                                                                                                                                       ;
-; y_bola_inimiga[6..5]    ; Input ; Info     ; Stuck at VCC                                                                                                                                                                       ;
-; y_bola_inimiga[9..7]    ; Input ; Info     ; Stuck at GND                                                                                                                                                                       ;
-; y_bola_inimiga[4..3]    ; Input ; Info     ; Stuck at GND                                                                                                                                                                       ;
-; y_bola_inimiga[1..0]    ; Input ; Info     ; Stuck at GND                                                                                                                                                                       ;
-; y_bola_inimiga[2]       ; Input ; Info     ; Stuck at VCC                                                                                                                                                                       ;
-; raio_bola_inimiga[9..3] ; Input ; Info     ; Stuck at GND                                                                                                                                                                       ;
-; raio_bola_inimiga[2]    ; Input ; Info     ; Stuck at VCC                                                                                                                                                                       ;
-; raio_bola_inimiga[1]    ; Input ; Info     ; Stuck at GND                                                                                                                                                                       ;
-; raio_bola_inimiga[0]    ; Input ; Info     ; Stuck at VCC                                                                                                                                                                       ;
-+-------------------------+-------+----------+------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+
++--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+
+; Port Connectivity Checks: "memory:memoryInstancia"                                                                                                                                                                 ;
++------------+-------+----------+------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+
+; Port       ; Type  ; Severity ; Details                                                                                                                                                                            ;
++------------+-------+----------+------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+
+; perdeu     ; Input ; Warning  ; Input port expression (32 bits) is wider than the input port (1 bits) it drives.  The 31 most-significant bit(s) in the expression will be dangling if they have no other fanouts. ;
+; perdeu[-1] ; Input ; Info     ; Stuck at GND                                                                                                                                                                       ;
++------------+-------+----------+------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+
 
 
-+--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+
-; Port Connectivity Checks: "nave:naveInstancia|bola:bolaAliada"                                                                                                                                                                 ;
-+-----------------------+--------+----------+------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+
-; Port                  ; Type   ; Severity ; Details                                                                                                                                                                            ;
-+-----------------------+--------+----------+------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+
-; yi[8..7]              ; Input  ; Info     ; Stuck at VCC                                                                                                                                                                       ;
-; yi[4..3]              ; Input  ; Info     ; Stuck at GND                                                                                                                                                                       ;
-; yi[1..0]              ; Input  ; Info     ; Stuck at GND                                                                                                                                                                       ;
-; yi[9]                 ; Input  ; Info     ; Stuck at GND                                                                                                                                                                       ;
-; yi[6]                 ; Input  ; Info     ; Stuck at GND                                                                                                                                                                       ;
-; yi[5]                 ; Input  ; Info     ; Stuck at VCC                                                                                                                                                                       ;
-; yi[2]                 ; Input  ; Info     ; Stuck at VCC                                                                                                                                                                       ;
-; ehAliada              ; Input  ; Warning  ; Input port expression (32 bits) is wider than the input port (1 bits) it drives.  The 31 most-significant bit(s) in the expression will be dangling if they have no other fanouts. ;
-; ehAliada[-1]          ; Input  ; Info     ; Stuck at VCC                                                                                                                                                                       ;
-; iniciar_movimento     ; Input  ; Warning  ; Input port expression (32 bits) is wider than the input port (1 bits) it drives.  The 31 most-significant bit(s) in the expression will be dangling if they have no other fanouts. ;
-; iniciar_movimento[-1] ; Input  ; Info     ; Stuck at VCC                                                                                                                                                                       ;
-; bateu                 ; Output ; Warning  ; Declared by entity but not connected by instance. Logic that only feeds a dangling port will be removed.                                                                           ;
-+-----------------------+--------+----------+------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+
++-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+
+; Port Connectivity Checks: "entities:entitiesInstancia|bola:bolaAliada"                                                                                                                                                        ;
++-----------------------+-------+----------+------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+
+; Port                  ; Type  ; Severity ; Details                                                                                                                                                                            ;
++-----------------------+-------+----------+------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+
+; reiniciarJogo         ; Input ; Warning  ; Input port expression (32 bits) is wider than the input port (1 bits) it drives.  The 31 most-significant bit(s) in the expression will be dangling if they have no other fanouts. ;
+; reiniciarJogo[-1]     ; Input ; Info     ; Stuck at GND                                                                                                                                                                       ;
+; ehAliada              ; Input ; Warning  ; Input port expression (32 bits) is wider than the input port (1 bits) it drives.  The 31 most-significant bit(s) in the expression will be dangling if they have no other fanouts. ;
+; ehAliada[-1]          ; Input ; Info     ; Stuck at VCC                                                                                                                                                                       ;
+; iniciar_movimento     ; Input ; Warning  ; Input port expression (32 bits) is wider than the input port (1 bits) it drives.  The 31 most-significant bit(s) in the expression will be dangling if they have no other fanouts. ;
+; iniciar_movimento[-1] ; Input ; Info     ; Stuck at VCC                                                                                                                                                                       ;
++-----------------------+-------+----------+------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+
 
 
-+---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+
-; Port Connectivity Checks: "nave:naveInstancia"                                                                                                                                                                            ;
-+-------------------+-------+----------+------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+
-; Port              ; Type  ; Severity ; Details                                                                                                                                                                            ;
-+-------------------+-------+----------+------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+
-; reiniciarJogo     ; Input ; Warning  ; Input port expression (32 bits) is wider than the input port (1 bits) it drives.  The 31 most-significant bit(s) in the expression will be dangling if they have no other fanouts. ;
-; reiniciarJogo[-1] ; Input ; Info     ; Stuck at GND                                                                                                                                                                       ;
-+-------------------+-------+----------+------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+
++----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+
+; Port Connectivity Checks: "entities:entitiesInstancia|nave:naveInstancia"                                                                                                                                                  ;
++-------------------+--------+----------+------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+
+; Port              ; Type   ; Severity ; Details                                                                                                                                                                            ;
++-------------------+--------+----------+------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+
+; reiniciarJogo     ; Input  ; Warning  ; Input port expression (32 bits) is wider than the input port (1 bits) it drives.  The 31 most-significant bit(s) in the expression will be dangling if they have no other fanouts. ;
+; reiniciarJogo[-1] ; Input  ; Info     ; Stuck at GND                                                                                                                                                                       ;
+; iniciarBola       ; Output ; Info     ; Connected to dangling logic. Logic that only feeds a dangling port will be removed.                                                                                                ;
++-------------------+--------+----------+------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+
 
 
 +-----------------------------------------------------+
@@ -383,15 +366,15 @@ Note: For table entries with two numbers listed, the numbers in parentheses indi
 ;     ENA SCLR          ; 76                          ;
 ;     SCLR              ; 43                          ;
 ;     plain             ; 4                           ;
-; arriav_lcell_comb     ; 447                         ;
+; arriav_lcell_comb     ; 441                         ;
 ;     arith             ; 257                         ;
 ;         0 data inputs ; 2                           ;
 ;         1 data inputs ; 172                         ;
 ;         2 data inputs ; 79                          ;
 ;         3 data inputs ; 4                           ;
-;     normal            ; 138                         ;
+;     normal            ; 132                         ;
 ;         0 data inputs ; 2                           ;
-;         1 data inputs ; 7                           ;
+;         1 data inputs ; 1                           ;
 ;         2 data inputs ; 9                           ;
 ;         3 data inputs ; 15                          ;
 ;         4 data inputs ; 22                          ;
@@ -405,7 +388,7 @@ Note: For table entries with two numbers listed, the numbers in parentheses indi
 ; boundary_port         ; 96                          ;
 ;                       ;                             ;
 ; Max LUT depth         ; 6.40                        ;
-; Average LUT depth     ; 4.41                        ;
+; Average LUT depth     ; 4.43                        ;
 +-----------------------+-----------------------------+
 
 
@@ -424,12 +407,15 @@ Note: For table entries with two numbers listed, the numbers in parentheses indi
 Info: *******************************************************************
 Info: Running Quartus Prime Analysis & Synthesis
     Info: Version 23.1std.0 Build 991 11/28/2023 SC Lite Edition
-    Info: Processing started: Sat Jun  8 21:46:03 2024
+    Info: Processing started: Sun Jun  9 15:24:52 2024
 Info: Command: quartus_map --read_settings_files=on --write_settings_files=off projeto -c projeto
 Warning (18236): Number of processors has not been specified which may cause overloading on shared machines.  Set the global assignment NUM_PARALLEL_PROCESSORS in your QSF to an appropriate value for best performance.
 Info (20030): Parallel compilation is enabled and will use 4 of the 4 processors detected
 Info (12021): Found 1 design units, including 1 entities, in source file src/bola.v
     Info (12023): Found entity 1: bola File: /home/henrique/Documents/unicamp/mc613/2024s1-mc613-projeto-circuitos-hatsune-miku/src/bola.v Line: 1
+Warning (10275): Verilog HDL Module Instantiation warning at entities.v(47): ignored dangling comma in List of Port Connections File: /home/henrique/Documents/unicamp/mc613/2024s1-mc613-projeto-circuitos-hatsune-miku/src/entities.v Line: 47
+Info (12021): Found 1 design units, including 1 entities, in source file src/entities.v
+    Info (12023): Found entity 1: entities File: /home/henrique/Documents/unicamp/mc613/2024s1-mc613-projeto-circuitos-hatsune-miku/src/entities.v Line: 1
 Info (12021): Found 1 design units, including 1 entities, in source file src/keys.v
     Info (12023): Found entity 1: keys File: /home/henrique/Documents/unicamp/mc613/2024s1-mc613-projeto-circuitos-hatsune-miku/src/keys.v Line: 1
 Info (12021): Found 1 design units, including 1 entities, in source file src/memory.v
@@ -440,7 +426,7 @@ Info (12021): Found 1 design units, including 1 entities, in source file src/pro
     Info (12023): Found entity 1: projeto File: /home/henrique/Documents/unicamp/mc613/2024s1-mc613-projeto-circuitos-hatsune-miku/src/projeto.v Line: 1
 Info (12021): Found 1 design units, including 1 entities, in source file src/vga.v
     Info (12023): Found entity 1: vga File: /home/henrique/Documents/unicamp/mc613/2024s1-mc613-projeto-circuitos-hatsune-miku/src/vga.v Line: 1
-Warning (10236): Verilog HDL Implicit Net warning at nave.v(28): created implicit net for "resetNave" File: /home/henrique/Documents/unicamp/mc613/2024s1-mc613-projeto-circuitos-hatsune-miku/src/nave.v Line: 28
+Warning (10236): Verilog HDL Implicit Net warning at nave.v(19): created implicit net for "resetNave" File: /home/henrique/Documents/unicamp/mc613/2024s1-mc613-projeto-circuitos-hatsune-miku/src/nave.v Line: 19
 Info (12127): Elaborating entity "projeto" for the top level hierarchy
 Warning (10034): Output port "HEX0" at projeto.v(13) has no driver File: /home/henrique/Documents/unicamp/mc613/2024s1-mc613-projeto-circuitos-hatsune-miku/src/projeto.v Line: 13
 Warning (10034): Output port "HEX1" at projeto.v(14) has no driver File: /home/henrique/Documents/unicamp/mc613/2024s1-mc613-projeto-circuitos-hatsune-miku/src/projeto.v Line: 14
@@ -448,35 +434,35 @@ Warning (10034): Output port "HEX2" at projeto.v(15) has no driver File: /home/h
 Warning (10034): Output port "HEX3" at projeto.v(16) has no driver File: /home/henrique/Documents/unicamp/mc613/2024s1-mc613-projeto-circuitos-hatsune-miku/src/projeto.v Line: 16
 Warning (10034): Output port "HEX4" at projeto.v(17) has no driver File: /home/henrique/Documents/unicamp/mc613/2024s1-mc613-projeto-circuitos-hatsune-miku/src/projeto.v Line: 17
 Warning (10034): Output port "HEX5" at projeto.v(18) has no driver File: /home/henrique/Documents/unicamp/mc613/2024s1-mc613-projeto-circuitos-hatsune-miku/src/projeto.v Line: 18
-Info (12128): Elaborating entity "vga" for hierarchy "vga:v" File: /home/henrique/Documents/unicamp/mc613/2024s1-mc613-projeto-circuitos-hatsune-miku/src/projeto.v Line: 62
+Warning (10034): Output port "LEDR" at projeto.v(20) has no driver File: /home/henrique/Documents/unicamp/mc613/2024s1-mc613-projeto-circuitos-hatsune-miku/src/projeto.v Line: 20
+Info (12128): Elaborating entity "entities" for hierarchy "entities:entitiesInstancia" File: /home/henrique/Documents/unicamp/mc613/2024s1-mc613-projeto-circuitos-hatsune-miku/src/projeto.v Line: 59
+Info (12128): Elaborating entity "nave" for hierarchy "entities:entitiesInstancia|nave:naveInstancia" File: /home/henrique/Documents/unicamp/mc613/2024s1-mc613-projeto-circuitos-hatsune-miku/src/entities.v Line: 47
+Warning (10230): Verilog HDL assignment warning at nave.v(29): truncated value with size 32 to match size of target (10) File: /home/henrique/Documents/unicamp/mc613/2024s1-mc613-projeto-circuitos-hatsune-miku/src/nave.v Line: 29
+Warning (10230): Verilog HDL assignment warning at nave.v(32): truncated value with size 32 to match size of target (10) File: /home/henrique/Documents/unicamp/mc613/2024s1-mc613-projeto-circuitos-hatsune-miku/src/nave.v Line: 32
+Warning (10240): Verilog HDL Always Construct warning at nave.v(21): inferring latch(es) for variable "y_nave", which holds its previous value in one or more paths through the always construct File: /home/henrique/Documents/unicamp/mc613/2024s1-mc613-projeto-circuitos-hatsune-miku/src/nave.v Line: 21
+Info (10041): Inferred latch for "y_nave[0]" at nave.v(26) File: /home/henrique/Documents/unicamp/mc613/2024s1-mc613-projeto-circuitos-hatsune-miku/src/nave.v Line: 26
+Info (10041): Inferred latch for "y_nave[1]" at nave.v(26) File: /home/henrique/Documents/unicamp/mc613/2024s1-mc613-projeto-circuitos-hatsune-miku/src/nave.v Line: 26
+Info (10041): Inferred latch for "y_nave[2]" at nave.v(26) File: /home/henrique/Documents/unicamp/mc613/2024s1-mc613-projeto-circuitos-hatsune-miku/src/nave.v Line: 26
+Info (10041): Inferred latch for "y_nave[3]" at nave.v(26) File: /home/henrique/Documents/unicamp/mc613/2024s1-mc613-projeto-circuitos-hatsune-miku/src/nave.v Line: 26
+Info (10041): Inferred latch for "y_nave[4]" at nave.v(26) File: /home/henrique/Documents/unicamp/mc613/2024s1-mc613-projeto-circuitos-hatsune-miku/src/nave.v Line: 26
+Info (10041): Inferred latch for "y_nave[5]" at nave.v(26) File: /home/henrique/Documents/unicamp/mc613/2024s1-mc613-projeto-circuitos-hatsune-miku/src/nave.v Line: 26
+Info (10041): Inferred latch for "y_nave[6]" at nave.v(26) File: /home/henrique/Documents/unicamp/mc613/2024s1-mc613-projeto-circuitos-hatsune-miku/src/nave.v Line: 26
+Info (10041): Inferred latch for "y_nave[7]" at nave.v(26) File: /home/henrique/Documents/unicamp/mc613/2024s1-mc613-projeto-circuitos-hatsune-miku/src/nave.v Line: 26
+Info (10041): Inferred latch for "y_nave[8]" at nave.v(26) File: /home/henrique/Documents/unicamp/mc613/2024s1-mc613-projeto-circuitos-hatsune-miku/src/nave.v Line: 26
+Info (10041): Inferred latch for "y_nave[9]" at nave.v(26) File: /home/henrique/Documents/unicamp/mc613/2024s1-mc613-projeto-circuitos-hatsune-miku/src/nave.v Line: 26
+Info (12128): Elaborating entity "bola" for hierarchy "entities:entitiesInstancia|bola:bolaAliada" File: /home/henrique/Documents/unicamp/mc613/2024s1-mc613-projeto-circuitos-hatsune-miku/src/entities.v Line: 62
+Warning (10230): Verilog HDL assignment warning at bola.v(43): truncated value with size 32 to match size of target (10) File: /home/henrique/Documents/unicamp/mc613/2024s1-mc613-projeto-circuitos-hatsune-miku/src/bola.v Line: 43
+Warning (10230): Verilog HDL assignment warning at bola.v(44): truncated value with size 32 to match size of target (10) File: /home/henrique/Documents/unicamp/mc613/2024s1-mc613-projeto-circuitos-hatsune-miku/src/bola.v Line: 44
+Warning (10230): Verilog HDL assignment warning at bola.v(50): truncated value with size 32 to match size of target (10) File: /home/henrique/Documents/unicamp/mc613/2024s1-mc613-projeto-circuitos-hatsune-miku/src/bola.v Line: 50
+Warning (10230): Verilog HDL assignment warning at bola.v(52): truncated value with size 32 to match size of target (10) File: /home/henrique/Documents/unicamp/mc613/2024s1-mc613-projeto-circuitos-hatsune-miku/src/bola.v Line: 52
+Info (12128): Elaborating entity "vga" for hierarchy "vga:v" File: /home/henrique/Documents/unicamp/mc613/2024s1-mc613-projeto-circuitos-hatsune-miku/src/projeto.v Line: 72
 Warning (10230): Verilog HDL assignment warning at vga.v(24): truncated value with size 32 to match size of target (10) File: /home/henrique/Documents/unicamp/mc613/2024s1-mc613-projeto-circuitos-hatsune-miku/src/vga.v Line: 24
 Warning (10230): Verilog HDL assignment warning at vga.v(27): truncated value with size 32 to match size of target (10) File: /home/henrique/Documents/unicamp/mc613/2024s1-mc613-projeto-circuitos-hatsune-miku/src/vga.v Line: 27
 Warning (10230): Verilog HDL assignment warning at vga.v(34): truncated value with size 32 to match size of target (1) File: /home/henrique/Documents/unicamp/mc613/2024s1-mc613-projeto-circuitos-hatsune-miku/src/vga.v Line: 34
 Warning (10230): Verilog HDL assignment warning at vga.v(35): truncated value with size 32 to match size of target (1) File: /home/henrique/Documents/unicamp/mc613/2024s1-mc613-projeto-circuitos-hatsune-miku/src/vga.v Line: 35
 Warning (10230): Verilog HDL assignment warning at vga.v(38): truncated value with size 32 to match size of target (1) File: /home/henrique/Documents/unicamp/mc613/2024s1-mc613-projeto-circuitos-hatsune-miku/src/vga.v Line: 38
-Info (12128): Elaborating entity "keys" for hierarchy "keys:keysInstancia" File: /home/henrique/Documents/unicamp/mc613/2024s1-mc613-projeto-circuitos-hatsune-miku/src/projeto.v Line: 68
-Info (12128): Elaborating entity "nave" for hierarchy "nave:naveInstancia" File: /home/henrique/Documents/unicamp/mc613/2024s1-mc613-projeto-circuitos-hatsune-miku/src/projeto.v Line: 86
-Warning (10858): Verilog HDL warning at nave.v(23): object bateu used but never assigned File: /home/henrique/Documents/unicamp/mc613/2024s1-mc613-projeto-circuitos-hatsune-miku/src/nave.v Line: 23
-Warning (10036): Verilog HDL or VHDL warning at nave.v(24): object "iniciarBola" assigned a value but never read File: /home/henrique/Documents/unicamp/mc613/2024s1-mc613-projeto-circuitos-hatsune-miku/src/nave.v Line: 24
-Warning (10230): Verilog HDL assignment warning at nave.v(56): truncated value with size 32 to match size of target (10) File: /home/henrique/Documents/unicamp/mc613/2024s1-mc613-projeto-circuitos-hatsune-miku/src/nave.v Line: 56
-Warning (10230): Verilog HDL assignment warning at nave.v(59): truncated value with size 32 to match size of target (10) File: /home/henrique/Documents/unicamp/mc613/2024s1-mc613-projeto-circuitos-hatsune-miku/src/nave.v Line: 59
-Warning (10240): Verilog HDL Always Construct warning at nave.v(48): inferring latch(es) for variable "y_nave", which holds its previous value in one or more paths through the always construct File: /home/henrique/Documents/unicamp/mc613/2024s1-mc613-projeto-circuitos-hatsune-miku/src/nave.v Line: 48
-Info (10041): Inferred latch for "y_nave[0]" at nave.v(54) File: /home/henrique/Documents/unicamp/mc613/2024s1-mc613-projeto-circuitos-hatsune-miku/src/nave.v Line: 54
-Info (10041): Inferred latch for "y_nave[1]" at nave.v(54) File: /home/henrique/Documents/unicamp/mc613/2024s1-mc613-projeto-circuitos-hatsune-miku/src/nave.v Line: 54
-Info (10041): Inferred latch for "y_nave[2]" at nave.v(54) File: /home/henrique/Documents/unicamp/mc613/2024s1-mc613-projeto-circuitos-hatsune-miku/src/nave.v Line: 54
-Info (10041): Inferred latch for "y_nave[3]" at nave.v(54) File: /home/henrique/Documents/unicamp/mc613/2024s1-mc613-projeto-circuitos-hatsune-miku/src/nave.v Line: 54
-Info (10041): Inferred latch for "y_nave[4]" at nave.v(54) File: /home/henrique/Documents/unicamp/mc613/2024s1-mc613-projeto-circuitos-hatsune-miku/src/nave.v Line: 54
-Info (10041): Inferred latch for "y_nave[5]" at nave.v(54) File: /home/henrique/Documents/unicamp/mc613/2024s1-mc613-projeto-circuitos-hatsune-miku/src/nave.v Line: 54
-Info (10041): Inferred latch for "y_nave[6]" at nave.v(54) File: /home/henrique/Documents/unicamp/mc613/2024s1-mc613-projeto-circuitos-hatsune-miku/src/nave.v Line: 54
-Info (10041): Inferred latch for "y_nave[7]" at nave.v(54) File: /home/henrique/Documents/unicamp/mc613/2024s1-mc613-projeto-circuitos-hatsune-miku/src/nave.v Line: 54
-Info (10041): Inferred latch for "y_nave[8]" at nave.v(54) File: /home/henrique/Documents/unicamp/mc613/2024s1-mc613-projeto-circuitos-hatsune-miku/src/nave.v Line: 54
-Info (10041): Inferred latch for "y_nave[9]" at nave.v(54) File: /home/henrique/Documents/unicamp/mc613/2024s1-mc613-projeto-circuitos-hatsune-miku/src/nave.v Line: 54
-Info (12128): Elaborating entity "bola" for hierarchy "nave:naveInstancia|bola:bolaAliada" File: /home/henrique/Documents/unicamp/mc613/2024s1-mc613-projeto-circuitos-hatsune-miku/src/nave.v Line: 43
-Warning (10230): Verilog HDL assignment warning at bola.v(43): truncated value with size 32 to match size of target (10) File: /home/henrique/Documents/unicamp/mc613/2024s1-mc613-projeto-circuitos-hatsune-miku/src/bola.v Line: 43
-Warning (10230): Verilog HDL assignment warning at bola.v(44): truncated value with size 32 to match size of target (10) File: /home/henrique/Documents/unicamp/mc613/2024s1-mc613-projeto-circuitos-hatsune-miku/src/bola.v Line: 44
-Warning (10230): Verilog HDL assignment warning at bola.v(50): truncated value with size 32 to match size of target (10) File: /home/henrique/Documents/unicamp/mc613/2024s1-mc613-projeto-circuitos-hatsune-miku/src/bola.v Line: 50
-Warning (10230): Verilog HDL assignment warning at bola.v(52): truncated value with size 32 to match size of target (10) File: /home/henrique/Documents/unicamp/mc613/2024s1-mc613-projeto-circuitos-hatsune-miku/src/bola.v Line: 52
-Info (12128): Elaborating entity "memory" for hierarchy "memory:memoryInstancia" File: /home/henrique/Documents/unicamp/mc613/2024s1-mc613-projeto-circuitos-hatsune-miku/src/projeto.v Line: 109
+Info (12128): Elaborating entity "keys" for hierarchy "keys:keysInstancia" File: /home/henrique/Documents/unicamp/mc613/2024s1-mc613-projeto-circuitos-hatsune-miku/src/projeto.v Line: 78
+Info (12128): Elaborating entity "memory" for hierarchy "memory:memoryInstancia" File: /home/henrique/Documents/unicamp/mc613/2024s1-mc613-projeto-circuitos-hatsune-miku/src/projeto.v Line: 100
 Warning (12241): 3 hierarchies have connectivity warnings - see the Connectivity Checks report folder
 Warning (13024): Output pins are stuck at VCC or GND
     Warning (13410): Pin "VGA_BLANK_N" is stuck at VCC File: /home/henrique/Documents/unicamp/mc613/2024s1-mc613-projeto-circuitos-hatsune-miku/src/projeto.v Line: 10
@@ -523,6 +509,16 @@ Warning (13024): Output pins are stuck at VCC or GND
     Warning (13410): Pin "HEX5[4]" is stuck at GND File: /home/henrique/Documents/unicamp/mc613/2024s1-mc613-projeto-circuitos-hatsune-miku/src/projeto.v Line: 18
     Warning (13410): Pin "HEX5[5]" is stuck at GND File: /home/henrique/Documents/unicamp/mc613/2024s1-mc613-projeto-circuitos-hatsune-miku/src/projeto.v Line: 18
     Warning (13410): Pin "HEX5[6]" is stuck at GND File: /home/henrique/Documents/unicamp/mc613/2024s1-mc613-projeto-circuitos-hatsune-miku/src/projeto.v Line: 18
+    Warning (13410): Pin "LEDR[0]" is stuck at GND File: /home/henrique/Documents/unicamp/mc613/2024s1-mc613-projeto-circuitos-hatsune-miku/src/projeto.v Line: 20
+    Warning (13410): Pin "LEDR[1]" is stuck at GND File: /home/henrique/Documents/unicamp/mc613/2024s1-mc613-projeto-circuitos-hatsune-miku/src/projeto.v Line: 20
+    Warning (13410): Pin "LEDR[2]" is stuck at GND File: /home/henrique/Documents/unicamp/mc613/2024s1-mc613-projeto-circuitos-hatsune-miku/src/projeto.v Line: 20
+    Warning (13410): Pin "LEDR[3]" is stuck at GND File: /home/henrique/Documents/unicamp/mc613/2024s1-mc613-projeto-circuitos-hatsune-miku/src/projeto.v Line: 20
+    Warning (13410): Pin "LEDR[4]" is stuck at GND File: /home/henrique/Documents/unicamp/mc613/2024s1-mc613-projeto-circuitos-hatsune-miku/src/projeto.v Line: 20
+    Warning (13410): Pin "LEDR[5]" is stuck at GND File: /home/henrique/Documents/unicamp/mc613/2024s1-mc613-projeto-circuitos-hatsune-miku/src/projeto.v Line: 20
+    Warning (13410): Pin "LEDR[6]" is stuck at GND File: /home/henrique/Documents/unicamp/mc613/2024s1-mc613-projeto-circuitos-hatsune-miku/src/projeto.v Line: 20
+    Warning (13410): Pin "LEDR[7]" is stuck at GND File: /home/henrique/Documents/unicamp/mc613/2024s1-mc613-projeto-circuitos-hatsune-miku/src/projeto.v Line: 20
+    Warning (13410): Pin "LEDR[8]" is stuck at GND File: /home/henrique/Documents/unicamp/mc613/2024s1-mc613-projeto-circuitos-hatsune-miku/src/projeto.v Line: 20
+    Warning (13410): Pin "LEDR[9]" is stuck at GND File: /home/henrique/Documents/unicamp/mc613/2024s1-mc613-projeto-circuitos-hatsune-miku/src/projeto.v Line: 20
 Info (286030): Timing-Driven Synthesis is running
 Info (16010): Generating hard_block partition "hard_block:auto_generated_inst"
     Info (16011): Adding 0 node(s), including 0 DDIO, 0 PLL, 0 transceiver and 0 LCELL
@@ -535,17 +531,17 @@ Warning (21074): Design contains 10 input pin(s) that do not drive logic
     Warning (15610): No output dependent on input pin "SW[7]" File: /home/henrique/Documents/unicamp/mc613/2024s1-mc613-projeto-circuitos-hatsune-miku/src/projeto.v Line: 3
     Warning (15610): No output dependent on input pin "SW[8]" File: /home/henrique/Documents/unicamp/mc613/2024s1-mc613-projeto-circuitos-hatsune-miku/src/projeto.v Line: 3
     Warning (15610): No output dependent on input pin "SW[9]" File: /home/henrique/Documents/unicamp/mc613/2024s1-mc613-projeto-circuitos-hatsune-miku/src/projeto.v Line: 3
-    Warning (15610): No output dependent on input pin "KEY[1]" File: /home/henrique/Documents/unicamp/mc613/2024s1-mc613-projeto-circuitos-hatsune-miku/src/projeto.v Line: 4
+    Warning (15610): No output dependent on input pin "KEY[2]" File: /home/henrique/Documents/unicamp/mc613/2024s1-mc613-projeto-circuitos-hatsune-miku/src/projeto.v Line: 4
     Warning (15610): No output dependent on input pin "KEY[3]" File: /home/henrique/Documents/unicamp/mc613/2024s1-mc613-projeto-circuitos-hatsune-miku/src/projeto.v Line: 4
 Info (21057): Implemented 670 device resources after synthesis - the final resource count might be different
     Info (21058): Implemented 15 input pins
     Info (21059): Implemented 81 output pins
     Info (21061): Implemented 564 logic cells
     Info (21062): Implemented 10 DSP elements
-Info: Quartus Prime Analysis & Synthesis was successful. 0 errors, 79 warnings
+Info: Quartus Prime Analysis & Synthesis was successful. 0 errors, 89 warnings
     Info: Peak virtual memory: 484 megabytes
-    Info: Processing ended: Sat Jun  8 21:46:10 2024
-    Info: Elapsed time: 00:00:07
-    Info: Total CPU time (on all processors): 00:00:18
+    Info: Processing ended: Sun Jun  9 15:24:58 2024
+    Info: Elapsed time: 00:00:06
+    Info: Total CPU time (on all processors): 00:00:15
 
 

@@ -1,5 +1,5 @@
 module projeto(
-	input CLOCK_50, 
+	input CLOCK_50,
 	input [9:0] SW,
 	input [3:0] KEY,
 	output wire [7:0] VGA_R, 
@@ -18,13 +18,11 @@ module projeto(
   	output [6:0] HEX5, // digito da esquerda
 	output [9:0] LEDR
 );
+    wire [3:0] keysout;
     wire reset;
     wire pausa;
-
     assign reset = SW[0];
     assign pausa = SW[1];
-
-    wire [3:0] keysout;
 
     wire [9:0] VGA_X;
     wire [9:0] VGA_Y; 
@@ -43,10 +41,22 @@ module projeto(
     wire [9:0] largura_nave;
     wire [9:0] altura_nave;
 
-
-    assign x_bola_inimiga = 500;
-    assign y_bola_inimiga = 100;
-    assign raio_bola_inimiga = 5;
+    entities entitiesInstancia(
+        .CLOCK_50(CLOCK_50),
+        .reset(reset),
+        .keysout(keysout),
+        .pausa(pausa),
+        .x_bola_aliada(x_bola_aliada),
+        .y_bola_aliada(y_bola_aliada),
+        .raio_bola_aliada(raio_bola_aliada),
+        .x_bola_inimiga(x_bola_inimiga),
+        .y_bola_inimiga(y_bola_inimiga),
+        .raio_bola_inimiga(raio_bola_inimiga),
+        .x_nave(x_nave),
+        .y_nave(y_nave),
+        .largura_nave(largura_nave),
+        .altura_nave(altura_nave)
+    );
 
     vga v(
 		.CLOCK_50(CLOCK_50),
@@ -66,25 +76,6 @@ module projeto(
 		.keys(KEY),
 		.keysout(keysout)
 	);
-
-    nave naveInstancia(
-        .CLOCK_50(CLOCK_50),
-        .reset(reset),
-        .keysout(keysout),
-        .pausa(pausa),
-        .reiniciarJogo(0),
-
-        .largura_nave(largura_nave),
-        .altura_nave(altura_nave),
-        .x_nave(x_nave),
-        .y_nave(y_nave),
-
-        .x_bola(x_bola_aliada),
-        .y_bola(y_bola_aliada),
-        .raio_bola(raio_bola_aliada),
-        .LEDR(LEDR)
-    );
-
 
     memory memoryInstancia(
         .CLOCK_50(CLOCK_50),

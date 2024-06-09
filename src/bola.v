@@ -62,9 +62,4 @@ module bola(
 
         end
     end
-
-
-
-
-
 endmodule
