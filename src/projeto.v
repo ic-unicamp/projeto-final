@@ -18,7 +18,6 @@ module projeto(
   	output [6:0] HEX5, // digito da esquerda
 	output [9:0] LEDR
 );
-    assign LEDR = iniciar_bola_aliada;
     wire reset;
     wire pausa;
 
@@ -82,7 +81,8 @@ module projeto(
 
         .x_bola(x_bola_aliada),
         .y_bola(y_bola_aliada),
-        .raio_bola(raio_bola_aliada)
+        .raio_bola(raio_bola_aliada),
+        .LEDR(LEDR)
     );
 
 
