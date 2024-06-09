@@ -24,11 +24,11 @@ module topper (
 );
 
 wire enable_write_memory; // Controle para saber se a memória ira guardar algo. Quem gera esse sinal é o cursor
-reg [7:0] dado_escrita_memoria;
+reg [8:0] dado_escrita_memoria;
 wire [0:19] pos_pxl_w; // Endereço da memória onde será pintado ou não em um determinadomomento momento, gerado pelo cursor
 wire ativo;
 reg [0:19] pos_pxl_r; // Endereço da memória onde será lida informação pelo vga para por na tela 
-wire [7:0] cor_atual_vga;
+wire [8:0] cor_atual_vga;
 reg initializing_memory = 0;
 wire memory_initialized;
 
@@ -102,10 +102,14 @@ reg [10:0] vga_cursor_x_pos;
 reg [10:0] vga_cursor_y_pos;
 reg [4:0] estado = 0;
 
+reg [2:0] r_escrita_memoria = 5;
+reg [2:0] g_escrita_memoria = 3;
+reg [2:0] b_escrita_memoria = 2;
+
 always @(posedge CLOCK_50) begin
 	vga_cursor_x_pos = cursor_x_pos + 145;
 	vga_cursor_y_pos = cursor_y_pos + 36;
-    dado_escrita_memoria = 120;
+    dado_escrita_memoria = {r_escrita_memoria, g_escrita_memoria, b_escrita_memoria};
     pos_pxl_r <= 640*(y - 36) + x - 145; // o x e o y do vga não começam em zero
 
     case(estado)
@@ -118,14 +122,14 @@ always @(posedge CLOCK_50) begin
         end
 
         1: begin // mostrando na tela
-            if (ativo && ((x == vga_cursor_x_pos && y >= vga_cursor_y_pos - 5 && y <= vga_cursor_y_pos + 5) || (y == vga_cursor_y_pos && x >= vga_cursor_x_pos - 5 && x <= vga_cursor_x_pos + 5))) begin // cursor
+            if (ativo && (((x == vga_cursor_x_pos) && (y >= vga_cursor_y_pos - 5) && (y <= vga_cursor_y_pos + 5)) || ((y == vga_cursor_y_pos) && (x >= vga_cursor_x_pos - 5) && (x <= vga_cursor_x_pos + 5)))) begin // cursor
                 vga_r_int <= 255;
                 vga_g_int <= 0;
                 vga_b_int <= 0;
             end else if (ativo) begin // tela fora cursor
-                vga_r_int <= cor_atual_vga;
-                vga_g_int <= cor_atual_vga;
-                vga_b_int <= cor_atual_vga;
+                vga_r_int <= cor_atual_vga[8:6] << 5;
+                vga_g_int <= cor_atual_vga[5:3] << 5;
+                vga_b_int <= cor_atual_vga[2:0] << 5;
                 // É necessário desloca-los
             end else begin // fora da tela
                 vga_r_int <= 0;

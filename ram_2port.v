@@ -4,17 +4,17 @@ module ram_2port (
     // Porta de Escrita
     input we,                // Sinal de habilitação de escrita
     input[0:19] write_addr, // Endereço de escrita
-    input [7:0] data_in,    // Dados de entrada para escrita
+    input [8:0] data_in,    // Dados de entrada para escrita
     // Porta de Leitura
     input  re,                // Sinal de habilitação de leitura
     input [0:19] read_addr,  // Endereço de leitura
-    output reg [7:0] data_out,    // Dados de saída peara leitura
+    output reg [8:0] data_out,    // Dados de saída peara leitura
     input initializing,
     output reg initialized
 );
 
 // Declaração da memória
-reg [7:0] buffer [0:640*480];
+reg [8:0] buffer [0:640*480];
 reg [0:19] initialization_write_addr = 0;
 initial initialized = 0;
 
@@ -25,7 +25,7 @@ always @(posedge clk) begin
             initialized = 1;
         end
         else begin
-            buffer[initialization_write_addr] <= 254;
+            buffer[initialization_write_addr] <= 9'b111111111; // branco
             initialization_write_addr = initialization_write_addr + 1;
         end
     end 
