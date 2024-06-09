@@ -104,9 +104,21 @@ vga VGA(
 		  
 always @(posedge CLOCK_50) begin
     if (ativo) begin
+      if (cor_atual_vga == 255) begin
+        vga_r_int <= 0;
+        vga_g_int <= 0;
+        vga_b_int <= 255;
+      end
+      if (cor_atual_vga == 254) begin
+        vga_r_int <= 255;
+        vga_g_int <= 0;
+        vga_b_int <= 0;
+      end
+      else begin
         vga_r_int <= cor_atual_vga;
         vga_g_int <= cor_atual_vga;
         vga_b_int <= cor_atual_vga;
+      end
         pos_pixel_r <= 640*(y- 1 - 35) + x - 1 - 143; // o x e o y do vga n~ao começam em zero
 		  // [E necess´ario desloca-los
     end

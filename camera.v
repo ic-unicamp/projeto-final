@@ -39,9 +39,12 @@ reg [7:0] y0;
 reg [7:0] cr;
 reg [7:0] y1;
 reg alterna_pixel;
-reg [0:19] verdes [4:0];
+reg [1:0] estado_pixels;
+reg [7:0] verdes_seguidos;
+reg achou;
 
 always @(posedge pclk) begin
+// Capturando
     if (href) begin
         case(estado)
             0: begin
@@ -97,8 +100,24 @@ end
                 alterna_pixel = ~alterna_pixel;
             end
             
+            //testando se há pixels seguidos abaixo
+            if (pixel_out == 255 && achou==0) begin
+                verdes_seguidos <= verdes_seguidos + 1;
+            end
+            else begin
+                verdes_seguidos <= 0;
+            end
+            //pinta o primeiro pixel preto após 5 verdes seguidos
+            if (verdes_seguidos > 4) begin
+                pixel_out <= 254;
+                achou <= 1;
+            end
+				
+
+
             if (pos_pxl >= 640*480 - 1) begin
                 pos_pxl <= 0;
+                achou <= 0;
             end else begin
                 pos_pxl <= pos_pxl + 1;
             end
