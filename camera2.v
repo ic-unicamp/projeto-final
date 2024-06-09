@@ -11,8 +11,7 @@ module camera(
     output reg enable_write_memory,
     output reg [0:19] pos_pxl,
     input [7:0] byte_camera,
-    output reg [7:0] pixel_out,
-    output reg [19:0] detect_pos_pixel
+    output reg [7:0] pixel_out
 );
 
 //assign pixel_out = byte_camera;
@@ -112,7 +111,6 @@ end
             if (verdes_seguidos > 4) begin
                 pixel_out <= 254;
                 achou <= 1;
-                detect_pos_pixel <= pos_pxl;
             end
 				
 

@@ -34,7 +34,6 @@ reg [0:19] pos_pixel_r; // Endereço da memória onde será lida informação pe
 wire [7:0] cor_atual_vga;
 wire [7:0] pixel_atual;
 assign GPIO_1[11] = 1; //reset
-
 wire reset;
 
 assign reset = SW[0];
@@ -53,6 +52,7 @@ pll CLOCK24(
     .outclk_0(GPIO_1[20]),
     .locked(locked)
     );
+wire [19:0] pixel_detect;
 
 camera CAMERA( 
     .scl(GPIO_1[25]),
@@ -66,7 +66,8 @@ camera CAMERA(
     .enable_write_memory(enable_write_memory),
     .pos_pxl(pos_pixel_w),
     .byte_camera(GPIO_1[19:12]),
-    .pixel_out(pixel_atual)
+    .pixel_out(pixel_atual),
+    .detect_pos_pixel(pixel_detect)
     );
 
 ram_2port MEMORIA(
@@ -101,18 +102,17 @@ vga VGA(
   .y(y),
 );
 
+reg [10:0] y_detect;
+reg [10:0] x_detect;
 		  
 always @(posedge CLOCK_50) begin
+    y_detect <= pixel_detect/640;
+    x_detect <= pixel_detect%640;
     if (ativo) begin
-      if (cor_atual_vga == 255) begin
+      if (x-143==x_detect || y-35==y_detect) begin
         vga_r_int <= 0;
         vga_g_int <= 0;
         vga_b_int <= 255;
-      end
-      if (cor_atual_vga == 254) begin
-        vga_r_int <= 255;
-        vga_g_int <= 0;
-        vga_b_int <= 0;
       end
       else begin
         vga_r_int <= cor_atual_vga;
