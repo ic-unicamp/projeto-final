@@ -1,5 +1,5 @@
 Analysis & Synthesis report for projeto
-Sat Jun  8 21:18:13 2024
+Sat Jun  8 21:46:10 2024
 Quartus Prime Version 23.1std.0 Build 991 11/28/2023 SC Lite Edition
 
 
@@ -50,13 +50,13 @@ https://fpgasoftware.intel.com/eula.
 +----------------------------------------------------------------------------------+
 ; Analysis & Synthesis Summary                                                     ;
 +---------------------------------+------------------------------------------------+
-; Analysis & Synthesis Status     ; Successful - Sat Jun  8 21:18:13 2024          ;
+; Analysis & Synthesis Status     ; Successful - Sat Jun  8 21:46:10 2024          ;
 ; Quartus Prime Version           ; 23.1std.0 Build 991 11/28/2023 SC Lite Edition ;
 ; Revision Name                   ; projeto                                        ;
 ; Top-level Entity Name           ; projeto                                        ;
 ; Family                          ; Cyclone V                                      ;
 ; Logic utilization (in ALMs)     ; N/A                                            ;
-; Total registers                 ; 213                                            ;
+; Total registers                 ; 178                                            ;
 ; Total pins                      ; 96                                             ;
 ; Total virtual pins              ; 0                                              ;
 ; Total block memory bits         ; 0                                              ;
@@ -195,25 +195,25 @@ https://fpgasoftware.intel.com/eula.
 +---------------------------------------------+----------------+
 ; Resource                                    ; Usage          ;
 +---------------------------------------------+----------------+
-; Estimate of Logic utilization (ALMs needed) ; 281            ;
+; Estimate of Logic utilization (ALMs needed) ; 252            ;
 ;                                             ;                ;
-; Combinational ALUT usage for logic          ; 492            ;
+; Combinational ALUT usage for logic          ; 438            ;
 ;     -- 7 input functions                    ; 0              ;
-;     -- 6 input functions                    ; 67             ;
+;     -- 6 input functions                    ; 63             ;
 ;     -- 5 input functions                    ; 20             ;
-;     -- 4 input functions                    ; 29             ;
-;     -- <=3 input functions                  ; 376            ;
+;     -- 4 input functions                    ; 22             ;
+;     -- <=3 input functions                  ; 333            ;
 ;                                             ;                ;
-; Dedicated logic registers                   ; 213            ;
+; Dedicated logic registers                   ; 178            ;
 ;                                             ;                ;
 ; I/O pins                                    ; 96             ;
 ;                                             ;                ;
 ; Total DSP Blocks                            ; 10             ;
 ;                                             ;                ;
 ; Maximum fan-out node                        ; CLOCK_50~input ;
-; Maximum fan-out                             ; 172            ;
-; Total fan-out                               ; 2525           ;
-; Average fan-out                             ; 2.78           ;
+; Maximum fan-out                             ; 137            ;
+; Total fan-out                               ; 2232           ;
+; Average fan-out                             ; 2.73           ;
 +---------------------------------------------+----------------+
 
 
@@ -222,11 +222,11 @@ https://fpgasoftware.intel.com/eula.
 +-----------------------------+---------------------+---------------------------+-------------------+------------+------+--------------+---------------------------------------------+-------------+--------------+
 ; Compilation Hierarchy Node  ; Combinational ALUTs ; Dedicated Logic Registers ; Block Memory Bits ; DSP Blocks ; Pins ; Virtual Pins ; Full Hierarchy Name                         ; Entity Name ; Library Name ;
 +-----------------------------+---------------------+---------------------------+-------------------+------------+------+--------------+---------------------------------------------+-------------+--------------+
-; |projeto                    ; 492 (0)             ; 213 (0)                   ; 0                 ; 10         ; 96   ; 0            ; |projeto                                    ; projeto     ; work         ;
-;    |keys:keysInstancia|     ; 126 (126)           ; 102 (102)                 ; 0                 ; 0          ; 0    ; 0            ; |projeto|keys:keysInstancia                 ; keys        ; work         ;
+; |projeto                    ; 438 (0)             ; 178 (0)                   ; 0                 ; 10         ; 96   ; 0            ; |projeto                                    ; projeto     ; work         ;
+;    |keys:keysInstancia|     ; 84 (84)             ; 68 (68)                   ; 0                 ; 0          ; 0    ; 0            ; |projeto|keys:keysInstancia                 ; keys        ; work         ;
 ;    |memory:memoryInstancia| ; 208 (208)           ; 24 (24)                   ; 0                 ; 10         ; 0    ; 0            ; |projeto|memory:memoryInstancia             ; memory      ; work         ;
-;    |nave:naveInstancia|     ; 125 (31)            ; 66 (11)                   ; 0                 ; 0          ; 0    ; 0            ; |projeto|nave:naveInstancia                 ; nave        ; work         ;
-;       |bola:bolaAliada|     ; 94 (94)             ; 55 (55)                   ; 0                 ; 0          ; 0    ; 0            ; |projeto|nave:naveInstancia|bola:bolaAliada ; bola        ; work         ;
+;    |nave:naveInstancia|     ; 113 (30)            ; 65 (10)                   ; 0                 ; 0          ; 0    ; 0            ; |projeto|nave:naveInstancia                 ; nave        ; work         ;
+;       |bola:bolaAliada|     ; 83 (83)             ; 55 (55)                   ; 0                 ; 0          ; 0    ; 0            ; |projeto|nave:naveInstancia|bola:bolaAliada ; bola        ; work         ;
 ;    |vga:v|                  ; 33 (33)             ; 21 (21)                   ; 0                 ; 0          ; 0    ; 0            ; |projeto|vga:v                              ; vga         ; work         ;
 +-----------------------------+---------------------+---------------------------+-------------------+------------+------+--------------+---------------------------------------------+-------------+--------------+
 Note: For table entries with two numbers listed, the numbers in parentheses indicate the number of resources of the given type used by the specific entity alone. The numbers listed outside of parentheses indicate the total resources of the given type used by the specific entity and all of its sub-entities in the hierarchy.
@@ -269,12 +269,12 @@ Note: For table entries with two numbers listed, the numbers in parentheses indi
 +----------------------------------------------+-------+
 ; Statistic                                    ; Value ;
 +----------------------------------------------+-------+
-; Total registers                              ; 213   ;
-; Number of registers using Synchronous Clear  ; 152   ;
+; Total registers                              ; 178   ;
+; Number of registers using Synchronous Clear  ; 119   ;
 ; Number of registers using Synchronous Load   ; 0     ;
-; Number of registers using Asynchronous Clear ; 56    ;
+; Number of registers using Asynchronous Clear ; 55    ;
 ; Number of registers using Asynchronous Load  ; 0     ;
-; Number of registers using Clock Enable       ; 140   ;
+; Number of registers using Clock Enable       ; 107   ;
 ; Number of registers using Preset             ; 0     ;
 +----------------------------------------------+-------+
 
@@ -296,12 +296,12 @@ Note: For table entries with two numbers listed, the numbers in parentheses indi
 ; nave:naveInstancia|bola:bolaAliada|x[7] ; 1       ;
 ; nave:naveInstancia|bola:bolaAliada|x[8] ; 1       ;
 ; nave:naveInstancia|bola:bolaAliada|x[9] ; 1       ;
-; nave:naveInstancia|bola:bolaAliada|y[3] ; 3       ;
-; nave:naveInstancia|bola:bolaAliada|y[5] ; 3       ;
-; nave:naveInstancia|bola:bolaAliada|y[6] ; 3       ;
-; nave:naveInstancia|bola:bolaAliada|y[7] ; 3       ;
-; nave:naveInstancia|bola:bolaAliada|y[8] ; 3       ;
-; nave:naveInstancia|bola:bolaAliada|y[9] ; 3       ;
+; nave:naveInstancia|bola:bolaAliada|y[3] ; 2       ;
+; nave:naveInstancia|bola:bolaAliada|y[5] ; 2       ;
+; nave:naveInstancia|bola:bolaAliada|y[6] ; 2       ;
+; nave:naveInstancia|bola:bolaAliada|y[7] ; 2       ;
+; nave:naveInstancia|bola:bolaAliada|y[8] ; 2       ;
+; nave:naveInstancia|bola:bolaAliada|y[9] ; 2       ;
 ; Total number of inverted registers = 18 ;         ;
 +-----------------------------------------+---------+
 
@@ -311,10 +311,8 @@ Note: For table entries with two numbers listed, the numbers in parentheses indi
 +--------------------+-----------+---------------+----------------------+------------------------+------------+--------------------------------------------------+
 ; Multiplexer Inputs ; Bus Width ; Baseline Area ; Area if Restructured ; Saving if Restructured ; Registered ; Example Multiplexer Output                       ;
 +--------------------+-----------+---------------+----------------------+------------------------+------------+--------------------------------------------------+
-; 3:1                ; 4 bits    ; 8 LEs         ; 4 LEs                ; 4 LEs                  ; Yes        ; |projeto|nave:naveInstancia|bola:bolaAliada|x[4] ;
-; 3:1                ; 4 bits    ; 8 LEs         ; 8 LEs                ; 0 LEs                  ; Yes        ; |projeto|nave:naveInstancia|bola:bolaAliada|y[0] ;
-; 3:1                ; 6 bits    ; 12 LEs        ; 6 LEs                ; 6 LEs                  ; Yes        ; |projeto|nave:naveInstancia|bola:bolaAliada|x[6] ;
-; 3:1                ; 6 bits    ; 12 LEs        ; 12 LEs               ; 0 LEs                  ; Yes        ; |projeto|nave:naveInstancia|bola:bolaAliada|y[9] ;
+; 3:1                ; 4 bits    ; 8 LEs         ; 4 LEs                ; 4 LEs                  ; Yes        ; |projeto|nave:naveInstancia|bola:bolaAliada|x[0] ;
+; 3:1                ; 6 bits    ; 12 LEs        ; 6 LEs                ; 6 LEs                  ; Yes        ; |projeto|nave:naveInstancia|bola:bolaAliada|x[9] ;
 ; 3:1                ; 2 bits    ; 4 LEs         ; 4 LEs                ; 0 LEs                  ; No         ; |projeto|memory:memoryInstancia|VGA_G            ;
 ; 4:1                ; 2 bits    ; 4 LEs         ; 4 LEs                ; 0 LEs                  ; No         ; |projeto|memory:memoryInstancia|VGA_B            ;
 +--------------------+-----------+---------------+----------------------+------------------------+------------+--------------------------------------------------+
@@ -344,22 +342,24 @@ Note: For table entries with two numbers listed, the numbers in parentheses indi
 +-------------------------+-------+----------+------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+
 
 
-+-----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+
-; Port Connectivity Checks: "nave:naveInstancia|bola:bolaAliada"                                                                                                                                                        ;
-+--------------+--------+----------+------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+
-; Port         ; Type   ; Severity ; Details                                                                                                                                                                            ;
-+--------------+--------+----------+------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+
-; yi[8..7]     ; Input  ; Info     ; Stuck at VCC                                                                                                                                                                       ;
-; yi[4..3]     ; Input  ; Info     ; Stuck at GND                                                                                                                                                                       ;
-; yi[1..0]     ; Input  ; Info     ; Stuck at GND                                                                                                                                                                       ;
-; yi[9]        ; Input  ; Info     ; Stuck at GND                                                                                                                                                                       ;
-; yi[6]        ; Input  ; Info     ; Stuck at GND                                                                                                                                                                       ;
-; yi[5]        ; Input  ; Info     ; Stuck at VCC                                                                                                                                                                       ;
-; yi[2]        ; Input  ; Info     ; Stuck at VCC                                                                                                                                                                       ;
-; ehAliada     ; Input  ; Warning  ; Input port expression (32 bits) is wider than the input port (1 bits) it drives.  The 31 most-significant bit(s) in the expression will be dangling if they have no other fanouts. ;
-; ehAliada[-1] ; Input  ; Info     ; Stuck at VCC                                                                                                                                                                       ;
-; bateu        ; Output ; Warning  ; Declared by entity but not connected by instance. Logic that only feeds a dangling port will be removed.                                                                           ;
-+--------------+--------+----------+------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+
++--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+
+; Port Connectivity Checks: "nave:naveInstancia|bola:bolaAliada"                                                                                                                                                                 ;
++-----------------------+--------+----------+------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+
+; Port                  ; Type   ; Severity ; Details                                                                                                                                                                            ;
++-----------------------+--------+----------+------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+
+; yi[8..7]              ; Input  ; Info     ; Stuck at VCC                                                                                                                                                                       ;
+; yi[4..3]              ; Input  ; Info     ; Stuck at GND                                                                                                                                                                       ;
+; yi[1..0]              ; Input  ; Info     ; Stuck at GND                                                                                                                                                                       ;
+; yi[9]                 ; Input  ; Info     ; Stuck at GND                                                                                                                                                                       ;
+; yi[6]                 ; Input  ; Info     ; Stuck at GND                                                                                                                                                                       ;
+; yi[5]                 ; Input  ; Info     ; Stuck at VCC                                                                                                                                                                       ;
+; yi[2]                 ; Input  ; Info     ; Stuck at VCC                                                                                                                                                                       ;
+; ehAliada              ; Input  ; Warning  ; Input port expression (32 bits) is wider than the input port (1 bits) it drives.  The 31 most-significant bit(s) in the expression will be dangling if they have no other fanouts. ;
+; ehAliada[-1]          ; Input  ; Info     ; Stuck at VCC                                                                                                                                                                       ;
+; iniciar_movimento     ; Input  ; Warning  ; Input port expression (32 bits) is wider than the input port (1 bits) it drives.  The 31 most-significant bit(s) in the expression will be dangling if they have no other fanouts. ;
+; iniciar_movimento[-1] ; Input  ; Info     ; Stuck at VCC                                                                                                                                                                       ;
+; bateu                 ; Output ; Warning  ; Declared by entity but not connected by instance. Logic that only feeds a dangling port will be removed.                                                                           ;
++-----------------------+--------+----------+------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+
 
 
 +---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+
@@ -377,26 +377,26 @@ Note: For table entries with two numbers listed, the numbers in parentheses indi
 +-----------------------+-----------------------------+
 ; Type                  ; Count                       ;
 +-----------------------+-----------------------------+
-; arriav_ff             ; 213                         ;
-;     CLR               ; 25                          ;
+; arriav_ff             ; 178                         ;
+;     CLR               ; 24                          ;
 ;     ENA CLR           ; 31                          ;
-;     ENA SCLR          ; 109                         ;
+;     ENA SCLR          ; 76                          ;
 ;     SCLR              ; 43                          ;
-;     plain             ; 5                           ;
-; arriav_lcell_comb     ; 501                         ;
-;     arith             ; 290                         ;
+;     plain             ; 4                           ;
+; arriav_lcell_comb     ; 447                         ;
+;     arith             ; 257                         ;
 ;         0 data inputs ; 2                           ;
-;         1 data inputs ; 205                         ;
-;         2 data inputs ; 69                          ;
-;         3 data inputs ; 14                          ;
-;     normal            ; 159                         ;
+;         1 data inputs ; 172                         ;
+;         2 data inputs ; 79                          ;
+;         3 data inputs ; 4                           ;
+;     normal            ; 138                         ;
 ;         0 data inputs ; 2                           ;
 ;         1 data inputs ; 7                           ;
-;         2 data inputs ; 10                          ;
-;         3 data inputs ; 24                          ;
-;         4 data inputs ; 29                          ;
+;         2 data inputs ; 9                           ;
+;         3 data inputs ; 15                          ;
+;         4 data inputs ; 22                          ;
 ;         5 data inputs ; 20                          ;
-;         6 data inputs ; 67                          ;
+;         6 data inputs ; 63                          ;
 ;     shared            ; 52                          ;
 ;         0 data inputs ; 2                           ;
 ;         2 data inputs ; 20                          ;
@@ -405,7 +405,7 @@ Note: For table entries with two numbers listed, the numbers in parentheses indi
 ; boundary_port         ; 96                          ;
 ;                       ;                             ;
 ; Max LUT depth         ; 6.40                        ;
-; Average LUT depth     ; 4.45                        ;
+; Average LUT depth     ; 4.41                        ;
 +-----------------------+-----------------------------+
 
 
@@ -424,7 +424,7 @@ Note: For table entries with two numbers listed, the numbers in parentheses indi
 Info: *******************************************************************
 Info: Running Quartus Prime Analysis & Synthesis
     Info: Version 23.1std.0 Build 991 11/28/2023 SC Lite Edition
-    Info: Processing started: Sat Jun  8 21:18:07 2024
+    Info: Processing started: Sat Jun  8 21:46:03 2024
 Info: Command: quartus_map --read_settings_files=on --write_settings_files=off projeto -c projeto
 Warning (18236): Number of processors has not been specified which may cause overloading on shared machines.  Set the global assignment NUM_PARALLEL_PROCESSORS in your QSF to an appropriate value for best performance.
 Info (20030): Parallel compilation is enabled and will use 4 of the 4 processors detected
@@ -457,10 +457,10 @@ Warning (10230): Verilog HDL assignment warning at vga.v(38): truncated value wi
 Info (12128): Elaborating entity "keys" for hierarchy "keys:keysInstancia" File: /home/henrique/Documents/unicamp/mc613/2024s1-mc613-projeto-circuitos-hatsune-miku/src/projeto.v Line: 68
 Info (12128): Elaborating entity "nave" for hierarchy "nave:naveInstancia" File: /home/henrique/Documents/unicamp/mc613/2024s1-mc613-projeto-circuitos-hatsune-miku/src/projeto.v Line: 86
 Warning (10858): Verilog HDL warning at nave.v(23): object bateu used but never assigned File: /home/henrique/Documents/unicamp/mc613/2024s1-mc613-projeto-circuitos-hatsune-miku/src/nave.v Line: 23
+Warning (10036): Verilog HDL or VHDL warning at nave.v(24): object "iniciarBola" assigned a value but never read File: /home/henrique/Documents/unicamp/mc613/2024s1-mc613-projeto-circuitos-hatsune-miku/src/nave.v Line: 24
 Warning (10230): Verilog HDL assignment warning at nave.v(56): truncated value with size 32 to match size of target (10) File: /home/henrique/Documents/unicamp/mc613/2024s1-mc613-projeto-circuitos-hatsune-miku/src/nave.v Line: 56
 Warning (10230): Verilog HDL assignment warning at nave.v(59): truncated value with size 32 to match size of target (10) File: /home/henrique/Documents/unicamp/mc613/2024s1-mc613-projeto-circuitos-hatsune-miku/src/nave.v Line: 59
 Warning (10240): Verilog HDL Always Construct warning at nave.v(48): inferring latch(es) for variable "y_nave", which holds its previous value in one or more paths through the always construct File: /home/henrique/Documents/unicamp/mc613/2024s1-mc613-projeto-circuitos-hatsune-miku/src/nave.v Line: 48
-Warning (10030): Net "bateu" at nave.v(23) has no driver or initial value, using a default initial value '0' File: /home/henrique/Documents/unicamp/mc613/2024s1-mc613-projeto-circuitos-hatsune-miku/src/nave.v Line: 23
 Info (10041): Inferred latch for "y_nave[0]" at nave.v(54) File: /home/henrique/Documents/unicamp/mc613/2024s1-mc613-projeto-circuitos-hatsune-miku/src/nave.v Line: 54
 Info (10041): Inferred latch for "y_nave[1]" at nave.v(54) File: /home/henrique/Documents/unicamp/mc613/2024s1-mc613-projeto-circuitos-hatsune-miku/src/nave.v Line: 54
 Info (10041): Inferred latch for "y_nave[2]" at nave.v(54) File: /home/henrique/Documents/unicamp/mc613/2024s1-mc613-projeto-circuitos-hatsune-miku/src/nave.v Line: 54
@@ -472,10 +472,10 @@ Info (10041): Inferred latch for "y_nave[7]" at nave.v(54) File: /home/henrique/
 Info (10041): Inferred latch for "y_nave[8]" at nave.v(54) File: /home/henrique/Documents/unicamp/mc613/2024s1-mc613-projeto-circuitos-hatsune-miku/src/nave.v Line: 54
 Info (10041): Inferred latch for "y_nave[9]" at nave.v(54) File: /home/henrique/Documents/unicamp/mc613/2024s1-mc613-projeto-circuitos-hatsune-miku/src/nave.v Line: 54
 Info (12128): Elaborating entity "bola" for hierarchy "nave:naveInstancia|bola:bolaAliada" File: /home/henrique/Documents/unicamp/mc613/2024s1-mc613-projeto-circuitos-hatsune-miku/src/nave.v Line: 43
-Warning (10230): Verilog HDL assignment warning at bola.v(45): truncated value with size 32 to match size of target (10) File: /home/henrique/Documents/unicamp/mc613/2024s1-mc613-projeto-circuitos-hatsune-miku/src/bola.v Line: 45
-Warning (10230): Verilog HDL assignment warning at bola.v(46): truncated value with size 32 to match size of target (10) File: /home/henrique/Documents/unicamp/mc613/2024s1-mc613-projeto-circuitos-hatsune-miku/src/bola.v Line: 46
+Warning (10230): Verilog HDL assignment warning at bola.v(43): truncated value with size 32 to match size of target (10) File: /home/henrique/Documents/unicamp/mc613/2024s1-mc613-projeto-circuitos-hatsune-miku/src/bola.v Line: 43
+Warning (10230): Verilog HDL assignment warning at bola.v(44): truncated value with size 32 to match size of target (10) File: /home/henrique/Documents/unicamp/mc613/2024s1-mc613-projeto-circuitos-hatsune-miku/src/bola.v Line: 44
+Warning (10230): Verilog HDL assignment warning at bola.v(50): truncated value with size 32 to match size of target (10) File: /home/henrique/Documents/unicamp/mc613/2024s1-mc613-projeto-circuitos-hatsune-miku/src/bola.v Line: 50
 Warning (10230): Verilog HDL assignment warning at bola.v(52): truncated value with size 32 to match size of target (10) File: /home/henrique/Documents/unicamp/mc613/2024s1-mc613-projeto-circuitos-hatsune-miku/src/bola.v Line: 52
-Warning (10230): Verilog HDL assignment warning at bola.v(54): truncated value with size 32 to match size of target (10) File: /home/henrique/Documents/unicamp/mc613/2024s1-mc613-projeto-circuitos-hatsune-miku/src/bola.v Line: 54
 Info (12128): Elaborating entity "memory" for hierarchy "memory:memoryInstancia" File: /home/henrique/Documents/unicamp/mc613/2024s1-mc613-projeto-circuitos-hatsune-miku/src/projeto.v Line: 109
 Warning (12241): 3 hierarchies have connectivity warnings - see the Connectivity Checks report folder
 Warning (13024): Output pins are stuck at VCC or GND
@@ -526,7 +526,7 @@ Warning (13024): Output pins are stuck at VCC or GND
 Info (286030): Timing-Driven Synthesis is running
 Info (16010): Generating hard_block partition "hard_block:auto_generated_inst"
     Info (16011): Adding 0 node(s), including 0 DDIO, 0 PLL, 0 transceiver and 0 LCELL
-Warning (21074): Design contains 9 input pin(s) that do not drive logic
+Warning (21074): Design contains 10 input pin(s) that do not drive logic
     Warning (15610): No output dependent on input pin "SW[2]" File: /home/henrique/Documents/unicamp/mc613/2024s1-mc613-projeto-circuitos-hatsune-miku/src/projeto.v Line: 3
     Warning (15610): No output dependent on input pin "SW[3]" File: /home/henrique/Documents/unicamp/mc613/2024s1-mc613-projeto-circuitos-hatsune-miku/src/projeto.v Line: 3
     Warning (15610): No output dependent on input pin "SW[4]" File: /home/henrique/Documents/unicamp/mc613/2024s1-mc613-projeto-circuitos-hatsune-miku/src/projeto.v Line: 3
@@ -535,16 +535,17 @@ Warning (21074): Design contains 9 input pin(s) that do not drive logic
     Warning (15610): No output dependent on input pin "SW[7]" File: /home/henrique/Documents/unicamp/mc613/2024s1-mc613-projeto-circuitos-hatsune-miku/src/projeto.v Line: 3
     Warning (15610): No output dependent on input pin "SW[8]" File: /home/henrique/Documents/unicamp/mc613/2024s1-mc613-projeto-circuitos-hatsune-miku/src/projeto.v Line: 3
     Warning (15610): No output dependent on input pin "SW[9]" File: /home/henrique/Documents/unicamp/mc613/2024s1-mc613-projeto-circuitos-hatsune-miku/src/projeto.v Line: 3
+    Warning (15610): No output dependent on input pin "KEY[1]" File: /home/henrique/Documents/unicamp/mc613/2024s1-mc613-projeto-circuitos-hatsune-miku/src/projeto.v Line: 4
     Warning (15610): No output dependent on input pin "KEY[3]" File: /home/henrique/Documents/unicamp/mc613/2024s1-mc613-projeto-circuitos-hatsune-miku/src/projeto.v Line: 4
-Info (21057): Implemented 748 device resources after synthesis - the final resource count might be different
+Info (21057): Implemented 670 device resources after synthesis - the final resource count might be different
     Info (21058): Implemented 15 input pins
     Info (21059): Implemented 81 output pins
-    Info (21061): Implemented 642 logic cells
+    Info (21061): Implemented 564 logic cells
     Info (21062): Implemented 10 DSP elements
-Info: Quartus Prime Analysis & Synthesis was successful. 0 errors, 78 warnings
+Info: Quartus Prime Analysis & Synthesis was successful. 0 errors, 79 warnings
     Info: Peak virtual memory: 484 megabytes
-    Info: Processing ended: Sat Jun  8 21:18:13 2024
-    Info: Elapsed time: 00:00:06
-    Info: Total CPU time (on all processors): 00:00:15
+    Info: Processing ended: Sat Jun  8 21:46:10 2024
+    Info: Elapsed time: 00:00:07
+    Info: Total CPU time (on all processors): 00:00:18
 
 

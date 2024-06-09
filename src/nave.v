@@ -35,7 +35,7 @@ module nave(
         .xi(xi_bola),
         .yi(yi_bola),
         .ehAliada(1),
-        .iniciar_movimento(iniciarBola),
+        .iniciar_movimento(1),
         .x(x_bola),
         .y(y_bola),
         .raio(raio_bola)
@@ -58,9 +58,9 @@ module nave(
                 if (keysout[2]) begin // esquerda
                     x_nave = x_nave - 1;
                 end
-                if (keysout[1]) begin // atirar
-                    iniciarBola = 1;
-                end
+                // if (keysout[1]) begin // atirar
+                //     iniciarBola = 1;
+                // end
                 if (bateu) begin
                     iniciarBola = 0;
                 end
