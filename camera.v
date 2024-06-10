@@ -1,10 +1,10 @@
 module camera(
-    inout scl,
-    input sda,
+    //inout scl,
+    //input sda,
     input href,
-    output vsync,
+    //output vsync,
     input pclk,
-	output hpclk,
+	//output hpclk,
     input xclk,
     input reset,
     input pwdn,
@@ -12,12 +12,13 @@ module camera(
     output reg [0:19] pos_pxl,
     input [7:0] byte_camera,
     output reg [7:0] pixel_out,
-    output reg [19:0] detect_pos_pixel
+    output reg [19:0] detect_pos_pixel,
+    output reg achou_out
 );
 
 //assign pixel_out = byte_camera;
 
-reg half_pclock;
+// reg half_pclock;
 
 always @(posedge pclk)begin
 	if (reset) begin
@@ -28,7 +29,7 @@ always @(posedge pclk)begin
     end
 end
 
-assign hpclk = half_pclock;
+//assign hpclk = half_pclock;
 
 //Oia
 
@@ -43,6 +44,7 @@ reg alterna_pixel;
 reg [1:0] estado_pixels;
 reg [7:0] verdes_seguidos;
 reg achou;
+reg half_pclock;
 
 always @(posedge pclk) begin
 // Capturando
@@ -59,7 +61,7 @@ always @(posedge pclk) begin
             2: begin
                 cr <= byte_camera;
                 estado <= 3;
-					if (cb>150 && cr>140) begin
+					if (cb>150 && cr>145) begin
 						pixel0 = 255;
 					end
 					else begin
@@ -69,7 +71,7 @@ always @(posedge pclk) begin
             3: begin
                 y1 <= byte_camera;
                 estado <= 0;
-                if (cb>150 && cr>140) begin
+                if (cb>150 && cr>145) begin
                     pixel1 = 255;
 				end
                 else begin
@@ -89,7 +91,7 @@ end
         pos_pxl <= 0;
     end
     else begin
-        if (href & half_pclock) begin 
+        if (href & half_pclock) begin
             enable_write_memory <= 1;
 
             if (alterna_pixel) begin
@@ -109,7 +111,7 @@ end
                 verdes_seguidos <= 0;
             end
             //pinta o primeiro pixel preto após 5 verdes seguidos
-            if (verdes_seguidos > 4) begin
+            if (verdes_seguidos > 10) begin
                 pixel_out <= 254;
                 achou <= 1;
                 detect_pos_pixel <= pos_pxl;
@@ -118,6 +120,12 @@ end
 
 
             if (pos_pxl >= 640*480 - 1) begin
+                if (achou == 0) begin
+                    achou_out <= 0;
+                end
+                else begin
+                    achou_out <= 1;
+                end
                 pos_pxl <= 0;
                 achou <= 0;
             end else begin
