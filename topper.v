@@ -68,19 +68,22 @@ vga VGA(
 // CONTROLADOR PARA TESTES
 wire [10:0] cursor_x_pos;
 wire [10:0] cursor_y_pos;
+wire mover_controlador;
+assign mover_controlador = ~SW[0];
 controller CONTROLADOR(
 	.clk(CLOCK_50),
 	.KEY(KEY),
 	.SW(SW),
 	.cursor_x_pos(cursor_x_pos),
 	.cursor_y_pos(cursor_y_pos),
+    .mover_controlador(mover_controlador),
 );
 
 
 
-reg [5:0] radius = 6; // raio de pintura do cursor
-reg [5:0] draw = 1; // raio de pintura do cursor
-
+reg [5:0] radius = 20; // raio de pintura do cursor
+wire draw; // raio de pintura do cursor
+assign draw = mover_controlador; // pra garantir que estamos na tela principal do paint, não no controle de cor       PROVISORIO 
 cursor CURSOR(
 	.clk(CLOCK_50),
 	.radius(radius),
@@ -89,6 +92,24 @@ cursor CURSOR(
 	.y(cursor_y_pos),
 	.enable_write_memory(enable_write_memory),
 	.pos_pxl_w(pos_pxl_w),
+);
+
+
+wire borracha;
+assign borracha = SW[2]; // PROVISORIO 
+wire [2:0] r_escrita_memoria;
+wire [2:0] g_escrita_memoria;
+wire [2:0] b_escrita_memoria;
+assign mudar_cor = SW[0];
+color_control COLOR_CONTROL(
+	.clk(CLOCK_50),
+	.KEY(KEY),
+	.SW(SW),
+    .borracha(borracha),
+	.r_escrita_memoria(r_escrita_memoria),
+	.g_escrita_memoria(g_escrita_memoria),
+    .b_escrita_memoria(b_escrita_memoria),
+    .mudar_cor(mudar_cor),
 );
 
 
@@ -101,10 +122,6 @@ reg [7:0] vga_r_int, vga_g_int, vga_b_int;
 reg [10:0] vga_cursor_x_pos;
 reg [10:0] vga_cursor_y_pos;
 reg [4:0] estado = 0;
-
-reg [2:0] r_escrita_memoria = 5;
-reg [2:0] g_escrita_memoria = 3;
-reg [2:0] b_escrita_memoria = 2;
 
 always @(posedge CLOCK_50) begin
 	vga_cursor_x_pos = cursor_x_pos + 145;
@@ -122,7 +139,12 @@ always @(posedge CLOCK_50) begin
         end
 
         1: begin // mostrando na tela
-            if (ativo && (((x == vga_cursor_x_pos) && (y >= vga_cursor_y_pos - 5) && (y <= vga_cursor_y_pos + 5)) || ((y == vga_cursor_y_pos) && (x >= vga_cursor_x_pos - 5) && (x <= vga_cursor_x_pos + 5)))) begin // cursor
+            if (SW[0] && ativo) begin // controle de cor
+                vga_r_int <= r_escrita_memoria << 5;
+                vga_g_int <= g_escrita_memoria << 5;
+                vga_b_int <= b_escrita_memoria << 5;
+            end
+            else if (ativo && (((x == vga_cursor_x_pos) && (y >= vga_cursor_y_pos - radius) && (y <= vga_cursor_y_pos + radius)) || ((y == vga_cursor_y_pos) && (x >= vga_cursor_x_pos - radius) && (x <= vga_cursor_x_pos + radius)))) begin // cursor
                 vga_r_int <= 255;
                 vga_g_int <= 0;
                 vga_b_int <= 0;
