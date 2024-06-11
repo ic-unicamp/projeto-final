@@ -55,8 +55,12 @@ pll CLOCK24(
 wire [19:0] pixel_detect;
 
 camera CAMERA( 
+    //.scl(GPIO_1[25]),
+    //.sda(GPIO_1[24]),
+    //.vsync(GPIO_1[23]),
     .href(href),
     .pclk(pclock),
+	  //.hpclk(hpclk),
     .reset(~KEY[0]),
     .pwdn(GPIO_1[10]),
     .enable_write_memory(enable_write_memory),
@@ -68,8 +72,8 @@ camera CAMERA(
     );
 
 ram_2port MEMORIA(
-                  //.reset(reset),
-						 .clk(CLOCK_50),
+                  .reset(reset),
+						      .clk(CLOCK_50),
                   .we(enable_write_memory),
                   .data_in(pixel_atual),
                   .write_addr(pos_pixel_w),
