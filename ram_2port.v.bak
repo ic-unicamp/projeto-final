@@ -25,8 +25,8 @@ always @(posedge clk) begin
             initialized = 1;
         end
         else begin
-            // buffer[initialization_write_addr] <= initialization_write_addr/1200;
-            buffer[initialization_write_addr] <= 9'b111111111; // branco
+            // buffer[initialization_write_addr] <= 9'b111111111; // branco
+            buffer[initialization_write_addr] <= initialization_write_addr/640;
             initialization_write_addr = initialization_write_addr + 1;
         end
     end 

@@ -9,7 +9,7 @@ module camera(
     input reset,
     input pwdn,
     output reg enable_write_memory,
-    output reg [0:19] pos_pxl,
+    output reg [19:0] pos_pxl,
     input [7:0] byte_camera,
     output reg [7:0] pixel_out,
     output reg [19:0] detect_pos_pixel,
@@ -19,6 +19,8 @@ module camera(
 //assign pixel_out = byte_camera;
 
 // reg half_pclock;
+
+reg [19:0] detect_pos_pixel_pre_out;
 
 always @(posedge pclk)begin
 	if (reset) begin
@@ -61,7 +63,7 @@ always @(posedge pclk) begin
             2: begin
                 cr <= byte_camera;
                 estado <= 3;
-					if (cb>150 && cr>140) begin
+					if (cb>140 && cr>152) begin
 						pixel0 = 255;
 					end
 					else begin
@@ -71,7 +73,7 @@ always @(posedge pclk) begin
             3: begin
                 y1 <= byte_camera;
                 estado <= 0;
-                if (cb>150 && cr>140) begin
+                if (cb>140 && cr>152) begin
                     pixel1 = 255;
 				end
                 else begin
@@ -85,7 +87,7 @@ always @(posedge pclk) begin
     end
 end
 
- always @(posedge pclk or posedge reset) begin
+always @(posedge pclk or posedge reset) begin
     if (reset) begin
         enable_write_memory <= 0;
         pos_pxl <= 0;
@@ -93,6 +95,7 @@ end
     else begin
         if (href & half_pclock) begin
             enable_write_memory <= 1;
+            pos_pxl <= pos_pxl + 1;
 
             if (alterna_pixel) begin
                 pixel_out <= pixel0;
@@ -114,7 +117,7 @@ end
             if (verdes_seguidos > 5) begin
                 pixel_out <= 254;
                 achou <= 1;
-                detect_pos_pixel <= pos_pxl;
+                detect_pos_pixel_pre_out <= pos_pxl;
             end
 				
 
@@ -125,11 +128,12 @@ end
                 end
                 else begin
                     achou_out <= 1;
+                    detect_pos_pixel <= detect_pos_pixel_pre_out;
                 end
                 pos_pxl <= 0;
                 achou <= 0;
             end else begin
-                pos_pxl <= pos_pxl + 1;
+
             end
         end 
         else begin

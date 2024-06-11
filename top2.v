@@ -1,309 +1,153 @@
-// module top2 (
+ module top2 (
 
-//   // CLOCK
-//   input  CLOCK_50,
-// 	input  CLOCK2_50,
+   // CLOCK
+   input  CLOCK_50,
+ 	input  CLOCK2_50,
 
-//    KEY_N,
+    KEY_N,
 
-//   // SW
-// 	input [9:0] SW,
+   // SW
+ 	input [9:0] SW,
+    //SW[0] = color control
+    //SW[1] = mostra camera
+    //SW[2] = camera ligada ou desligada
 
-//   // VGA
-//   output [7:0] VGA_B,
-//   output VGA_BLANK_N,
-//   output VGA_CLK,
-//   output [7:0] VGA_G,
-//   output VGA_HS,
-//   output [7:0] VGA_R,
-//   output VGA_SYNC_N,
-//   output VGA_VS,
+   // VGA
+   output [7:0] VGA_B,
+   output VGA_BLANK_N,
+   output VGA_CLK,
+   output [7:0] VGA_G,
+   output VGA_HS,
+   output [7:0] VGA_R,
+   output VGA_SYNC_N,
+   output VGA_VS,
 
-//   // GPIO_1
-//   inout [35:0] GPIO_1,
-//   //Key
-//   input [3:0] KEY
+   // GPIO_1
+   inout [35:0] GPIO_1,
+   //Key
+   input [3:0] KEY
+    //KEY[3] = ativa pincel (desenha)
+    //KEY[2] = borracha
+    //KEY[0] = reset cam
+ );
 
-// );
-
-// wire locked; //variavel
-// pll CLOCK24(
-// 	 .refclk(CLOCK_50),
-//     .rst(~KEY[0]),
-//     .outclk_0(GPIO_1[20]),
-//     .locked(locked)
-//     );
-
-// wire href;
-// wire pclock;
-// wire [19:0] pixel_detect;
-// wire ativa_pincel; // Saber se achou a luva ou não
-// wire [0:19] pos_pixel_w; // Endereço da memória onde será guardado a info da câmera, gerado pela câmera.
-
-
-// assign href = GPIO_1[22];
-// assign pclock = GPIO_1[21];
-
-
-// camera CAMERA( 
-//     .href(href),
-//     .pclk(pclock),
-//     .reset(~KEY[0]),
-//     .pwdn(GPIO_1[10]),
-//     //.enable_write_memory(enable_write_memory),
-//     //.pos_pxl(pos_pixel_w),
-//     .byte_camera(GPIO_1[19:12]),
-//     //.pixel_out(pixel_atual),
-//     .detect_pos_pixel(pixel_detect),
-//     .achou_out(ativa_pincel)
-//     );
-// reg [10:0] x_detect;
-// reg [10:0] y_detect;
-
-// always @(posedge CLOCK_50) begin
-//     y_detect <= pixel_detect/640;
-//     x_detect <= pixel_detect%640;
-// end
-// wire enable_write_memory; // Controle para saber se a memória guardar a informação da câmera. Quem gera esse sinal é a prórpria câmera
-// wire [0:19] pos_pxl_w; // Endereço da memória onde será pintado ou não em um determinadomomento momento, gerado pelo cursor
-// reg [5:0] radius = 20; // raio de pintura do cursor
-// wire draw; // raio de pintura do cursor
-// assign draw = ~SW[0]; // Controle de quando pinta
-
-// cursor CURSOR(
-// 	.clk(CLOCK_50),
-// 	.radius(radius),
-// 	.draw(draw),
-// 	.x(x_detect),
-// 	.y(y_detect),
-// 	.enable_write_memory(enable_write_memory),
-// 	.pos_pxl_w(pos_pxl_w),
-// );
-
-// reg [8:0] dado_escrita_memoria;
-// reg initializing_memory = 0;
-// wire memory_initialized;
-// wire [8:0] cor_atual_vga; // COR concatenada 3 BITS para cada cor
-// reg [0:19] pos_pxl_r; // Endereço da memória onde será lida informação pelo vga para por na tela 
-
-
-
-// ram_2port MEMORIA(
-// 	.clk(CLOCK_50),
-// 	.we(enable_write_memory),
-// 	.data_in(dado_escrita_memoria),
-// 	.write_addr(pos_pxl_w),
-// 	.re(ativo),
-// 	.read_addr(pos_pxl_r),
-// 	.data_out(cor_atual_vga),
-// 	.initializing(initializing_memory),
-// 	.initialized(memory_initialized)
-// );
-
-// wire borracha;
-// assign borracha = SW[2]; // PROVISORIO 
-// wire [2:0] r_escrita_memoria;
-// wire [2:0] g_escrita_memoria;
-// wire [2:0] b_escrita_memoria;
-// assign mudar_cor = SW[0];
-
-// color_control COLOR_CONTROL(
-// 	.clk(CLOCK_50),
-// 	.KEY(KEY),
-// 	.SW(SW),
-//     .borracha(borracha),
-// 	.r_escrita_memoria(r_escrita_memoria),
-// 	.g_escrita_memoria(g_escrita_memoria),
-//     .b_escrita_memoria(b_escrita_memoria),
-//     .mudar_cor(mudar_cor),
-// );
-
-// wire [10:0] x;
-// wire [10:0] y;
-// wire ativo;
-
-// vga VGA(
-// 	.CLOCK_50(CLOCK_50),
-// 	.KEY(KEY),
-// 	.SW(SW),
-// 	.VGA_BLANK_N(VGA_BLANK_N),
-// 	.VGA_CLK(VGA_CLK),
-// 	.VGA_HS(VGA_HS),
-// 	.VGA_SYNC_N(VGA_SYNC_N),
-// 	.VGA_VS(VGA_VS),
-// 	.ativo_vga(ativo),
-// 	.x(x),
-// 	.y(y),
-// );
-
-// assign VGA_R = vga_r_int;
-// assign VGA_G = vga_g_int;
-// assign VGA_B = vga_b_int;
-// reg [7:0] vga_r_int, vga_g_int, vga_b_int;
-// reg [10:0] vga_cursor_x_pos;
-// reg [10:0] vga_cursor_y_pos;
-// reg [4:0] estado = 0;
-
-// always @(posedge VGA_VS) begin
-//     vga_cursor_x_pos = x_detect; //145
-//     vga_cursor_y_pos = y_detect;    //36
-// end //tentando diminuir o ruido
-
-// always @(posedge CLOCK_50) begin
-//   dado_escrita_memoria = {r_escrita_memoria, g_escrita_memoria, b_escrita_memoria};
-//   pos_pxl_r <= 640*(y - 36) + x - 145; // o x e o y do vga não começam em zero
-
-//   case(estado)
-//     0: begin // Inicializando memória
-//         initializing_memory = 1;
-//         if (memory_initialized) begin
-//             initializing_memory = 0;
-//             estado = 1;
-//         end
-//     end
-
-//     1: begin // mostrando na tela
-//         if (SW[0] && ativo) begin // controle de cor
-//             vga_r_int <= r_escrita_memoria << 5;
-//             vga_g_int <= g_escrita_memoria << 5;
-//             vga_b_int <= b_escrita_memoria << 5;
-//         end
-//         else if (ativo && (((x == vga_cursor_x_pos) && (y >= vga_cursor_y_pos - radius) && (y <= vga_cursor_y_pos + radius)) || ((y == vga_cursor_y_pos) && (x >= vga_cursor_x_pos - radius) && (x <= vga_cursor_x_pos + radius)))) begin // cursor
-//             vga_r_int <= 255;
-//             vga_g_int <= 0;
-//             vga_b_int <= 0;
-//         end else if (ativo) begin // tela fora cursor
-//             vga_r_int <= cor_atual_vga[8:6] << 5;
-//             vga_g_int <= cor_atual_vga[5:3] << 5;
-//             vga_b_int <= cor_atual_vga[2:0] << 5;
-//             // É necessário desloca-los
-//         end else begin // fora da tela
-//             vga_r_int <= 0;
-//             vga_g_int <= 0;
-//             vga_b_int <= 0;
-//         end
-//     end
-//   endcase
-
-//   if (SW[8]) begin // reset
-//       estado = 0;
-//   end
-// end
-    
-
-
-
-
-
-// endmodule
-module top2 (
-
-  // CLOCK
-  input  CLOCK_50,
-	input  CLOCK2_50,
-
-   KEY_N,
-
-  // SW
-	input [9:0] SW,
-
-  // VGA
-  output [7:0] VGA_B,
-  output VGA_BLANK_N,
-  output VGA_CLK,
-  output [7:0] VGA_G,
-  output VGA_HS,
-  output [7:0] VGA_R,
-  output VGA_SYNC_N,
-  output VGA_VS,
-
-  // GPIO_1
-  inout [35:0] GPIO_1,
-  //Key
-  input [3:0] KEY
-
-);
-
-wire locked; //variavel
-pll CLOCK24(
-	 .refclk(CLOCK_50),
+ wire locked; //variavel
+ pll CLOCK24(
+    .refclk(CLOCK_50),
     .rst(~KEY[0]),
     .outclk_0(GPIO_1[20]),
     .locked(locked)
-    );
+);
 
 wire href;
+
 wire pclock;
-wire [19:0] pixel_detect;
-wire ativa_pincel; // Saber se achou a luva ou não
-wire [0:19] pos_pixel_w; // Endereço da memória onde será guardado a info da câmera, gerado pela câmera.
-
-
-assign href = GPIO_1[22];
 assign pclock = GPIO_1[21];
+wire enable_write_memory_cam; // Controle para saber se a memória guardar a informação da câmera. Quem gera esse sinal é a prórpria câmera
+wire [19:0] pos_pixel_w_cam; // Endereço da memória onde será guardado a info da câmera, gerado pela câmera.
+wire [7:0] pixel_type_cam;  //escala de cinza ou codigo da cor enviada
+wire [19:0] dedo_pos_detect; // posicao de detecção do dedo
+//posicao no vetor e nao na matriz
+wire achou_dedo;
 
+reg power;
+always @(posedge CLOCK_50)begin
+  if (~SW[2]) begin
+    power = 1;
+  end
+  else begin
+    power = 0;
+  end
+end
+
+assign GPIO_1[10] = power; //power dowm
+assign href = GPIO_1[22];
 
 camera CAMERA( 
     .href(href),
     .pclk(pclock),
     .reset(~KEY[0]),
     .pwdn(GPIO_1[10]),
-    //.enable_write_memory(enable_write_memory),
-    //.pos_pxl(pos_pixel_w),
+    .enable_write_memory(enable_write_memory_cam),
+    .pos_pxl(pos_pixel_w_cam),
     .byte_camera(GPIO_1[19:12]),
-    //.pixel_out(pixel_atual),
-    .detect_pos_pixel(pixel_detect),
-    .achou_out(ativa_pincel)
-    );
-reg [10:0] x_detect;
-reg [10:0] y_detect;
+    .pixel_out(pixel_type_cam),
+    .detect_pos_pixel(dedo_pos_detect),
+    .achou_out(achou_dedo)
+);
 
-always @(posedge CLOCK_50) begin
-    y_detect <= pixel_detect/640;
-    x_detect <= pixel_detect%640;
-end
-wire enable_write_memory; // Controle para saber se a memória guardar a informação da câmera. Quem gera esse sinal é a prórpria câmera
-wire [0:19] pos_pxl_w; // Endereço da memória onde será pintado ou não em um determinadomomento momento, gerado pelo cursor
+
+reg enable_write_memory_in; //ativa ou nao a entrada de dados
+reg [8:0] data_in;     //dados de da pintada
+reg [19:0] write_addr; //endereço de escrita na memoria
+reg [19:0] read_addr;
+wire [8:0] data_out;
+reg initializing_memory = 0;
+wire memory_initialized;
+
+ram_2port MEMORIA(
+                //.reset(reset),
+				.clk(CLOCK_50),
+                .we(enable_write_memory_in),
+                .data_in(data_in),
+                .write_addr(write_addr),
+                .re(ativo),
+                .read_addr(read_addr),
+                .data_out(data_out),
+                .initializing(initializing_memory),
+                .initialized(memory_initialized)
+                );
+
+
+wire ativo;     //se refere a ativação do vga
+wire [10:0] x_vga;  //é deslocado em +144
+wire [10:0] y_vga;  //idem +36
+reg [7:0] vga_r_int, vga_g_int, vga_b_int;
+//regs usados pra fazer alterações iteradas
+
+assign VGA_R = vga_r_int;
+assign VGA_G = vga_g_int;
+assign VGA_B = vga_b_int;
+
+vga VGA(
+  .CLOCK_50(CLOCK_50),
+  .KEY(KEY),
+  .SW(SW),
+  .VGA_BLANK_N(VGA_BLANK_N),
+  .VGA_CLK(VGA_CLK),
+  .VGA_HS(VGA_HS),
+  .VGA_SYNC_N(VGA_SYNC_N),
+  .VGA_VS(VGA_VS),
+  .ativo_vga(ativo),
+  .x(x_vga),
+  .y(y_vga),
+);
+
+
 reg [5:0] radius = 20; // raio de pintura do cursor
-wire draw; // raio de pintura do cursor
-assign draw = ~SW[0]; // Controle de quando pinta
+wire draw;
+assign draw = KEY[3]&&~mudar_cor; //fala se é pro cursor escrever na memoria
+wire [10:0] cursor_x_pos;
+wire [10:0] cursor_y_pos;
+wire enable_write_memory_cursor;
+wire [19:0] pos_pixel_w_cursor;
 
 cursor CURSOR(
 	.clk(CLOCK_50),
 	.radius(radius),
 	.draw(draw),
-	.x(x_detect),
-	.y(y_detect),
-	.enable_write_memory(enable_write_memory),
-	.pos_pxl_w(pos_pxl_w),
-);
-
-reg [8:0] dado_escrita_memoria;
-reg initializing_memory = 0;
-wire memory_initialized;
-wire [8:0] cor_atual_vga; // COR concatenada 3 BITS para cada cor
-reg [0:19] pos_pxl_r; // Endereço da memória onde será lida informação pelo vga para por na tela 
-
-
-
-ram_2port MEMORIA(
-	.clk(CLOCK_50),
-	.we(enable_write_memory),
-	.data_in(dado_escrita_memoria),
-	.write_addr(pos_pxl_w),
-	.re(ativo),
-	.read_addr(pos_pxl_r),
-	.data_out(cor_atual_vga),
-	.initializing(initializing_memory),
-	.initialized(memory_initialized)
+	.x(cursor_x_pos),
+	.y(cursor_y_pos),
+	.enable_write_memory(enable_write_memory_cursor),
+	.pos_pxl_w(pos_pixel_w_cursor),
 );
 
 wire borracha;
-assign borracha = SW[2]; // PROVISORIO 
+assign borracha = KEY[2];
 wire [2:0] r_escrita_memoria;
 wire [2:0] g_escrita_memoria;
 wire [2:0] b_escrita_memoria;
-assign mudar_cor = SW[0];
+wire mudar_cor = SW[0]; // controla se escolho a cor ou se pinto 
 
 color_control COLOR_CONTROL(
 	.clk(CLOCK_50),
@@ -316,78 +160,89 @@ color_control COLOR_CONTROL(
     .mudar_cor(mudar_cor),
 );
 
-wire [10:0] x;
-wire [10:0] y;
-wire ativo;
+wire modo_operacao;
+assign modo_operacao = SW[1];
+//abaixado = 0 mostra paint
+//levantado = 1 mostra camera
 
-vga VGA(
-	.CLOCK_50(CLOCK_50),
-	.KEY(KEY),
-	.SW(SW),
-	.VGA_BLANK_N(VGA_BLANK_N),
-	.VGA_CLK(VGA_CLK),
-	.VGA_HS(VGA_HS),
-	.VGA_SYNC_N(VGA_SYNC_N),
-	.VGA_VS(VGA_VS),
-	.ativo_vga(ativo),
-	.x(x),
-	.y(y),
-);
+reg [7:0] cor_atual_vga;
 
-assign VGA_R = vga_r_int;
-assign VGA_G = vga_g_int;
-assign VGA_B = vga_b_int;
-reg [7:0] vga_r_int, vga_g_int, vga_b_int;
-reg [10:0] vga_cursor_x_pos;
-reg [10:0] vga_cursor_y_pos;
+reg [10:0] y_pos_dedo;
+reg [10:0] x_pos_dedo;
+
+always @(posedge VGA_VS) begin
+    y_pos_dedo <= dedo_pos_detect/640;
+    x_pos_dedo <= dedo_pos_detect%640;
+end //tentando diminuir o ruido
+
 reg [4:0] estado = 0;
 
 always @(posedge CLOCK_50) begin
-	vga_cursor_x_pos = x_detect + 145;
-	vga_cursor_y_pos = y_detect + 36;
-  dado_escrita_memoria = {r_escrita_memoria, g_escrita_memoria, b_escrita_memoria};
-  pos_pxl_r <= 640*(y - 36) + x - 145; // o x e o y do vga não começam em zero
-
-  case(estado)
-    0: begin // Inicializando memória
-        initializing_memory = 1;
-        if (memory_initialized) begin
-            initializing_memory = 0;
-            estado = 1;
+    case(estado)
+        0: begin // Inicializando memória
+            initializing_memory = 1;
+            if (memory_initialized) begin
+                initializing_memory = 0;
+                estado = 1;
+            end
         end
+
+        1: begin // estado principal
+            if (modo_operacao == 0) begin
+                //pênis
+            end
+            else begin
+                // É necessário desloca-los.
+                if (ativo) begin
+                    if ((x_vga-143==x_pos_dedo || y_vga-35==y_pos_dedo) && achou_dedo) begin
+                        vga_r_int <= 0;
+                        vga_g_int <= 0;
+                        vga_b_int <= 255;
+                    end
+                    else if(~achou_dedo && y_vga==239) begin
+                        vga_r_int <= 255;
+                        vga_g_int <= 127;
+                        vga_b_int <= 127;
+                    end
+                    else begin
+                        cor_atual_vga = data_out[7:0];
+                        if (cor_atual_vga > 127) begin
+                            vga_r_int <= 127;
+                            vga_g_int <= 255;
+                            vga_b_int <= 127;
+                        end
+                        else begin
+                            vga_r_int <= cor_atual_vga<<1;
+                            vga_g_int <= cor_atual_vga<<1;
+                            vga_b_int <= cor_atual_vga<<1;
+                        end
+                    end
+                end
+                else begin
+                    vga_r_int <= 0;
+                    vga_g_int <= 0;
+                    vga_b_int <= 0;
+                end
+				read_addr <= 640*(y_vga- 1 - 35) + x_vga - 1 - 143; // o x e o y do vga n~ao começam em zero
+            end
+        end
+    endcase
+
+    if (SW[8]) begin // reset
+        estado = 0;
     end
-
-    1: begin // mostrando na tela
-        if (SW[0] && ativo) begin // controle de cor
-            vga_r_int <= r_escrita_memoria << 5;
-            vga_g_int <= g_escrita_memoria << 5;
-            vga_b_int <= b_escrita_memoria << 5;
-        end
-        else if (ativo && (((x == vga_cursor_x_pos) && (y >= vga_cursor_y_pos - radius) && (y <= vga_cursor_y_pos + radius)) || ((y == vga_cursor_y_pos) && (x >= vga_cursor_x_pos - radius) && (x <= vga_cursor_x_pos + radius)))) begin // cursor
-            vga_r_int <= 255;
-            vga_g_int <= 0;
-            vga_b_int <= 0;
-        end else if (ativo) begin // tela fora cursor
-            vga_r_int <= cor_atual_vga[8:6] << 5;
-            vga_g_int <= cor_atual_vga[5:3] << 5;
-            vga_b_int <= cor_atual_vga[2:0] << 5;
-            // É necessário desloca-los
-        end else begin // fora da tela
-            vga_r_int <= 0;
-            vga_g_int <= 0;
-            vga_b_int <= 0;
-        end
-    end
-  endcase
-
-  if (SW[8]) begin // reset
-      estado = 0;
-  end
 end
-    
 
+always @(posedge CLOCK_50) begin
+    if (modo_operacao == 0) begin
 
+    end
+    else begin
+        enable_write_memory_in <= enable_write_memory_cam;
+        write_addr <= pos_pixel_w_cam;
+        data_in <= pixel_type_cam;
+    end //nao compativel com reset da memoria
 
-
+end
 
 endmodule

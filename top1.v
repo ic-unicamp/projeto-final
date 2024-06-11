@@ -4,7 +4,7 @@ module top1 (
   input  CLOCK_50,
 	input  CLOCK2_50,
 
-   KEY_N,
+  KEY_N,
 
   // SW
 	input [9:0] SW,
@@ -69,7 +69,7 @@ camera CAMERA(
 
 ram_2port MEMORIA(
                   //.reset(reset),
-						 .clk(CLOCK_50),
+						      .clk(CLOCK_50),
                   .we(enable_write_memory),
                   .data_in(pixel_atual),
                   .write_addr(pos_pixel_w),
@@ -103,20 +103,23 @@ vga VGA(
 reg [10:0] y_detect;
 reg [10:0] x_detect;
 		  
-always @(posedge CLOCK_50) begin
+always @(posedge VGA_VS) begin
     y_detect <= pixel_detect/640;
     x_detect <= pixel_detect%640;
+end //tentando diminuir o ruido
+
+always @(posedge CLOCK_50) begin
     if (ativo) begin
       if ((x-143==x_detect || y-35==y_detect) && ativa_pincel) begin
         vga_r_int <= 0;
         vga_g_int <= 0;
         vga_b_int <= 255;
       end
-       else if(~ativa_pincel && y==239) begin
+      else if(~ativa_pincel && y==239) begin
          vga_r_int <= 255;
          vga_g_int <= 127;
          vga_b_int <= 127;
-       end
+      end
       else begin
         if (cor_atual_vga > 127) begin
           vga_r_int <= 127;
@@ -148,8 +151,6 @@ always @(posedge CLOCK_50)begin
   else begin
     power = 0;
   end
-
-
 end
 
 assign GPIO_1[10] = power; //power dowm
