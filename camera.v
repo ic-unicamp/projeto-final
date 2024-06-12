@@ -63,7 +63,7 @@ always @(posedge pclk) begin
             2: begin
                 cr <= byte_camera;
                 estado <= 3;
-					if (cb>139 && cr>145 && y0>40) begin
+					if (cb>139 && cr>145 && 64<y0 && y0<190) begin
 						pixel0 = 255;
 					end
 					else begin
@@ -73,7 +73,7 @@ always @(posedge pclk) begin
             3: begin
                 y1 <= byte_camera;
                 estado <= 0;
-                if (cb>139 && cr>145 && y1>40) begin
+                if (cb>139 && cr>145 && 64<y1 && y1<190) begin
                     pixel1 = 255;
 				end
                 else begin
@@ -114,7 +114,7 @@ always @(posedge pclk or posedge reset) begin
                 verdes_seguidos <= 0;
             end
             //pinta o primeiro pixel preto após 5 verdes seguidos
-            if (verdes_seguidos > 8) begin
+            if (verdes_seguidos > 20) begin
                 pixel_out <= 254;
                 achou <= 1;
                 detect_pos_pixel_pre_out <= pos_pxl;

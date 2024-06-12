@@ -163,7 +163,7 @@ reg [10:0] y_pos_dedo;
 
 always @(posedge VGA_VS) begin
     y_pos_dedo <= dedo_pos_detect/640;
-    x_pos_dedo <= dedo_pos_detect%640;
+    x_pos_dedo <= 640 - dedo_pos_detect%640;
 end //tentando diminuir o ruido
 
 reg [10:0] vga_cursor_x_pos;
@@ -172,7 +172,7 @@ reg [4:0] estado = 0;
 reg modo_anterior;
 
 always @(posedge CLOCK_50) begin
-    read_addr <= 640*(y_vga- 1 - 35) + x_vga - 145; // o x e o y do vga n~ao começam em zero
+    read_addr <= 640*(y_vga- 1 - 35) + 640 - (x_vga - 145); // o x e o y do vga n~ao começam em zero
     case(estado)
         0: begin // Inicializando memória
             initializing_memory = 1;
@@ -219,7 +219,7 @@ always @(posedge CLOCK_50) begin
             else begin
                 // É necessário desloca-los.
                 if (ativo) begin
-                    if ((x_vga-145==x_pos_dedo || y_vga-36==y_pos_dedo) && achou_dedo) begin
+                    if ((x_vga-145== x_pos_dedo || y_vga-36==y_pos_dedo) && achou_dedo) begin
                         vga_r_int <= 0;
                         vga_g_int <= 0;
                         vga_b_int <= 255;
@@ -264,7 +264,7 @@ end
 
 always @(posedge CLOCK_50) begin
     if (modo_operacao == 0) begin
-        vga_cursor_x_pos = x_pos_dedo + 145;
+       vga_cursor_x_pos = x_pos_dedo + 145;
 	    vga_cursor_y_pos = y_pos_dedo + 36;
         enable_write_memory_in <= enable_write_memory_cursor;
         write_addr <= pos_pixel_w_cursor;
