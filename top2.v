@@ -169,9 +169,10 @@ end //tentando diminuir o ruido
 reg [10:0] vga_cursor_x_pos;
 reg [10:0] vga_cursor_y_pos;
 reg [4:0] estado = 0;
+reg modo_anterior;
 
 always @(posedge CLOCK_50) begin
-    read_addr <= 640*(y_vga- 1 - 35) + x_vga - 1 - 144; // o x e o y do vga n~ao começam em zero
+    read_addr <= 640*(y_vga- 1 - 35) + x_vga - 145; // o x e o y do vga n~ao começam em zero
     case(estado)
         0: begin // Inicializando memória
             initializing_memory = 1;
@@ -182,7 +183,11 @@ always @(posedge CLOCK_50) begin
         end
 
         1: begin // estado principal
-            if (modo_operacao == 0) begin
+            if (modo_operacao == 0 && modo_anterior == 1) begin
+                estado = 0;
+                modo_anterior <= 0;
+            end
+            else if (modo_operacao == 0) begin
                 if (SW[0] && ativo) begin // controle de cor
                     vga_r_int <= r_escrita_memoria << 5;
                     vga_g_int <= g_escrita_memoria << 5;
@@ -209,6 +214,7 @@ always @(posedge CLOCK_50) begin
                     end
 				    estado = 2;
 			    end
+                modo_anterior <= 0;
             end
             else begin
                 // É necessário desloca-los.
@@ -241,6 +247,7 @@ always @(posedge CLOCK_50) begin
                     vga_g_int <= 0;
                     vga_b_int <= 0;
                 end
+                modo_anterior <= 1;
             end
         end
         2: begin
