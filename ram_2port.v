@@ -1,7 +1,7 @@
 // Código base buscado na internet
 module ram_2port (
     input clk,               // Clock
-    // Porta de Escrita
+    // Porta de Escritall
     input we,                // Sinal de habilitação de escrita
     input[0:19] write_addr, // Endereço de escrita
     input [8:0] data_in,    // Dados de entrada para escrita

@@ -2,7 +2,7 @@ module camera(
     //inout scl,
     //input sda,
     input href,
-    //output vsync,
+    //output vsync,ll
     input pclk,
 	//output hpclk,
     input xclk,

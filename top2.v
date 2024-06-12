@@ -1,8 +1,8 @@
  module top2 (
 
    // CLOCK
-   input  CLOCK_50,
- 	input  CLOCK2_50,
+    input  CLOCK_50,
+    input  CLOCK2_50,
 
     KEY_N,
 
@@ -10,7 +10,6 @@
  	input [9:0] SW,
     //SW[0] = color control
     //SW[1] = mostra camera
-    //SW[2] = camera ligada ou desligada
 
    // VGA
    output [7:0] VGA_B,
@@ -50,15 +49,8 @@ wire [19:0] dedo_pos_detect; // posicao de detecção do dedo
 //posicao no vetor e nao na matriz
 wire achou_dedo;
 
-reg power;
-always @(posedge CLOCK_50)begin
-  if (~SW[2]) begin
-    power = 1;
-  end
-  else begin
-    power = 0;
-  end
-end
+wire power;
+assign power = ~KEY[0];
 
 assign GPIO_1[10] = power; //power dowm
 assign href = GPIO_1[22];
@@ -165,8 +157,6 @@ assign modo_operacao = SW[1];
 //abaixado = 0 mostra paint
 //levantado = 1 mostra camera
 
-reg [7:0] cor_atual_vga;
-
 reg [10:0] y_pos_dedo;
 reg [10:0] x_pos_dedo;
 
@@ -205,16 +195,15 @@ always @(posedge CLOCK_50) begin
                         vga_b_int <= 127;
                     end
                     else begin
-                        cor_atual_vga = data_out[7:0];
-                        if (cor_atual_vga > 127) begin
+                        if (data_out[7:0] > 127) begin
                             vga_r_int <= 127;
                             vga_g_int <= 255;
                             vga_b_int <= 127;
                         end
                         else begin
-                            vga_r_int <= cor_atual_vga<<1;
-                            vga_g_int <= cor_atual_vga<<1;
-                            vga_b_int <= cor_atual_vga<<1;
+                            vga_r_int <= data_out[7:0]<<1;
+                            vga_g_int <= data_out[7:0]<<1;
+                            vga_b_int <= data_out[7:0]<<1;
                         end
                     end
                 end
