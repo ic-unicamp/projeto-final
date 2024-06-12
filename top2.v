@@ -8,8 +8,11 @@
 
    // SW
  	input [9:0] SW,
-    //SW[0] = color control
+    //SW[0] = muda para color control
     //SW[1] = mostra camera
+
+    // SW[8]: reseta cor de pintura para preto
+    // SW[9]: reseta a memoria
 
    // VGA
    output [7:0] VGA_B,
@@ -78,7 +81,6 @@ reg initializing_memory = 0;
 wire memory_initialized;
 
 ram_2port MEMORIA(
-                //.reset(reset),
 				.clk(CLOCK_50),
                 .we(enable_write_memory_in),
                 .data_in(data_in),
@@ -92,7 +94,7 @@ ram_2port MEMORIA(
 
 
 wire ativo;     //se refere a ativação do vga
-wire [10:0] x_vga;  //é deslocado em +144
+wire [10:0] x_vga;  //é deslocado em +145
 wire [10:0] y_vga;  //idem +36
 reg [7:0] vga_r_int, vga_g_int, vga_b_int;
 //regs usados pra fazer alterações iteradas
@@ -116,26 +118,25 @@ vga VGA(
 );
 
 
-reg [5:0] radius = 20; // raio de pintura do cursor
+reg [5:0] radius = 6; // raio de pintura do cursor
 wire draw;
-assign draw = KEY[3]&&~mudar_cor; //fala se é pro cursor escrever na memoria
-wire [10:0] cursor_x_pos;
-wire [10:0] cursor_y_pos;
+assign draw = ~KEY[3]&&~mudar_cor; //fala se é pro cursor escrever na memoria
+wire borracha;
+assign borracha = ~KEY[2]&&~mudar_cor;
 wire enable_write_memory_cursor;
 wire [19:0] pos_pixel_w_cursor;
 
 cursor CURSOR(
 	.clk(CLOCK_50),
 	.radius(radius),
-	.draw(draw),
-	.x(cursor_x_pos),
-	.y(cursor_y_pos),
+	.draw(draw || borracha),
+	.x(x_pos_dedo),
+	.y(y_pos_dedo),
 	.enable_write_memory(enable_write_memory_cursor),
 	.pos_pxl_w(pos_pixel_w_cursor),
 );
 
-wire borracha;
-assign borracha = KEY[2];
+
 wire [2:0] r_escrita_memoria;
 wire [2:0] g_escrita_memoria;
 wire [2:0] b_escrita_memoria;
@@ -157,17 +158,20 @@ assign modo_operacao = SW[1];
 //abaixado = 0 mostra paint
 //levantado = 1 mostra camera
 
-reg [10:0] y_pos_dedo;
 reg [10:0] x_pos_dedo;
+reg [10:0] y_pos_dedo;
 
 always @(posedge VGA_VS) begin
     y_pos_dedo <= dedo_pos_detect/640;
     x_pos_dedo <= dedo_pos_detect%640;
 end //tentando diminuir o ruido
 
+reg [10:0] vga_cursor_x_pos;
+reg [10:0] vga_cursor_y_pos;
 reg [4:0] estado = 0;
 
 always @(posedge CLOCK_50) begin
+    read_addr <= 640*(y_vga- 1 - 35) + x_vga - 1 - 144; // o x e o y do vga n~ao começam em zero
     case(estado)
         0: begin // Inicializando memória
             initializing_memory = 1;
@@ -179,12 +183,37 @@ always @(posedge CLOCK_50) begin
 
         1: begin // estado principal
             if (modo_operacao == 0) begin
-                //pênis
+                if (SW[0] && ativo) begin // controle de cor
+                    vga_r_int <= r_escrita_memoria << 5;
+                    vga_g_int <= g_escrita_memoria << 5;
+                    vga_b_int <= b_escrita_memoria << 5;
+                end
+                else if (ativo && (((x_vga == vga_cursor_x_pos) && (y_vga >= vga_cursor_y_pos - radius) && (y_vga <= vga_cursor_y_pos + radius)) || ((y_vga == vga_cursor_y_pos) && (x_vga >= vga_cursor_x_pos - radius) && (x_vga <= vga_cursor_x_pos + radius)))) begin // cursor
+                    vga_r_int <= 255;
+                    vga_g_int <= 0;
+                    vga_b_int <= 0;
+                end else if (ativo) begin // tela fora cursor
+                    vga_r_int <= data_out[8:6] << 5;
+                    vga_g_int <= data_out[5:3] << 5;
+                    vga_b_int <= data_out[2:0] << 5;
+                    // É necessário desloca-los
+                end else begin // fora da tela
+                    vga_r_int <= 0;
+                    vga_g_int <= 0;
+                    vga_b_int <= 0;
+                end
+                if (!KEY[1] && ~mudar_cor) begin
+                    radius = radius + 2;
+                    if (radius > 20) begin
+                        radius = 6;
+                    end
+				    estado = 2;
+			    end
             end
             else begin
                 // É necessário desloca-los.
                 if (ativo) begin
-                    if ((x_vga-143==x_pos_dedo || y_vga-35==y_pos_dedo) && achou_dedo) begin
+                    if ((x_vga-145==x_pos_dedo || y_vga-36==y_pos_dedo) && achou_dedo) begin
                         vga_r_int <= 0;
                         vga_g_int <= 0;
                         vga_b_int <= 255;
@@ -212,25 +241,33 @@ always @(posedge CLOCK_50) begin
                     vga_g_int <= 0;
                     vga_b_int <= 0;
                 end
-				read_addr <= 640*(y_vga- 1 - 35) + x_vga - 1 - 143; // o x e o y do vga n~ao começam em zero
             end
+        end
+        2: begin
+            if (KEY[1]) begin
+			    estado = 1;
+		    end
         end
     endcase
 
-    if (SW[8]) begin // reset
+    if (SW[9]) begin // reset da memoria
         estado = 0;
     end
 end
 
 always @(posedge CLOCK_50) begin
     if (modo_operacao == 0) begin
-
+        vga_cursor_x_pos = x_pos_dedo + 145;
+	    vga_cursor_y_pos = y_pos_dedo + 36;
+        enable_write_memory_in <= enable_write_memory_cursor;
+        write_addr <= pos_pixel_w_cursor;
+        data_in <= {r_escrita_memoria, g_escrita_memoria, b_escrita_memoria};
     end
     else begin
         enable_write_memory_in <= enable_write_memory_cam;
         write_addr <= pos_pixel_w_cam;
         data_in <= pixel_type_cam;
-    end //nao compativel com reset da memoria
+    end 
 
 end
 

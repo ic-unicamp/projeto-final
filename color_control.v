@@ -17,7 +17,7 @@ reg [2:0] b_cor_atual;
 
 always @(posedge clk) begin // muda a cor de pintura atual
 	
-	if (SW[7]) begin
+	if (SW[8]) begin
     	estado = 5;
     end
 	
@@ -28,7 +28,7 @@ always @(posedge clk) begin // muda a cor de pintura atual
         g_cor_atual = 0;
         b_cor_atual = 0;
 
-		if (!SW[7]) begin
+		if (!SW[8]) begin
         	estado = 4;
 		end
     end
